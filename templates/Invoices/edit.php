@@ -35,11 +35,11 @@
                     echo $this->Form->control('invoice_updated_at', ['empty' => true]);
                     echo $this->Form->control('invoice_payment_at', ['empty' => true]);
                     echo $this->Form->control('case_id', ['options' => $cases, 'empty' => true]);
-                    echo $this->Form->control('stakeholder_id', ['options' => $stakeholders, 'empty' => true]);
+                    echo $this->Form->control('stakeholder_id', ['options' => $clients, 'empty' => true]);
                     echo $this->Form->control('advisor_contracts_id', ['options' => $advisorContracts, 'empty' => true]);
                     echo $this->Form->control('creator_id');
                     echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
+                    echo $this->Form->control('updater_id', ['empty' => true]);
                     echo $this->Form->control('updated_at');
                 ?>
             </fieldset>

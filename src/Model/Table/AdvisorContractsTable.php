@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
 /**
  * AdvisorContracts Model
  *
- * @property \App\Model\Table\StakeholdersTable&\Cake\ORM\Association\BelongsTo $Customers
+ * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
  * @property \App\Model\Table\ConsultationsTable&\Cake\ORM\Association\BelongsTo $Consultations
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Lawyers
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Paralegals
@@ -50,8 +50,7 @@ class AdvisorContractsTable extends Table
         $this->setDisplayField('advisor_contracts_id');
         $this->setPrimaryKey('advisor_contracts_id');
 
-        $this->belongsTo('Customers', [
-            'className' => 'Stakeholders',
+        $this->belongsTo('Clients', [
             'foreignKey' => 'customer_id',
         ]);
         $this->belongsTo('Consultations', [
@@ -84,7 +83,7 @@ class AdvisorContractsTable extends Table
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation.Validator $validator Validator instance.
+     * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
     public function validationDefault(Validator $validator): Validator
@@ -169,7 +168,7 @@ class AdvisorContractsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['customer_id'], 'Customers'), ['errorField' => 'customer_id']);
+        $rules->add($rules->existsIn(['customer_id'], 'Clients'), ['errorField' => 'customer_id']);
         $rules->add($rules->existsIn(['consultation_id'], 'Consultations'), ['errorField' => 'consultation_id']);
         $rules->add($rules->existsIn(['lawyer_id'], 'Lawyers'), ['errorField' => 'lawyer_id']);
         $rules->add($rules->existsIn(['paralegal_id'], 'Paralegals'), ['errorField' => 'paralegal_id']);

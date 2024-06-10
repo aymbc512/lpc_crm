@@ -24,7 +24,7 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('advisor_contracts_id') ?></th>
-                    <th><?= $this->Paginator->sort('customer_id') ?></th>
+                    <th><?= $this->Paginator->sort('customer_id',) ?></th>
                     <th><?= $this->Paginator->sort('advisor_start_at') ?></th>
                     <th><?= $this->Paginator->sort('advisor_end_at') ?></th>
                     <th><?= $this->Paginator->sort('advisor_fee') ?></th>

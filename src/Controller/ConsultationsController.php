@@ -18,42 +18,43 @@ class ConsultationsController extends AppController
     public function index()
     {
         $query = $this->Consultations->find()
-            ->contain(['Stakeholders', 'Users']);
+            ->contain(['Clients', 'Users']);
         $consultations = $this->paginate($query);
 
         $this->set(compact('consultations'));
     }
 
-     /**
+    /**
      * Search method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function search()
     {
-          // リクエストから検索クエリを取得
-        $stakeholderName = $this->request->getQuery('stakeholder_name');
+        // リクエストから検索クエリを取得
+        $clientName = $this->request->getQuery('client_name');
         $consultationName = $this->request->getQuery('consultation_name');
 
-         // クエリの作成
+        // クエリの作成
         $query = $this->Consultations->find()
-            ->contain(['Stakeholders', 'Users']);
+            ->contain(['Clients', 'Users']);
 
-            // 検索条件の適用
-        if (!empty($stakeholderName)) {
-            $query->matching('Stakeholders', function ($q) use ($stakeholderName) {
-                return $q->where(['Stakeholders.name LIKE' => '%' . $stakeholderName . '%']);
+        // 検索条件の適用
+        if (!empty($clientName)) {
+            $query->matching('Clients', function ($q) use ($clientName) {
+                return $q->where(['Clients.name LIKE' => '%' . $clientName . '%']);
             });
         }
 
         if (!empty($consultationName)) {
             $query->where(['Consultations.consultation_name LIKE' => '%' . $consultationName . '%']);
         }
-         // ページネーション
+
+        // ページネーション
         $consultations = $this->paginate($query);
 
         // ビューにデータを渡す
-        $this->set(compact('consultations', 'stakeholderName', 'consultationName'));
+        $this->set(compact('consultations', 'clientName', 'consultationName'));
 
         $this->render('index'); // index ビューを使用
     }
@@ -67,7 +68,7 @@ class ConsultationsController extends AppController
      */
     public function view($id = null)
     {
-        $consultation = $this->Consultations->get($id, contain: ['Stakeholders', 'Users', 'AdvisorContracts']);
+        $consultation = $this->Consultations->get($id, contain: ['Clients', 'Users', 'AdvisorContracts']);
         $this->set(compact('consultation'));
     }
 
@@ -88,17 +89,16 @@ class ConsultationsController extends AppController
             $this->Flash->error(__('The consultation could not be saved. Please, try again.'));
         }
 
-        $stakeholderSearchTerm = $this->request->getData('stakeholder_search');
+        $clientSearchTerm = $this->request->getData('client_search');
         $lawyerSearchTerm = $this->request->getData('lawyer_search');
 
-        $stakeholders = [];
-        if (!empty($stakeholderSearchTerm)) {
-            $stakeholders = $this->Consultations->Stakeholders->find('list', [
-                'conditions' => ['Stakeholders.name LIKE' => '%' . $stakeholderSearchTerm . '%'],
+        $clients = [];
+        if (!empty($clientSearchTerm)) {
+            $clients = $this->Consultations->Clients->find('list', [
+                'conditions' => ['Clients.name LIKE' => '%' . $clientSearchTerm . '%'],
                 'limit' => 10
             ])->toArray();
         }
-
 
         $lawyers = [];
         if (!empty($lawyerSearchTerm)) {
@@ -111,12 +111,8 @@ class ConsultationsController extends AppController
             ])->toArray();
         }
 
-        $this->set(compact('consultation', 'stakeholders', 'lawyers'));
+        $this->set(compact('consultation', 'clients', 'lawyers'));
     }
-
-
-
-
 
     /**
      * Edit method
@@ -139,13 +135,13 @@ class ConsultationsController extends AppController
             $this->Flash->error(__('The consultation could not be saved. Please, try again.'));
         }
 
-        $stakeholderSearchTerm = $this->request->getData('stakeholder_search');
+        $clientSearchTerm = $this->request->getData('client_search');
         $lawyerSearchTerm = $this->request->getData('lawyer_search');
 
-        $stakeholders = [];
-        if (!empty($stakeholderSearchTerm)) {
-            $stakeholders = $this->Consultations->Stakeholders->find('list', [
-                'conditions' => ['Stakeholders.name LIKE' => '%' . $stakeholderSearchTerm . '%'],
+        $clients = [];
+        if (!empty($clientSearchTerm)) {
+            $clients = $this->Consultations->Clients->find('list', [
+                'conditions' => ['Clients.name LIKE' => '%' . $clientSearchTerm . '%'],
                 'limit' => 10
             ])->toArray();
         }
@@ -161,7 +157,7 @@ class ConsultationsController extends AppController
             ])->toArray();
         }
 
-        $this->set(compact('consultation', 'stakeholders', 'lawyers'));
+        $this->set(compact('consultation', 'clients', 'lawyers'));
     }
 
     /**
@@ -184,18 +180,18 @@ class ConsultationsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function searchStakeholders()
+    public function searchClients()
     {
         $term = $this->request->getQuery('term');
         if ($term) {
-            $stakeholders = $this->Consultations->Stakeholders->find('list', [
-                'conditions' => ['Stakeholders.name LIKE' => '%' . $term . '%'],
+            $clients = $this->Consultations->Clients->find('list', [
+                'conditions' => ['Clients.name LIKE' => '%' . $term . '%'],
                 'limit' => 10
             ])->toArray();
         } else {
-            $stakeholders = [];
+            $clients = [];
         }
-        $this->set(compact('stakeholders'));
+        $this->set(compact('clients'));
     }
 
     public function searchLawyers()
@@ -215,3 +211,4 @@ class ConsultationsController extends AppController
         $this->set(compact('lawyers'));
     }
 }
+

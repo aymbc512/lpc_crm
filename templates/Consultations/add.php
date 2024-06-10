@@ -2,7 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Consultation $consultation
- * @var \Cake\Collection\CollectionInterface|string[] $stakeholders
+ * @var \Cake\Collection\CollectionInterface|string[] $clients
  * @var \Cake\Collection\CollectionInterface|string[] $users
  */
 ?>
@@ -23,15 +23,15 @@
                     echo $this->Form->control('consultation_at', ['empty' => true]);
                     echo $this->Form->control('consultation_content');
                     
-                    // Stakeholder検索
-                    echo $this->Form->control('stakeholder_search', [
-                        'label' => 'Stakeholder',
+                    // Client検索
+                    echo $this->Form->control('client_search', [
+                        'label' => 'Client',
                         'type' => 'text',
                         'onchange' => 'this.form.submit()'
                     ]);
-                    if (!empty($stakeholders)) {
-                        echo $this->Form->control('stakeholder_id', [
-                            'options' => $stakeholders,
+                    if (!empty($clients)) {
+                        echo $this->Form->control('client_id', [
+                            'options' => $clients,
                             'empty' => true
                         ]);
                     }

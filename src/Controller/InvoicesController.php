@@ -18,11 +18,34 @@ class InvoicesController extends AppController
     public function index()
     {
         $query = $this->Invoices->find()
-            ->contain(['Cases', 'Stakeholders', 'AdvisorContracts', 'Users']);
+            ->contain(['Cases', 'Clients', 'AdvisorContracts', 'Creators', 'Updaters']);
         $invoices = $this->paginate($query);
 
         $this->set(compact('invoices'));
     }
+
+       /**
+     * Search method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function search()
+    {
+        $invoiceStatusKbn = $this->request->getQuery('invoice_status_kbn');
+
+        $query = $this->Invoices->find()
+            ->contain(['Cases', 'Clients', 'AdvisorContracts']);
+
+        if ($invoiceStatusKbn) {
+            $query->where(['invoice_status_kbn' => $invoiceStatusKbn]);
+        }
+
+        $invoices = $this->paginate($query);
+
+        $this->set(compact('invoices'));
+        $this->render('index');
+    }
+
 
     /**
      * View method
@@ -33,7 +56,9 @@ class InvoicesController extends AppController
      */
     public function view($id = null)
     {
-        $invoice = $this->Invoices->get($id, ['contain' => ['Cases', 'Stakeholders', 'AdvisorContracts', 'Users']]);
+        $invoice = $this->Invoices->get($id, [
+            'contain' => ['Cases', 'Clients', 'AdvisorContracts', 'Creators', 'Updaters', 'InvoiceStatements']
+        ]);
         $this->set(compact('invoice'));
     }
 
@@ -61,17 +86,14 @@ class InvoicesController extends AppController
         if ($advisor_contract_id !== null) {
             $invoice->advisor_contract_id = $advisor_contract_id;
             $invoice->creator_id = $this->Auth->user('id');
-        //     $invoice->created_at = date('Y-m-d H:i:s');
-        //     $invoice->updater_id = $this->Auth->user('id');
-        //     $invoice->updated_at = date('Y-m-d H:i:s');
-        // 
         }
 
         $cases = $this->Invoices->Cases->find('list', ['limit' => 200])->all();
-        $stakeholders = $this->Invoices->Stakeholders->find('list', ['limit' => 200])->all();
+        $clients = $this->Invoices->Clients->find('list', ['limit' => 200])->all();
         $advisorContracts = $this->Invoices->AdvisorContracts->find('list', ['limit' => 200])->all();
-        $users = $this->Invoices->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('invoice', 'cases', 'stakeholders', 'advisorContracts', 'users'));
+        $creators = $this->Invoices->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->Invoices->Updaters->find('list', ['limit' => 200])->all();
+        $this->set(compact('invoice', 'cases', 'clients', 'advisorContracts', 'creators', 'updaters'));
     }
 
     /**
@@ -95,10 +117,11 @@ class InvoicesController extends AppController
             $this->Flash->error(__('The invoice could not be saved. Please, try again.'));
         }
         $cases = $this->Invoices->Cases->find('list', ['limit' => 200])->all();
-        $stakeholders = $this->Invoices->Stakeholders->find('list', ['limit' => 200])->all();
+        $clients = $this->Invoices->Clients->find('list', ['limit' => 200])->all();
         $advisorContracts = $this->Invoices->AdvisorContracts->find('list', ['limit' => 200])->all();
-        $users = $this->Invoices->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('invoice', 'cases', 'stakeholders', 'advisorContracts', 'users'));
+        $creators = $this->Invoices->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->Invoices->Updaters->find('list', ['limit' => 200])->all();
+        $this->set(compact('invoice', 'cases', 'clients', 'advisorContracts', 'creators', 'updaters'));
     }
 
     /**

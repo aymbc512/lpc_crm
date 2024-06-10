@@ -25,7 +25,7 @@
             <fieldset>
                 <legend><?= __('Edit Advisor Contract') ?></legend>
                 <?php
-                    echo $this->Form->control('customer_id', ['options' => $stakeholders, 'empty' => true]);
+                    echo $this->Form->control('customer_id', ['options' => $clients, 'empty' => true]);
                     echo $this->Form->control('advisor_start_at', ['empty' => true]);
                     echo $this->Form->control('advisor_end_at', ['empty' => true]);
                     echo $this->Form->control('advisor_fee');
@@ -39,7 +39,7 @@
                     echo $this->Form->control('paralegal_id');
                     echo $this->Form->control('creator_id');
                     echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
+                    echo $this->Form->control('updater_id', ['empty' => true]);
                     echo $this->Form->control('updated_at');
                 ?>
             </fieldset>

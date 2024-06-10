@@ -7,6 +7,22 @@
 <div class="invoices index content">
     <?= $this->Html->link(__('New Invoice'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Invoices') ?></h3>
+  <!-- 検索フォーム -->
+  <?= $this->Form->create(null, ['type' => 'get', 'url' => ['action' => 'search']]) ?>
+    <fieldset>
+        <legend><?= __('Search Invoices') ?></legend>
+        <?php
+            echo $this->Form->control('invoice_status_kbn', ['label' => 'Invoice Status', 'value' => $this->request->getQuery('invoice_status_kbn')]);
+        ?>
+    </fieldset>
+    <div class="search-buttons">
+        <?= $this->Form->button(__('Search')) ?>
+        <?= $this->Html->link(__('Reset'), ['action' => 'index'], ['class' => 'button']) ?>
+    </div>
+    <?= $this->Form->end() ?>
+ 
+
+
     <div class="table-responsive">
         <table>
             <thead>

@@ -22,4 +22,21 @@ class FilterBehavior extends Behavior
         }
         return $query;
     }
+
+    /**
+     * Before find callback
+     *
+     * @param \Cake\Event\EventInterface $event The beforeFind event
+     * @param \Cake\ORM\Query $query The query to modify
+     * @param \ArrayObject $options The options for the query
+     * @param bool $primary Whether this is the primary query being executed
+     * @return \Cake\ORM\Query The modified query
+     */
+    public function beforeFind(\Cake\Event\EventInterface $event, Query $query, \ArrayObject $options, bool $primary)
+    {
+        if (isset($this->_config['fields'])) {
+            $this->applyFilters($query, $this->_config['fields']);
+        }
+        return $query;
+    }
 }

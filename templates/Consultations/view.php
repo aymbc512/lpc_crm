@@ -23,8 +23,8 @@
                     <td><?= h($consultation->consultation_name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Stakeholder') ?></th>
-                    <td><?= $consultation->hasValue('stakeholder') ? $this->Html->link($consultation->stakeholder->name, ['controller' => 'Stakeholders', 'action' => 'view', $consultation->stakeholder->stakeholder_id]) : '' ?></td>
+                    <th><?= __('Client') ?></th>
+                    <td><?= $consultation->hasValue('client') ? $this->Html->link($consultation->client->name, ['controller' => 'Clients', 'action' => 'view', $consultation->client->client_id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Lawyer Id') ?></th>

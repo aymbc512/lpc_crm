@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
 /**
  * Consultations Model
  *
- * @property \App\Model\Table\StakeholdersTable&\Cake\ORM\Association\BelongsTo $Stakeholders
+ * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
@@ -47,8 +47,9 @@ class ConsultationsTable extends Table
         $this->setDisplayField('consultations_id');
         $this->setPrimaryKey('consultations_id');
 
-        $this->belongsTo('Stakeholders', [
+        $this->belongsTo('Clients', [
             'foreignKey' => 'stakeholder_id',
+            'className' => 'Stakeholders', // StakeholdersテーブルをClientsとして参照
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'lawyer_id',
@@ -128,7 +129,7 @@ class ConsultationsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['stakeholder_id'], 'Stakeholders'), ['errorField' => 'stakeholder_id']);
+        $rules->add($rules->existsIn(['stakeholder_id'], 'Clients'), ['errorField' => 'stakeholder_id']);
         $rules->add($rules->existsIn(['lawyer_id'], 'Users'), ['errorField' => 'lawyer_id']);
         $rules->add($rules->existsIn(['creator_id'], 'Users'), ['errorField' => 'creator_id']);
         $rules->add($rules->existsIn(['updater_id'], 'Users'), ['errorField' => 'updater_id']);

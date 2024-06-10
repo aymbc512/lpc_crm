@@ -11,12 +11,12 @@ use Cake\Validation\Validator;
 /**
  * AdvisorConsultations Model
  *
- * @property \App\Model\Table\StakeholdersTable&\Cake\ORM\Association\BelongsTo $Stakeholders
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Lawyers
  * @property \App\Model\Table\AdvisorContractsTable&\Cake\ORM\Association\BelongsTo $AdvisorContracts
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Paralegals
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Creators
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Updaters
  * @property \App\Model\Table\CasesTable&\Cake\ORM\Association\HasMany $Cases
  *
  * @method \App\Model\Entity\AdvisorConsultation newEmptyEntity()
@@ -29,7 +29,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\AdvisorConsultation|false save(\Cake\Datasource\EntityInterface $entity, array $options = [])
  * @method \App\Model\Entity\AdvisorConsultation saveOrFail(\Cake\Datasource\EntityInterface $entity, array $options = [])
  * @method iterable<\App\Model\Entity\AdvisorConsultation>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\AdvisorConsultation>|false saveMany(iterable $entities, array $options = [])
- * @method iterable<\App\Model\Entity\AdvisorConsultation>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\AdvisorConsultation> saveManyOrFail(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\AdvisorConsultation>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\AdvisorConsultation>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\AdvisorConsultation>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\AdvisorConsultation> deleteManyOrFail(iterable $entities, array $options = [])
  */
@@ -49,22 +48,26 @@ class AdvisorConsultationsTable extends Table
         $this->setDisplayField('advisor_consultations_id');
         $this->setPrimaryKey('advisor_consultations_id');
 
-        $this->belongsTo('Stakeholders', [
+        $this->belongsTo('Clients', [
             'foreignKey' => 'customer_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Lawyers', [
+            'className' => 'Users',
             'foreignKey' => 'lawyer_id',
         ]);
         $this->belongsTo('AdvisorContracts', [
             'foreignKey' => 'advisor_contract_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Paralegals', [
+            'className' => 'Users',
             'foreignKey' => 'paralegal_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Creators', [
+            'className' => 'Users',
             'foreignKey' => 'creator_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
+            'className' => 'Users',
             'foreignKey' => 'updater_id',
         ]);
         $this->hasMany('Cases', [
@@ -141,13 +144,14 @@ class AdvisorConsultationsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['customer_id'], 'Stakeholders'), ['errorField' => 'customer_id']);
-        $rules->add($rules->existsIn(['lawyer_id'], 'Users'), ['errorField' => 'lawyer_id']);
+        $rules->add($rules->existsIn(['customer_id'], 'Clients'), ['errorField' => 'customer_id']);
+        $rules->add($rules->existsIn(['lawyer_id'], 'Lawyers'), ['errorField' => 'lawyer_id']);
         $rules->add($rules->existsIn(['advisor_contract_id'], 'AdvisorContracts'), ['errorField' => 'advisor_contract_id']);
-        $rules->add($rules->existsIn(['paralegal_id'], 'Users'), ['errorField' => 'paralegal_id']);
-        $rules->add($rules->existsIn(['creator_id'], 'Users'), ['errorField' => 'creator_id']);
-        $rules->add($rules->existsIn(['updater_id'], 'Users'), ['errorField' => 'updater_id']);
+        $rules->add($rules->existsIn(['paralegal_id'], 'Paralegals'), ['errorField' => 'paralegal_id']);
+        $rules->add($rules->existsIn(['creator_id'], 'Creators'), ['errorField' => 'creator_id']);
+        $rules->add($rules->existsIn(['updater_id'], 'Updaters'), ['errorField' => 'updater_id']);
 
         return $rules;
     }
 }
+

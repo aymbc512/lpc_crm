@@ -23,8 +23,8 @@
                     <td><?= h($advisorConsultation->consultation_name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Stakeholder') ?></th>
-                    <td><?= $advisorConsultation->hasValue('stakeholder') ? $this->Html->link($advisorConsultation->stakeholder->name, ['controller' => 'Stakeholders', 'action' => 'view', $advisorConsultation->stakeholder->stakeholder_id]) : '' ?></td>
+                    <th><?= __('Client') ?></th>
+                    <td><?= $advisorConsultation->hasValue('advisor_contract') && $advisorConsultation->advisor_contract->hasValue('client') ? $this->Html->link($advisorConsultation->advisor_contract->client->name, ['controller' => 'Clients', 'action' => 'view', $advisorConsultation->advisor_contract->client->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Lawyer Id') ?></th>
@@ -42,10 +42,7 @@
                     <th><?= __('Creator Id') ?></th>
                     <td><?= h($advisorConsultation->creator_id) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('User') ?></th>
-                    <td><?= $advisorConsultation->hasValue('user') ? $this->Html->link($advisorConsultation->user->user_id, ['controller' => 'Users', 'action' => 'view', $advisorConsultation->user->user_id]) : '' ?></td>
-                </tr>
+              
                 <tr>
                     <th><?= __('Advisor Consultations Id') ?></th>
                     <td><?= $this->Number->format($advisorConsultation->advisor_consultations_id) ?></td>

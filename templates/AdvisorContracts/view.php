@@ -19,10 +19,11 @@
             <h3><?= h($advisorContract->advisor_contracts_id) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Stakeholder') ?></th>
-                    <td><?= $advisorContract->hasValue('stakeholder') ? $this->Html->link($advisorContract->stakeholder->name, ['controller' => 'Stakeholders', 'action' => 'view', $advisorContract->stakeholder->stakeholder_id]) : '' ?></td>
+                    <th><?= __('Client') ?></th>
+                    <td><?= $advisorContract->hasValue('client') ? $this->Html->link($advisorContract->client->name, ['controller' => 'Clients', 'action' => 'view', $advisorContract->client->id]) : '' ?></td>
                 </tr>
-                <th><?= __('Consultation') ?></th>
+                <tr>
+                    <th><?= __('Consultation') ?></th>
                     <td><?= $advisorContract->hasValue('consultation') ? $this->Html->link($advisorContract->consultation->consultations_id, ['controller' => 'Consultations', 'action' => 'view', $advisorContract->consultation->consultations_id]) : '' ?></td>
                 </tr>
                 <tr>
@@ -38,10 +39,9 @@
                     <td><?= h($advisorContract->creator_id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('User') ?></th>
-                    <td><?= $advisorContract->hasValue('user') ? $this->Html->link($advisorContract->user->user_id, ['controller' => 'Users', 'action' => 'view', $advisorContract->user->user_id]) : '' ?></td>
+                    <th><?= __('Updater Id') ?></th>
+                    <td><?= h($advisorContract->updater_id) ?></td>
                 </tr>
-                <tr>
                 <tr>
                     <th><?= __('Advisor Contracts Id') ?></th>
                     <td><?= $this->Number->format($advisorContract->advisor_contracts_id) ?></td>
@@ -74,8 +74,6 @@
                     <th><?= __('Created At') ?></th>
                     <td><?= h($advisorContract->created_at) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Updated At') ?></th>
                 <tr>
                     <th><?= __('Updated At') ?></th>
                     <td><?= h($advisorContract->updated_at) ?></td>

@@ -37,27 +37,34 @@ class InvoiceStatementsController extends AppController
         $this->set(compact('invoiceStatement'));
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $invoiceStatement = $this->InvoiceStatements->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $invoiceStatement = $this->InvoiceStatements->patchEntity($invoiceStatement, $this->request->getData());
-            if ($this->InvoiceStatements->save($invoiceStatement)) {
-                $this->Flash->success(__('The invoice statement has been saved.'));
+/**
+ * Add method
+ *
+ * @param string|null $invoice_id Invoice id.
+ * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+ */
+public function add($invoice_id = null)
+{
+    $invoiceStatement = $this->InvoiceStatements->newEmptyEntity();
+    if ($this->request->is('post')) {
+        $invoiceStatement = $this->InvoiceStatements->patchEntity($invoiceStatement, $this->request->getData());
+        if ($this->InvoiceStatements->save($invoiceStatement)) {
+            $this->Flash->success(__('The invoice statement has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The invoice statement could not be saved. Please, try again.'));
+            return $this->redirect(['action' => 'index']);
         }
-        $invoices = $this->InvoiceStatements->Invoices->find('list', limit: 200)->all();
-        $users = $this->InvoiceStatements->Users->find('list', limit: 200)->all();
-        $this->set(compact('invoiceStatement', 'invoices', 'users'));
+        $this->Flash->error(__('The invoice statement could not be saved. Please, try again.'));
     }
+    
+    // invoice_idが提供されている場合は自動設定
+    if ($invoice_id) {
+        $invoiceStatement->invoice_id = $invoice_id;
+    }
+
+    $invoices = $this->InvoiceStatements->Invoices->find('list', ['limit' => 200])->all();
+    $users = $this->InvoiceStatements->Users->find('list', ['limit' => 200])->all();
+    $this->set(compact('invoiceStatement', 'invoices', 'users'));
+}
 
     /**
      * Edit method

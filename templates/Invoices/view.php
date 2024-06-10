@@ -19,16 +19,16 @@
             <h3><?= h($invoice->invoice_id) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Invoice Adress') ?></th>
-                    <td><?= h($invoice->invoice_adress) ?></td>
+                    <th><?= __('Invoice Address') ?></th>
+                    <td><?= h($invoice->invoice_address) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Case') ?></th>
                     <td><?= $invoice->hasValue('case') ? $this->Html->link($invoice->case->case_id, ['controller' => 'Cases', 'action' => 'view', $invoice->case->case_id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Stakeholder') ?></th>
-                    <td><?= $invoice->hasValue('stakeholder') ? $this->Html->link($invoice->stakeholder->name, ['controller' => 'Stakeholders', 'action' => 'view', $invoice->stakeholder->stakeholder_id]) : '' ?></td>
+                    <th><?= __('Client') ?></th>
+                    <td><?= $invoice->hasValue('client') ? $this->Html->link($invoice->client->name, ['controller' => 'Clients', 'action' => 'view', $invoice->client->client_id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Advisor Contract') ?></th>
@@ -38,10 +38,7 @@
                     <th><?= __('Creator Id') ?></th>
                     <td><?= h($invoice->creator_id) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('User') ?></th>
-                    <td><?= $invoice->hasValue('user') ? $this->Html->link($invoice->user->user_id, ['controller' => 'Users', 'action' => 'view', $invoice->user->user_id]) : '' ?></td>
-                </tr>
+            
                 <tr>
                     <th><?= __('Invoice Id') ?></th>
                     <td><?= $this->Number->format($invoice->invoice_id) ?></td>
@@ -84,6 +81,40 @@
                 <blockquote>
                     <?= $this->Text->autoParagraph(h($invoice->invoice_status_kbn)); ?>
                 </blockquote>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Invoice Statements') ?></h4>
+                <?= $this->Html->link(__('Add Invoice Statement'), ['controller' => 'InvoiceStatements', 'action' => 'add', $invoice->invoice_id], ['class' => 'button float-right']) ?>
+                <?php if (!empty($invoice->invoice_statements)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Invoice Statement Id') ?></th>
+                            <th><?= __('Invoice Statement Item') ?></th>
+                            <th><?= __('Invoice Statement Amount') ?></th>
+                            <th><?= __('Invoice Statement Tax') ?></th>
+                            <th><?= __('Created At') ?></th>
+                            <th><?= __('Updated At') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($invoice->invoice_statements as $statement) : ?>
+                        <tr>
+                            <td><?= h($statement->invoice_statement_id) ?></td>
+                            <td><?= h($statement->invoice_statement_item) ?></td>
+                            <td><?= h($statement->invoice_statement_amount) ?></td>
+                            <td><?= h($statement->invoice_statement_tax) ?></td>
+                            <td><?= h($statement->created_at) ?></td>
+                            <td><?= h($statement->updated_at) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'InvoiceStatements', 'action' => 'view', $statement->invoice_statement_id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'InvoiceStatements', 'action' => 'edit', $statement->invoice_statement_id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'InvoiceStatements', 'action' => 'delete', $statement->invoice_statement_id], ['confirm' => __('Are you sure you want to delete # {0}?', $statement->invoice_statement_id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

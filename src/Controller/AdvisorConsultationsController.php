@@ -18,7 +18,7 @@ class AdvisorConsultationsController extends AppController
     public function index()
     {
         $query = $this->AdvisorConsultations->find()
-            ->contain(['Stakeholders', 'Users', 'AdvisorContracts']);
+            ->contain(['Clients', 'Lawyers', 'AdvisorContracts.Clients']);
         $advisorConsultations = $this->paginate($query);
 
         $this->set(compact('advisorConsultations'));
@@ -33,7 +33,9 @@ class AdvisorConsultationsController extends AppController
      */
     public function view($id = null)
     {
-        $advisorConsultation = $this->AdvisorConsultations->get($id, contain: ['Stakeholders', 'Users', 'AdvisorContracts', 'Cases']);
+        $advisorConsultation = $this->AdvisorConsultations->get($id, [
+            'contain' => ['Clients', 'Lawyers', 'AdvisorContracts.Clients', 'Cases']
+        ]);
         $this->set(compact('advisorConsultation'));
     }
 
@@ -47,12 +49,6 @@ class AdvisorConsultationsController extends AppController
     {
         $advisorConsultation = $this->AdvisorConsultations->newEmptyEntity();
         if ($this->request->is('post')) {
-            // // Automatically set the creator_id, created_at, updater_id, and updated_at
-            // $this->request = $this->request->withData('creator_id', $this->Auth->user('id'));
-            // $this->request = $this->request->withData('created_at', date('Y-m-d'));
-            // $this->request = $this->request->withData('updater_id', $this->Auth->user('id'));
-            // $this->request = $this->request->withData('updated_at', date('Y-m-d H:i:s'));
-
             $advisorConsultation = $this->AdvisorConsultations->patchEntity($advisorConsultation, $this->request->getData());
             $this->Common->setAuditFields($advisorConsultation, false); // Audit fieldsを設定
             if ($this->AdvisorConsultations->save($advisorConsultation)) {
@@ -66,12 +62,17 @@ class AdvisorConsultationsController extends AppController
         // Set default value for advisor_contract_id if provided
         if ($advisor_contract_id) {
             $advisorConsultation->advisor_contract_id = $advisor_contract_id;
+            $advisorContract = $this->AdvisorConsultations->AdvisorContracts->get($advisor_contract_id, ['contain' => ['Clients']]);
+            if ($advisorContract && $advisorContract->has('client')) {
+                $advisorConsultation->customer_id = $advisorContract->client->id;
+            }
         }
 
-        $stakeholders = $this->AdvisorConsultations->Stakeholders->find('list', limit: 200)->all();
-        $users = $this->AdvisorConsultations->Users->find('list', limit: 200)->all();
-        $advisorContracts = $this->AdvisorConsultations->AdvisorContracts->find('list', limit: 200)->all();
-        $this->set(compact('advisorConsultation', 'stakeholders', 'users', 'advisorContracts', 'advisor_contract_id'));
+        $clients = $this->AdvisorConsultations->Clients->find('list', ['limit' => 200])->all();
+        $lawyers = $this->AdvisorConsultations->Lawyers->find('list', ['limit' => 200])->all();
+        $paralegals = $this->AdvisorConsultations->Paralegals->find('list', ['limit' => 200])->all();
+        $advisorContracts = $this->AdvisorConsultations->AdvisorContracts->find('list', ['limit' => 200])->all();
+        $this->set(compact('advisorConsultation', 'clients', 'lawyers', 'paralegals', 'advisorContracts', 'advisor_contract_id'));
     }
 
     /**
@@ -83,7 +84,9 @@ class AdvisorConsultationsController extends AppController
      */
     public function edit($id = null)
     {
-        $advisorConsultation = $this->AdvisorConsultations->get($id, contain: []);
+        $advisorConsultation = $this->AdvisorConsultations->get($id, [
+            'contain' => []
+        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $advisorConsultation = $this->AdvisorConsultations->patchEntity($advisorConsultation, $this->request->getData());
             $this->Common->setAuditFields($advisorConsultation, false); // Audit fieldsを設定
@@ -94,10 +97,11 @@ class AdvisorConsultationsController extends AppController
             }
             $this->Flash->error(__('The advisor consultation could not be saved. Please, try again.'));
         }
-        $stakeholders = $this->AdvisorConsultations->Stakeholders->find('list', limit: 200)->all();
-        $users = $this->AdvisorConsultations->Users->find('list', limit: 200)->all();
-        $advisorContracts = $this->AdvisorConsultations->AdvisorContracts->find('list', limit: 200)->all();
-        $this->set(compact('advisorConsultation', 'stakeholders', 'users', 'advisorContracts'));
+        $clients = $this->AdvisorConsultations->Clients->find('list', ['limit' => 200])->all();
+        $lawyers = $this->AdvisorConsultations->Lawyers->find('list', ['limit' => 200])->all();
+        $paralegals = $this->AdvisorConsultations->Paralegals->find('list', ['limit' => 200])->all();
+        $advisorContracts = $this->AdvisorConsultations->AdvisorContracts->find('list', ['limit' => 200])->all();
+        $this->set(compact('advisorConsultation', 'clients', 'lawyers', 'paralegals', 'advisorContracts'));
     }
 
     /**

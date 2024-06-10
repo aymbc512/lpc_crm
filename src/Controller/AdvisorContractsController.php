@@ -35,8 +35,7 @@ class AdvisorContractsController extends AppController
      */
     public function index()
     {
-        $advisorContracts = $this->paginate($this->AdvisorContracts->find()->contain(['Stakeholders', 'Consultations', 'Users']));
-
+        $advisorContracts = $this->paginate($this->AdvisorContracts->find()->contain(['Lawyers', 'Clients', 'Consultations']));
 
         $this->set(compact('advisorContracts'));
     }
@@ -52,13 +51,12 @@ class AdvisorContractsController extends AppController
         $name = $this->request->getQuery('name');
 
         // クエリの作成
-        $query = $this->AdvisorContracts->find()
-            ->contain(['Stakeholders', 'Consultations', 'Users']);
+        $query = $this->AdvisorContracts->find()->contain(['Lawyers', 'Clients', 'Consultations']);
 
         // 検索条件の適用
         if ($name) {
-            $query->matching('Stakeholders', function ($q) use ($name) {
-                return $q->where(['Stakeholders.name LIKE' => '%' . $name . '%']);
+            $query->matching('Clients', function ($q) use ($name) {
+                return $q->where(['Clients.name LIKE' => '%' . $name . '%']);
             });
         }
 
@@ -80,9 +78,9 @@ class AdvisorContractsController extends AppController
     public function view($id = null)
     {
         $advisorContract = $this->AdvisorContracts->get($id, [
-            'contain' => ['Stakeholders', 'Consultations', 'Users', 'AdvisorConsultations', 'Invoices']
+            'contain' => ['Lawyers', 'Clients', 'Consultations', 'AdvisorConsultations', 'Invoices']
         ]);
-        
+
         $this->set(compact('advisorContract'));
     }
 
@@ -92,26 +90,26 @@ class AdvisorContractsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
-{
-    $advisorContract = $this->AdvisorContracts->newEmptyEntity();
-    if ($this->request->is('post')) {
-        $advisorContract = $this->AdvisorContracts->patchEntity($advisorContract, $this->request->getData());
-        if ($this->AdvisorContracts->save($advisorContract)) {
-            $this->Flash->success(__('The advisor contract has been saved.'));
+    {
+        $advisorContract = $this->AdvisorContracts->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $advisorContract = $this->AdvisorContracts->patchEntity($advisorContract, $this->request->getData());
+            if ($this->AdvisorContracts->save($advisorContract)) {
+                $this->Flash->success(__('The advisor contract has been saved.'));
 
-            return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The advisor contract could not be saved. Please, try again.'));
         }
-        $this->Flash->error(__('The advisor contract could not be saved. Please, try again.'));
+        if ($this->request->getQuery('customer_id')) {
+            $advisorContract->customer_id = $this->request->getQuery('customer_id');
+        }
+        $clients = $this->AdvisorContracts->Clients->find('list', ['limit' => 200])->all();
+        $consultations = $this->AdvisorContracts->Consultations->find('list', ['limit' => 200])->all();
+        $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
+        $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
+        $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals'));
     }
-    if ($this->request->getQuery('customer_id')) {
-        $advisorContract->customer_id = $this->request->getQuery('customer_id');
-    }
-    $customers = $this->AdvisorContracts->Customers->find('list', ['limit' => 200])->all();
-    $consultations = $this->AdvisorContracts->Consultations->find('list', ['limit' => 200])->all();
-    $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
-    $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
-    $this->set(compact('advisorContract', 'customers', 'consultations', 'lawyers', 'paralegals'));
-}
 
     /**
      * Edit method
@@ -135,12 +133,15 @@ class AdvisorContractsController extends AppController
             }
             $this->Flash->error(__('The advisor contract could not be saved. Please, try again.'));
         }
-        $stakeholders = $this->AdvisorContracts->Stakeholders->find('list', ['limit' => 200])->all();
+        if ($this->request->getQuery('customer_id')) {
+            $advisorContract->customer_id = $this->request->getQuery('customer_id');
+        }
+        $clients = $this->AdvisorContracts->Clients->find('list', ['limit' => 200])->all();
         $consultations = $this->AdvisorContracts->Consultations->find('list', ['limit' => 200])->all();
-        $users = $this->AdvisorContracts->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('advisorContract', 'stakeholders', 'consultations', 'users'));
+        $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
+        $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
+        $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals'));
     }
-
 
     /**
      * Delete method

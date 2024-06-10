@@ -12,10 +12,11 @@ use Cake\Validation\Validator;
  * Invoices Model
  *
  * @property \App\Model\Table\CasesTable&\Cake\ORM\Association\BelongsTo $Cases
- * @property \App\Model\Table\StakeholdersTable&\Cake\ORM\Association\BelongsTo $Stakeholders
+ * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
  * @property \App\Model\Table\AdvisorContractsTable&\Cake\ORM\Association\BelongsTo $AdvisorContracts
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Creators
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Updaters
+ * @property \App\Model\Table\InvoiceStatementsTable&\Cake\ORM\Association\HasMany $InvoiceStatements
  *
  * @method \App\Model\Entity\Invoice newEmptyEntity()
  * @method \App\Model\Entity\Invoice newEntity(array $data, array $options = [])
@@ -50,17 +51,23 @@ class InvoicesTable extends Table
         $this->belongsTo('Cases', [
             'foreignKey' => 'case_id',
         ]);
-        $this->belongsTo('Stakeholders', [
+        $this->belongsTo('Clients', [
+            'className' => 'Stakeholders',
             'foreignKey' => 'stakeholder_id',
         ]);
         $this->belongsTo('AdvisorContracts', [
             'foreignKey' => 'advisor_contracts_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Creators', [
+            'className' => 'Users',
             'foreignKey' => 'creator_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
+            'className' => 'Users',
             'foreignKey' => 'updater_id',
+        ]);
+        $this->hasMany('InvoiceStatements', [
+            'foreignKey' => 'invoice_id',
         ]);
     }
 
@@ -148,11 +155,12 @@ class InvoicesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['case_id'], 'Cases'), ['errorField' => 'case_id']);
-        $rules->add($rules->existsIn(['stakeholder_id'], 'Stakeholders'), ['errorField' => 'stakeholder_id']);
+        $rules->add($rules->existsIn(['stakeholder_id'], 'Clients'), ['errorField' => 'stakeholder_id']);
         $rules->add($rules->existsIn(['advisor_contracts_id'], 'AdvisorContracts'), ['errorField' => 'advisor_contracts_id']);
-        $rules->add($rules->existsIn(['creator_id'], 'Users'), ['errorField' => 'creator_id']);
-        $rules->add($rules->existsIn(['updater_id'], 'Users'), ['errorField' => 'updater_id']);
+        $rules->add($rules->existsIn(['creator_id'], 'Creators'), ['errorField' => 'creator_id']);
+        $rules->add($rules->existsIn(['updater_id'], 'Updaters'), ['errorField' => 'updater_id']);
 
         return $rules;
     }
 }
+
