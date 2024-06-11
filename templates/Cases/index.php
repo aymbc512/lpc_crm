@@ -8,22 +8,20 @@
     <?= $this->Html->link(__('New Case'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Cases') ?></h3>
 
-    
-     <!-- 検索フォーム -->
-     <?= $this->Form->create(null, ['type' => 'get', 'url' => ['action' => 'search']]) ?>
+    <!-- 検索フォーム -->
+    <?= $this->Form->create(null, ['type' => 'get', 'url' => ['action' => 'search']]) ?>
     <fieldset>
-       
-        <?= $this->Form->control('stakeholder_name', ['label' => 'Stakeholder Name', 'value' => $this->request->getQuery('stakeholder_name')]) ?>
+        <?= $this->Form->control('customer_name', ['label' => 'Customer Name', 'value' => $this->request->getQuery('customer_name')]) ?>
         <?= $this->Form->control('case_name', ['label' => 'Case Name', 'value' => $this->request->getQuery('case_name')]) ?>
     </fieldset>
     <?= $this->Form->button(__('Search')) ?>
     <?= $this->Form->button(__('Clear'), [
-    'type' => 'button', 
-    'class' => 'btn btn-secondary ml-2', 
-    'onclick' => 'location.href=\'' . $this->Url->build(['action' => 'index']) . '\''
-     ]) ?> 
+        'type' => 'button', 
+        'class' => 'btn btn-secondary ml-2', 
+        'onclick' => 'location.href=\'' . $this->Url->build(['action' => 'index']) . '\''
+    ]) ?>
     <?= $this->Form->end() ?>
-    
+
     <div class="table-responsive">
         <table>
             <thead>

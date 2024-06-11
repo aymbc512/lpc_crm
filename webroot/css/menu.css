@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    flex-direction: row; /* 水平方向にフレックスコンテナを配置 */
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* ビューポート全体の高さを確保 */
+    
+}
+
+.menu-bar {
+    width: 150px; /* メニューバーの幅 */
+    background-color: #f4f4f4;
+    padding: 15px;
+    height: 100%; /* 画面の全高さを確保 */
+    overflow-y: auto;
+    box-sizing: border-box; /* パディングを含めた幅を計算 */
+    position: fixed; /* メニューバーを固定 */
+    left: 0; /* メニューバーを左端に寄せる */
+    top: 0; /* メニューバーを上端に寄せる */
+}
+
+.menu-bar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu-bar li {
+    margin-bottom: 10px;
+}
+
+.menu-bar a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px;
+    background-color: #e2e2e2;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.menu-bar a:hover {
+    background-color: #d2d2d2;
+}
+
+.container {
+    margin-left: 180px; /* メニューバーの幅 + paddingを考慮 */
+    padding: 20px;
+    flex: 1;
+    
+    box-sizing: border-box; /* パディングを含めた幅を計算 */
+    overflow-x: auto; /* 水平方向のスクロールを有効に */
+}

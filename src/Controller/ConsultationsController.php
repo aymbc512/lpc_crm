@@ -18,7 +18,7 @@ class ConsultationsController extends AppController
     public function index()
     {
         $query = $this->Consultations->find()
-            ->contain(['Clients', 'Users']);
+            ->contain(['Clients', 'Lawyers', 'Creators', 'Updaters']);
         $consultations = $this->paginate($query);
 
         $this->set(compact('consultations'));
@@ -37,7 +37,7 @@ class ConsultationsController extends AppController
 
         // クエリの作成
         $query = $this->Consultations->find()
-            ->contain(['Clients', 'Users']);
+            ->contain(['Clients', 'Lawyers', 'Creators', 'Updaters']);
 
         // 検索条件の適用
         if (!empty($clientName)) {
@@ -68,7 +68,10 @@ class ConsultationsController extends AppController
      */
     public function view($id = null)
     {
-        $consultation = $this->Consultations->get($id, contain: ['Clients', 'Users', 'AdvisorContracts']);
+        $consultation = $this->Consultations->get($id, [
+            'contain' => ['Clients', 'Lawyers', 'Creators', 'Updaters', 'AdvisorContracts']
+        ]);
+
         $this->set(compact('consultation'));
     }
 
@@ -211,4 +214,6 @@ class ConsultationsController extends AppController
         $this->set(compact('lawyers'));
     }
 }
+
+
 

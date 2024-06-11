@@ -34,10 +34,7 @@
                     <th><?= __('Creator Id') ?></th>
                     <td><?= h($consultation->creator_id) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('User') ?></th>
-                    <td><?= $consultation->hasValue('user') ? $this->Html->link($consultation->user->user_id, ['controller' => 'Users', 'action' => 'view', $consultation->user->user_id]) : '' ?></td>
-                </tr>
+            
                 <tr>
                     <th><?= __('Consultations Id') ?></th>
                     <td><?= $this->Number->format($consultation->consultations_id) ?></td>

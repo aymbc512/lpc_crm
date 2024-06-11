@@ -115,45 +115,49 @@
             </div>
 
             <!-- Related Case Assignees -->
-            <div class="related clearfix" style="overflow-x: auto;">
-                <h4><?= __('Related Case Assignees') ?></h4>
-                <?php if (!empty($case->case_assignees)): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th><?= __('Case Assignees Id') ?></th>
-                            <th><?= __('Lawyer Id') ?></th>
-                            <th><?= __('Case Role Kbn') ?></th>
-                            <th><?= __('Case Id') ?></th>
-                            <th><?= __('Creator Id') ?></th>
-                            <th><?= __('Created At') ?></th>
-                            <th><?= __('Updater Id') ?></th>
-                            <th><?= __('Updated At') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($case->case_assignees as $caseAssignee): ?>
-                        <tr>
-                            <td><?= h($caseAssignee->case_assignees) ?></td>
-                            <td><?= h($caseAssignee->lawyer_id) ?></td>
-                            <td><?= h($caseAssignee->case_role_kbn) ?></td>
-                            <td><?= h($caseAssignee->case_id) ?></td>
-                            <td><?= h($caseAssignee->creator_id) ?></td>
-                            <td><?= h($caseAssignee->created_at) ?></td>
-                            <td><?= h($caseAssignee->updater_id) ?></td>
-                            <td><?= h($caseAssignee->updated_at) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'CaseAssignees', 'action' => 'view', $caseAssignee->case_assignees]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'CaseAssignees', 'action' => 'edit', $caseAssignee->case_assignees]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'CaseAssignees', 'action' => 'delete', $caseAssignee->case_assignees], ['confirm' => __('Are you sure you want to delete # {0}?', $caseAssignee->case_assignees)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <?php endif; ?>
-            </div>
+<div class="related clearfix" style="overflow-x: auto;">
+    <h4><?= __('Related Case Assignees') ?></h4>
+    <div class="button float-right">
+        <?= $this->Html->link(__('Add Case Assignee'), ['controller' => 'CaseAssignees', 'action' => 'add', '?' => ['case_id' => $case->case_id]], ['class' => 'button']) ?>
+    </div>
+    <?php if (!empty($case->case_assignees)): ?>
+    <table>
+        <thead>
+            <tr>
+                <th><?= __('Case Assignees Id') ?></th>
+                <th><?= __('Lawyer Id') ?></th>
+                <th><?= __('Case Role Kbn') ?></th>
+                <th><?= __('Case Id') ?></th>
+                <th><?= __('Creator Id') ?></th>
+                <th><?= __('Created At') ?></th>
+                <th><?= __('Updater Id') ?></th>
+                <th><?= __('Updated At') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($case->case_assignees as $caseAssignee): ?>
+            <tr>
+                <td><?= h($caseAssignee->case_assignees) ?></td>
+                <td><?= h($caseAssignee->lawyer_id) ?></td>
+                <td><?= h($caseAssignee->case_role_kbn) ?></td>
+                <td><?= h($caseAssignee->case_id) ?></td>
+                <td><?= h($caseAssignee->creator_id) ?></td>
+                <td><?= h($caseAssignee->created_at) ?></td>
+                <td><?= h($caseAssignee->updater_id) ?></td>
+                <td><?= h($caseAssignee->updated_at) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'CaseAssignees', 'action' => 'view', $caseAssignee->case_assignees]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'CaseAssignees', 'action' => 'edit', $caseAssignee->case_assignees]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'CaseAssignees', 'action' => 'delete', $caseAssignee->case_assignees], ['confirm' => __('Are you sure you want to delete # {0}?', $caseAssignee->case_assignees)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php endif; ?>
+</div>
+
 
             <!-- Related Invoices -->
             <div class="related clearfix" style="overflow-x: auto;">
@@ -215,9 +219,12 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Related Corporate Contacts -->
-            <div class="related clearfix" style="overflow-x: auto;">
+             <!-- Related Corporate Contacts -->
+             <div class="related clearfix" style="overflow-x: auto;">
                 <h4><?= __('Related Corporate Contacts') ?></h4>
+                <div class="button float-right">
+                    <?= $this->Html->link(__('Add Corporate Contacts Assignment'), ['controller' => 'CorporateContactsAssignment', 'action' => 'add', '?' => ['case_id' => $case->case_id]], ['class' => 'button']) ?>
+                </div>
                 <?php if (!empty($case->corporate_contacts)): ?>
                 <table>
                     <thead>
@@ -229,7 +236,6 @@
                             <th><?= __('Position Kbn') ?></th>
                             <th><?= __('Remarks') ?></th>
                             <th><?= __('Stakeholder Id') ?></th>
-                            <th><?= __('Case Id') ?></th>
                             <th><?= __('Creator Id') ?></th>
                             <th><?= __('Created At') ?></th>
                             <th><?= __('Updater Id') ?></th>
@@ -247,7 +253,6 @@
                             <td><?= h($corporateContact->position_kbn) ?></td>
                             <td><?= h($corporateContact->remarks) ?></td>
                             <td><?= h($corporateContact->stakeholder_id) ?></td>
-                            <td><?= h($corporateContact->case_id) ?></td>
                             <td><?= h($corporateContact->creator_id) ?></td>
                             <td><?= h($corporateContact->created_at) ?></td>
                             <td><?= h($corporateContact->updater_id) ?></td>

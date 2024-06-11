@@ -17,7 +17,7 @@
     </fieldset>
     <div class="search-buttons">
         <?= $this->Form->button(__('Search')) ?>
-        <?= $this->Html->link(__('Reset'), ['action' => 'index'], ['class' => 'button']) ?>
+        <?= $this->Html->link(__('clear'), ['action' => 'index'], ['class' => 'button']) ?>
     </div>
     <?= $this->Form->end() ?>
  

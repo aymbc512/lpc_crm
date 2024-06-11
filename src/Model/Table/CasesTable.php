@@ -17,7 +17,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\AdvisorConsultationsTable&\Cake\ORM\Association\BelongsTo $AdvisorConsultations
  * @property \App\Model\Table\CaseAssigneesTable&\Cake\ORM\Association\HasMany $CaseAssignees
  * @property \App\Model\Table\InvoicesTable&\Cake\ORM\Association\HasMany $Invoices
- * @property \App\Model\Table\CorporateContactsTable&\Cake\ORM\Association\HasMany $CorporateContacts
+ * @property \App\Model\Table\CorporateContactsTable&\Cake\ORM\Association\BelongsToMany $CorporateContacts
  *
  * @method \App\Model\Entity\Case newEmptyEntity()
  * @method \App\Model\Entity\Case newEntity(array $data, array $options = [])
@@ -71,8 +71,10 @@ class CasesTable extends Table
         $this->hasMany('Invoices', [
             'foreignKey' => 'case_id',
         ]);
-        $this->hasMany('CorporateContacts', [
+        $this->belongsToMany('CorporateContacts', [
+            'through' => 'CorporateContactsAssignment',
             'foreignKey' => 'case_id',
+            'targetForeignKey' => 'corporate_contact_id',
         ]);
     }
 
@@ -188,3 +190,5 @@ class CasesTable extends Table
         return $rules;
     }
 }
+
+

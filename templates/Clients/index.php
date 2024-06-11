@@ -7,7 +7,7 @@
 <div class="clients index content">
     <?= $this->Form->create(null, ['url' => ['action' => 'search'], 'type' => 'post']) ?>
     <fieldset>
-　　　　<!-- 検索フォーム -->
+    <!-- 検索フォーム -->
         <legend><?= __('Search Clients') ?></legend>
         <?= $this->Form->control('case_name', ['label' => '案件名']) ?>
         <?= $this->Form->control('name', ['label' => '顧客名']) ?>
@@ -15,8 +15,8 @@
         <?= $this->Form->control('kuchouson', ['label' => '区町村']) ?>
         <?= $this->Form->control('phone_number', ['label' => '電話番号']) ?>
     </fieldset>
-    <?= $this->Form->button(__('検索')) ?>
-    <?= $this->Html->link('絞込解除', ['action' => 'index'], ['class' => 'button']) ?>
+    <?= $this->Form->button(__('search')) ?>
+    <?= $this->Html->link('clear', ['action' => 'index'], ['class' => 'button']) ?>
     <?= $this->Form->end() ?>
 
     <?= $this->Html->link(__('New Client'), ['action' => 'add'], ['class' => 'button float-right']) ?>

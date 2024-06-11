@@ -54,10 +54,11 @@ class CaseAssigneesController extends AppController
             }
             $this->Flash->error(__('The case assignee could not be saved. Please, try again.'));
         }
-        $users = $this->CaseAssignees->Users->find('list', limit: 200)->all();
-        $cases = $this->CaseAssignees->Cases->find('list', limit: 200)->all();
-        $this->set(compact('caseAssignee', 'users', 'cases'));
+        $users = $this->CaseAssignees->Users->find('list', ['limit' => 200])->all();
+        $caseId = $this->request->getQuery('case_id');
+        $this->set(compact('caseAssignee', 'users', 'caseId'));
     }
+
 
     /**
      * Edit method

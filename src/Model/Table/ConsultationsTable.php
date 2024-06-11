@@ -12,9 +12,9 @@ use Cake\Validation\Validator;
  * Consultations Model
  *
  * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Lawyers
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Creators
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Updaters
  * @property \App\Model\Table\AdvisorContractsTable&\Cake\ORM\Association\HasMany $AdvisorContracts
  *
  * @method \App\Model\Entity\Consultation newEmptyEntity()
@@ -51,13 +51,16 @@ class ConsultationsTable extends Table
             'foreignKey' => 'stakeholder_id',
             'className' => 'Stakeholders', // StakeholdersテーブルをClientsとして参照
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Lawyers', [
+            'className' => 'Users',
             'foreignKey' => 'lawyer_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Creators', [
+            'className' => 'Users',
             'foreignKey' => 'creator_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
+            'className' => 'Users',
             'foreignKey' => 'updater_id',
         ]);
         $this->hasMany('AdvisorContracts', [
@@ -96,22 +99,22 @@ class ConsultationsTable extends Table
             ->allowEmptyString('lawyer_id');
 
         $validator
-            ->scalar('consultation_kbn')
-            ->allowEmptyString('consultation_kbn');
-
-        $validator
             ->scalar('creator_id')
             ->maxLength('creator_id', 255)
             ->allowEmptyString('creator_id');
 
         $validator
-            ->date('created_at')
-            ->allowEmptyDate('created_at');
-
-        $validator
             ->scalar('updater_id')
             ->maxLength('updater_id', 255)
             ->allowEmptyString('updater_id');
+
+        $validator
+            ->scalar('consultation_kbn')
+            ->allowEmptyString('consultation_kbn');
+
+        $validator
+            ->date('created_at')
+            ->allowEmptyDate('created_at');
 
         $validator
             ->dateTime('updated_at')
@@ -130,10 +133,12 @@ class ConsultationsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['stakeholder_id'], 'Clients'), ['errorField' => 'stakeholder_id']);
-        $rules->add($rules->existsIn(['lawyer_id'], 'Users'), ['errorField' => 'lawyer_id']);
-        $rules->add($rules->existsIn(['creator_id'], 'Users'), ['errorField' => 'creator_id']);
-        $rules->add($rules->existsIn(['updater_id'], 'Users'), ['errorField' => 'updater_id']);
+        $rules->add($rules->existsIn(['lawyer_id'], 'Lawyers'), ['errorField' => 'lawyer_id']);
+        $rules->add($rules->existsIn(['creator_id'], 'Creators'), ['errorField' => 'creator_id']);
+        $rules->add($rules->existsIn(['updater_id'], 'Updaters'), ['errorField' => 'updater_id']);
 
         return $rules;
     }
 }
+
+

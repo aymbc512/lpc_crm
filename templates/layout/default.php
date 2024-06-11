@@ -15,6 +15,10 @@
  */
 
 $cakeDescription = 'CakePHP: the rapid development php framework';
+
+// メニューバーを表示しないアクションを指定
+$noMenuActions = ['login', 'forgotPassword', 'resetPassword']; // ここにメニューバーを表示しないアクションを追加
+$action = $this->request->getParam('action');
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,14 +31,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake']) ?>
+    <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake', 'menu']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-nav">
+    <!-- <nav class="top-nav">
         <div class="top-nav-title">
             <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
         </div>
@@ -42,11 +46,27 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/">Documentation</a>
             <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
         </div>
-    </nav>
+    </nav> -->
     <main class="main">
         <div class="container">
             <?= $this->Flash->render() ?>
-            <?= $this->fetch('content') ?>
+
+            <?php if (!in_array($action, $noMenuActions)): ?>
+            <div class="menu-bar">
+                <ul>
+                    <li><?= $this->Html->link('ユーザー一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link('顧客一覧', ['controller' => 'Clients', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link('案件一覧', ['controller' => 'Cases', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link('相談一覧', ['controller' => 'Consultations', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link('請求一覧', ['controller' => 'Invoices', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link('顧問契約一覧', ['controller' => 'AdvisorContracts', 'action' => 'index']) ?></li>
+                </ul>
+            </div>
+            <?php endif; ?>
+
+            <div class="content">
+                <?= $this->fetch('content') ?>
+            </div>
         </div>
     </main>
     <footer>

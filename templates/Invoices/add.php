@@ -30,7 +30,7 @@
                     echo $this->Form->control('invoice_updated_at', ['empty' => true]);
                     echo $this->Form->control('invoice_payment_at', ['empty' => true]);
                     echo $this->Form->control('case_id', ['options' => $cases, 'empty' => true]);
-                    echo $this->Form->control('stakeholder_id', ['options' => $stakeholders, 'empty' => true]);
+                    echo $this->Form->control('stakeholder_id', ['options' => $clients, 'empty' => true]);
                     echo $this->Form->control('advisor_contract_id', ['options' => $advisorContracts, 'empty' => true, 'default' => $invoice->advisor_contract_id]);
                     echo $this->Form->control('creator_id', ['type' => 'hidden', 'value' => $invoice->creator_id]);
                     echo $this->Form->control('created_at', ['type' => 'hidden', 'value' => $invoice->created_at]);
