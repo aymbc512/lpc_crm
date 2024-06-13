@@ -69,7 +69,7 @@ class ConsultationsController extends AppController
     public function view($id = null)
     {
         $consultation = $this->Consultations->get($id, [
-            'contain' => ['Clients', 'Lawyers', 'Creators', 'Updaters', 'AdvisorContracts']
+            'contain' => ['Clients', 'Lawyers', 'Creators', 'Updaters', 'AdvisorContracts', 'CorporateContactsAssignment']
         ]);
 
         $this->set(compact('consultation'));
@@ -213,7 +213,24 @@ class ConsultationsController extends AppController
         }
         $this->set(compact('lawyers'));
     }
+
+    /**
+     * Add Corporate Contact Assignment
+     *
+     * @param string|null $consultationId Consultation id.
+     * @return \Cake\Http\Response|null|void Redirects to add Corporate Contact Assignment page with consultation_id.
+     */
+    public function addCorporateContactAssignment($consultationId = null)
+    {
+        if ($consultationId) {
+            return $this->redirect(['controller' => 'CorporateContactAssignments', 'action' => 'add', '?' => ['consultation_id' => $consultationId]]);
+        }
+        $this->Flash->error(__('Invalid consultation ID.'));
+        return $this->redirect(['action' => 'index']);
+    }
 }
+
+
 
 
 

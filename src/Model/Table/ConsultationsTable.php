@@ -16,6 +16,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Creators
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Updaters
  * @property \App\Model\Table\AdvisorContractsTable&\Cake\ORM\Association\HasMany $AdvisorContracts
+ * @property \App\Model\Table\CorporateContactAssignmentsTable&\Cake\ORM\Association\HasMany $CorporateContactAssignments
  *
  * @method \App\Model\Entity\Consultation newEmptyEntity()
  * @method \App\Model\Entity\Consultation newEntity(array $data, array $options = [])
@@ -49,7 +50,7 @@ class ConsultationsTable extends Table
 
         $this->belongsTo('Clients', [
             'foreignKey' => 'stakeholder_id',
-            'className' => 'Stakeholders', // StakeholdersテーブルをClientsとして参照
+            'className' => 'Stakeholders',
         ]);
         $this->belongsTo('Lawyers', [
             'className' => 'Users',
@@ -64,6 +65,9 @@ class ConsultationsTable extends Table
             'foreignKey' => 'updater_id',
         ]);
         $this->hasMany('AdvisorContracts', [
+            'foreignKey' => 'consultation_id',
+        ]);
+        $this->hasMany('CorporateContactsAssignment', [
             'foreignKey' => 'consultation_id',
         ]);
     }

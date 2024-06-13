@@ -34,7 +34,6 @@
                     <th><?= __('Creator Id') ?></th>
                     <td><?= h($consultation->creator_id) ?></td>
                 </tr>
-            
                 <tr>
                     <th><?= __('Consultations Id') ?></th>
                     <td><?= $this->Number->format($consultation->consultations_id) ?></td>
@@ -112,6 +111,50 @@
                                 <?= $this->Html->link(__('View'), ['controller' => 'AdvisorContracts', 'action' => 'view', $advisorContract->advisor_contracts_id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'AdvisorContracts', 'action' => 'edit', $advisorContract->advisor_contracts_id]) ?>
                                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'AdvisorContracts', 'action' => 'delete', $advisorContract->advisor_contracts_id], ['confirm' => __('Are you sure you want to delete # {0}?', $advisorContract->advisor_contracts_id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Corporate Contact Assignments') ?></h4>
+                <div class="button-container" style="text-align: right;">
+                    <?= $this->Html->link(__('Add Corporate Contact Assignment'), ['controller' => 'CorporateContactsAssignment', 'action' => 'add', '?' => ['consultation_id' => $consultation->consultations_id]], ['class' => 'button']) ?>
+                </div>
+                <?php if (!empty($consultation->corporate_contact_assignment)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Corporate Contact Assignment Id') ?></th>
+                            <th><?= __('Assignment Kbn') ?></th>
+                            <th><?= __('Corporate Contact Id') ?></th>
+                            <th><?= __('Case Id') ?></th>
+                            <th><?= __('Consultation Id') ?></th>
+                            <th><?= __('Advisor Consultation Id') ?></th>
+                            <th><?= __('Creator Id') ?></th>
+                            <th><?= __('Created At') ?></th>
+                            <th><?= __('Updater Id') ?></th>
+                            <th><?= __('Updated At') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($consultation->corporate_contact_assignment as $corporateContactAssignment) : ?>
+                        <tr>
+                            <td><?= h($corporateContactAssignment->corporate_contact_assignment_id) ?></td>
+                            <td><?= h($corporateContactAssignment->assignment_kbn) ?></td>
+                            <td><?= h($corporateContactAssignment->corporate_contact_id) ?></td>
+                            <td><?= h($corporateContactAssignment->case_id) ?></td>
+                            <td><?= h($corporateContactAssignment->consultation_id) ?></td>
+                            <td><?= h($corporateContactAssignment->advisor_consultation_id) ?></td>
+                            <td><?= h($corporateContactAssignment->creator_id) ?></td>
+                            <td><?= h($corporateContactAssignment->created_at) ?></td>
+                            <td><?= h($corporateContactAssignment->updater_id) ?></td>
+                            <td><?= h($corporateContactAssignment->updated_at) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'CorporateContactsAssignment', 'action' => 'view', $corporateContactAssignment->corporate_contact_assignment_id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'CorporateContactsAssignment', 'action' => 'edit', $corporateContactAssignment->corporate_contact_assignment_id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'CorporateContactsAssignment', 'action' => 'delete', $corporateContactAssignment->corporate_contact_assignment_id], ['confirm' => __('Are you sure you want to delete # {0}?', $corporateContactAssignment->corporate_contact_assignment_id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

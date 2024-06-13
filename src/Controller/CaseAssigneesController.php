@@ -33,7 +33,10 @@ class CaseAssigneesController extends AppController
      */
     public function view($id = null)
     {
-        $caseAssignee = $this->CaseAssignees->get($id, contain: ['Users', 'Cases']);
+        $caseAssignee = $this->CaseAssignees->get($id, [
+            'contain' => ['Users', 'Cases'],
+        ]);
+
         $this->set(compact('caseAssignee'));
     }
 
@@ -47,6 +50,7 @@ class CaseAssigneesController extends AppController
         $caseAssignee = $this->CaseAssignees->newEmptyEntity();
         if ($this->request->is('post')) {
             $caseAssignee = $this->CaseAssignees->patchEntity($caseAssignee, $this->request->getData());
+            $this->setAuditFields($caseAssignee, true);
             if ($this->CaseAssignees->save($caseAssignee)) {
                 $this->Flash->success(__('The case assignee has been saved.'));
 
@@ -54,11 +58,14 @@ class CaseAssigneesController extends AppController
             }
             $this->Flash->error(__('The case assignee could not be saved. Please, try again.'));
         }
-        $users = $this->CaseAssignees->Users->find('list', ['limit' => 200])->all();
+        $users = $this->CaseAssignees->Users->find('list', [
+            'keyField' => 'user_id',
+            'valueField' => 'user_name',
+            'limit' => 200
+        ])->all();
         $caseId = $this->request->getQuery('case_id');
         $this->set(compact('caseAssignee', 'users', 'caseId'));
     }
-
 
     /**
      * Edit method
@@ -69,9 +76,12 @@ class CaseAssigneesController extends AppController
      */
     public function edit($id = null)
     {
-        $caseAssignee = $this->CaseAssignees->get($id, contain: []);
+        $caseAssignee = $this->CaseAssignees->get($id, [
+            'contain' => []
+        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $caseAssignee = $this->CaseAssignees->patchEntity($caseAssignee, $this->request->getData());
+            $this->setAuditFields($caseAssignee, false);
             if ($this->CaseAssignees->save($caseAssignee)) {
                 $this->Flash->success(__('The case assignee has been saved.'));
 
@@ -79,8 +89,12 @@ class CaseAssigneesController extends AppController
             }
             $this->Flash->error(__('The case assignee could not be saved. Please, try again.'));
         }
-        $users = $this->CaseAssignees->Users->find('list', limit: 200)->all();
-        $cases = $this->CaseAssignees->Cases->find('list', limit: 200)->all();
+        $users = $this->CaseAssignees->Users->find('list', [
+            'keyField' => 'user_id',
+            'valueField' => 'user_name',
+            'limit' => 200
+        ])->all();
+        $cases = $this->CaseAssignees->Cases->find('list', ['limit' => 200])->all();
         $this->set(compact('caseAssignee', 'users', 'cases'));
     }
 

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -13,8 +12,8 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\CasesTable&\Cake\ORM\Association\BelongsTo $Cases
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Creators
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Updaters
  *
  * @method \App\Model\Entity\CaseAssignee newEmptyEntity()
  * @method \App\Model\Entity\CaseAssignee newEntity(array $data, array $options = [])
@@ -30,7 +29,7 @@ use Cake\Validation\Validator;
  * @method iterable<\App\Model\Entity\CaseAssignee>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\CaseAssignee>|false deleteMany(iterable $entities, array $options = [])
  * @method iterable<\App\Model\Entity\CaseAssignee>|\Cake\Datasource\ResultSetInterface<\App\Model\Entity\CaseAssignee> deleteManyOrFail(iterable $entities, array $options = [])
  */
-class CaseAssigneesTable extends Table
+class CaseAssigneesTable extends Table 
 {
     /**
      * Initialize method
@@ -48,15 +47,24 @@ class CaseAssigneesTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'lawyer_id',
+            'bindingKey' => 'user_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Cases', [
             'foreignKey' => 'case_id',
+            'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Creators', [
+            'className' => 'Users',
             'foreignKey' => 'creator_id',
+            'bindingKey' => 'user_id',
+            'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
+            'className' => 'Users',
             'foreignKey' => 'updater_id',
+            'bindingKey' => 'user_id',
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -69,22 +77,30 @@ class CaseAssigneesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->integer('case_assignees')
+            ->allowEmptyString('case_assignees', null, 'create');
+
+        $validator
             ->scalar('lawyer_id')
             ->maxLength('lawyer_id', 255)
-            ->allowEmptyString('lawyer_id');
+            ->requirePresence('lawyer_id', 'create')
+            ->notEmptyString('lawyer_id');
 
         $validator
             ->scalar('case_role_kbn')
-            ->allowEmptyString('case_role_kbn');
+            ->requirePresence('case_role_kbn', 'create')
+            ->notEmptyString('case_role_kbn');
 
         $validator
             ->integer('case_id')
-            ->allowEmptyString('case_id');
+            ->requirePresence('case_id', 'create')
+            ->notEmptyString('case_id');
 
         $validator
             ->scalar('creator_id')
             ->maxLength('creator_id', 255)
-            ->allowEmptyString('creator_id');
+            ->requirePresence('creator_id', 'create')
+            ->notEmptyString('creator_id');
 
         $validator
             ->date('created_at')
@@ -93,7 +109,8 @@ class CaseAssigneesTable extends Table
         $validator
             ->scalar('updater_id')
             ->maxLength('updater_id', 255)
-            ->allowEmptyString('updater_id');
+            ->requirePresence('updater_id', 'update')
+            ->notEmptyString('updater_id');
 
         $validator
             ->dateTime('updated_at')

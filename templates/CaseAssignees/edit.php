@@ -12,8 +12,8 @@
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $caseAssignee->case_assignees],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $caseAssignee->case_assignees), 'class' => 'side-nav-item']
+                ['action' => 'delete', $caseAssignee->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $caseAssignee->id), 'class' => 'side-nav-item']
             ) ?>
             <?= $this->Html->link(__('List Case Assignees'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
@@ -24,13 +24,10 @@
             <fieldset>
                 <legend><?= __('Edit Case Assignee') ?></legend>
                 <?php
-                    echo $this->Form->control('lawyer_id');
+                    echo $this->Form->control('lawyer_id', ['options' => $users, 'empty' => true, 'label' => 'Lawyer']);
                     echo $this->Form->control('case_role_kbn');
                     echo $this->Form->control('case_id', ['options' => $cases, 'empty' => true]);
-                    echo $this->Form->control('creator_id');
-                    echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
-                    echo $this->Form->control('updated_at');
+                    // creator_id と updater_id は setAuditFields メソッドで自動設定されるため、フォームで入力する必要はなし
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -15,8 +16,8 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\CasesTable&\Cake\ORM\Association\BelongsTo $Cases
  * @property \App\Model\Table\ConsultationsTable&\Cake\ORM\Association\BelongsTo $Consultations
  * @property \App\Model\Table\AdvisorConsultationsTable&\Cake\ORM\Association\BelongsTo $AdvisorConsultations
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Creators
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Updaters
  *
  * @method \App\Model\Entity\CorporateContactsAssignment newEmptyEntity()
  * @method \App\Model\Entity\CorporateContactsAssignment newEntity(array $data, array $options = [])
@@ -60,10 +61,12 @@ class CorporateContactsAssignmentTable extends Table
         $this->belongsTo('AdvisorConsultations', [
             'foreignKey' => 'advisor_consultation_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Creators', [
+            'className' => 'Users',
             'foreignKey' => 'creator_id',
         ]);
-        $this->belongsTo('Users', [
+        $this->belongsTo('Updaters', [
+            'className' => 'Users',
             'foreignKey' => 'updater_id',
         ]);
     }
@@ -131,9 +134,10 @@ class CorporateContactsAssignmentTable extends Table
         $rules->add($rules->existsIn(['case_id'], 'Cases'), ['errorField' => 'case_id']);
         $rules->add($rules->existsIn(['consultation_id'], 'Consultations'), ['errorField' => 'consultation_id']);
         $rules->add($rules->existsIn(['advisor_consultation_id'], 'AdvisorConsultations'), ['errorField' => 'advisor_consultation_id']);
-        $rules->add($rules->existsIn(['creator_id'], 'Users'), ['errorField' => 'creator_id']);
-        $rules->add($rules->existsIn(['updater_id'], 'Users'), ['errorField' => 'updater_id']);
+        $rules->add($rules->existsIn(['creator_id'], 'Creators'), ['errorField' => 'creator_id']);
+        $rules->add($rules->existsIn(['updater_id'], 'Updaters'), ['errorField' => 'updater_id']);
 
         return $rules;
     }
 }
+
