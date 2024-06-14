@@ -1,22 +1,14 @@
-body {
-    display: flex;
-    flex-direction: row; /* 水平方向にフレックスコンテナを配置 */
-    margin: 0;
-    padding: 0;
-    height: 100vh; /* ビューポート全体の高さを確保 */
-    
-}
-
 .menu-bar {
-    width: 150px; /* メニューバーの幅 */
-    background-color: #f4f4f4;
+    width: 300px; /* メニューバーの幅を広く */
+    background-color: #00BFFF; /* ボタンと同じ色 */
     padding: 15px;
-    height: 100%; /* 画面の全高さを確保 */
+    height: 97%; /* 画面の全高さを確保 */
+    margin: 0.4%; /* 上下左右に余白を追加 */
     overflow-y: auto;
     box-sizing: border-box; /* パディングを含めた幅を計算 */
     position: fixed; /* メニューバーを固定 */
-    left: 0; /* メニューバーを左端に寄せる */
-    top: 0; /* メニューバーを上端に寄せる */
+    box-shadow: 3px 6px 6px #3c3c3c;
+    z-index: 1; /* 他のコンテンツより前面に表示 */
 }
 
 .menu-bar ul {
@@ -30,23 +22,24 @@ body {
 
 .menu-bar a {
     text-decoration: none;
-    color: #333;
+    color: #3c3c3c; /* リンクの色を黒に */
     display: block;
-    padding: 8px;
-    background-color: #e2e2e2;
+    padding: 15px; /* パディングを増やす */
+    background-color: #00BFFF; /* ボタンと同じ色 */
     border-radius: 4px;
     text-align: center;
+    font-size: 24px; /* フォントサイズを大きく */
+    font-weight: bold; /* フォントを太字に */
 }
 
 .menu-bar a:hover {
-    background-color: #d2d2d2;
+    background-color: #104e8b;
 }
 
 .container {
-    margin-left: 180px; /* メニューバーの幅 + paddingを考慮 */
+    margin-left: 320px; /* メニューバーの幅 + paddingを考慮 */
     padding: 20px;
     flex: 1;
-    
     box-sizing: border-box; /* パディングを含めた幅を計算 */
     overflow-x: auto; /* 水平方向のスクロールを有効に */
 }

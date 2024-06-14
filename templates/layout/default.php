@@ -30,40 +30,27 @@ $action = $this->request->getParam('action');
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'fonts', 'cake', 'menu']) ?>
-
+    <?= $this->Html->css(['custom_index_style', 'custom_index_global', 'custom_index_styleguide','custom_detail_style','menu.css']) ?> <!-- カスタムCSSファイルを読み込む -->
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <!-- <nav class="top-nav">
-        <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
-        </div>
-        <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
-        </div>
-    </nav> -->
     <main class="main">
+        <?php if (!in_array($action, $noMenuActions)): ?>
+        <div class="menu-bar">
+            <ul>
+                <li><?= $this->Html->link('ユーザー一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('顧客一覧', ['controller' => 'Clients', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('案件一覧', ['controller' => 'Cases', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('相談一覧', ['controller' => 'Consultations', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('請求一覧', ['controller' => 'Invoices', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('顧問契約一覧', ['controller' => 'AdvisorContracts', 'action' => 'index']) ?></li>
+            </ul>
+        </div>
+        <?php endif; ?>
         <div class="container">
             <?= $this->Flash->render() ?>
-
-            <?php if (!in_array($action, $noMenuActions)): ?>
-            <div class="menu-bar">
-                <ul>
-                    <li><?= $this->Html->link('ユーザー一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link('顧客一覧', ['controller' => 'Clients', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link('案件一覧', ['controller' => 'Cases', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link('相談一覧', ['controller' => 'Consultations', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link('請求一覧', ['controller' => 'Invoices', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link('顧問契約一覧', ['controller' => 'AdvisorContracts', 'action' => 'index']) ?></li>
-                </ul>
-            </div>
-            <?php endif; ?>
-
             <div class="content">
                 <?= $this->fetch('content') ?>
             </div>
