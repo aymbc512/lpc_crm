@@ -97,14 +97,14 @@
                 </div>
 
                 <div class="detail-actions">
-                    <?= $this->Html->link(__('Edit Case'), ['action' => 'edit', $case->case_id], ['class' => 'detail-action-button']) ?>
-                    <?= $this->Form->postLink(__('Delete Case'), ['action' => 'delete', $case->case_id], ['confirm' => __('Are you sure you want to delete # {0}?', $case->case_id), 'class' => 'detail-action-button']) ?>
+                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $case->case_id], ['class' => 'detail-action-button']) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $case->case_id], ['confirm' => __('Are you sure you want to delete # {0}?', $case->case_id), 'class' => 'detail-action-button']) ?>
                 </div>
             </div>
         </div>
 
         <div class="detail-related-section">
-            <h4><?= __('Related Case Assignees') ?></h4>
+            <h4><?= __('関連する案件担当者') ?></h4>
             <div class="add-button-container">
                 <?= $this->Html->link(__('追加'), ['controller' => 'CaseAssignees', 'action' => 'add', '?' => ['case_id' => $case->case_id]], ['class' => 'add-button']) ?>
             </div>
@@ -115,10 +115,6 @@
                     <th><?= __('Lawyer Id') ?></th>
                     <th><?= __('Case Role Kbn') ?></th>
                     <th><?= __('Case Id') ?></th>
-                    <th><?= __('Creator Id') ?></th>
-                    <th><?= __('Created At') ?></th>
-                    <th><?= __('Updater Id') ?></th>
-                    <th><?= __('Updated At') ?></th>
                 </tr>
                 <?php foreach ($case->case_assignees as $caseAssignee): ?>
                 <tr>
@@ -126,20 +122,16 @@
                     <td><?= h($caseAssignee->lawyer_id) ?></td>
                     <td><?= h($caseAssignee->case_role_kbn) ?></td>
                     <td><?= h($caseAssignee->case_id) ?></td>
-                    <td><?= h($caseAssignee->creator_id) ?></td>
-                    <td><?= h($caseAssignee->created_at) ?></td>
-                    <td><?= h($caseAssignee->updater_id) ?></td>
-                    <td><?= h($caseAssignee->updated_at) ?></td>
                 </tr>
                 <?php endforeach; ?>
             </table>
             <?php else : ?>
-            <p><?= __('No related case assignees found.') ?></p>
+            <p><?= __('関連する案件担当者はいません。') ?></p>
             <?php endif; ?>
         </div>
 
         <div class="detail-related-section">
-            <h4><?= __('Related Invoices') ?></h4>
+            <h4><?= __('関連する請求') ?></h4>
             <div class="add-button-container">
                 <?= $this->Html->link(__('追加'), ['controller' => 'Invoices', 'action' => 'add', '?' => ['case_id' => $case->case_id]], ['class' => 'add-button']) ?>
             </div>
@@ -204,10 +196,6 @@
                     <th><?= __('Position Kbn') ?></th>
                     <th><?= __('Remarks') ?></th>
                     <th><?= __('Stakeholder Id') ?></th>
-                    <th><?= __('Creator Id') ?></th>
-                    <th><?= __('Created At') ?></th>
-                    <th><?= __('Updater Id') ?></th>
-                    <th><?= __('Updated At') ?></th>
                 </tr>
                 <?php foreach ($case->corporate_contacts as $corporateContact): ?>
                 <tr>
@@ -218,10 +206,6 @@
                     <td><?= h($corporateContact->position_kbn) ?></td>
                     <td><?= h($corporateContact->remarks) ?></td>
                     <td><?= h($corporateContact->stakeholder_id) ?></td>
-                    <td><?= h($corporateContact->creator_id) ?></td>
-                    <td><?= h($corporateContact->created_at) ?></td>
-                    <td><?= h($corporateContact->updater_id) ?></td>
-                    <td><?= h($corporateContact->updated_at) ?></td>
                 </tr>
                 <?php endforeach; ?>
             </table>

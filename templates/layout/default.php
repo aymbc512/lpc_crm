@@ -40,7 +40,7 @@ $action = $this->request->getParam('action');
         <?php if (!in_array($action, $noMenuActions)): ?>
         <div class="menu-bar">
             <ul>
-                <li><?= $this->Html->link('ユーザー一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('ユーザ一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('顧客一覧', ['controller' => 'Clients', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('案件一覧', ['controller' => 'Cases', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('相談一覧', ['controller' => 'Consultations', 'action' => 'index']) ?></li>

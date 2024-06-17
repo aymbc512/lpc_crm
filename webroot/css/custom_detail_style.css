@@ -142,7 +142,9 @@ body.detail-view {
     box-shadow: 1px 4px 4px #00000040;
 }
 
+
 .detail-small-button:hover {
     background-color: #104e8b;
     color: #ffffff;
 }
+

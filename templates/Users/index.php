@@ -8,7 +8,7 @@
     <div class="overlap-wrapper">
         <div class="overlap-2">
             <div class="view-6"></div>
-            <div class="text-wrapper-6">Users</div>
+            <div class="text-wrapper-6">ユーザ一覧</div>
         </div>
     </div>
     <div class="frame">
@@ -16,15 +16,15 @@
             <table class="custom-table">
                 <thead>
                     <tr>
-                        <th><?= $this->Paginator->sort('user_id') ?></th>
-                        <th><?= $this->Paginator->sort('user_name') ?></th>
-                        <th><?= $this->Paginator->sort('phone_number') ?></th>
-                        <th><?= $this->Paginator->sort('email') ?></th>
-                        <th><?= $this->Paginator->sort('lawyer_no') ?></th>
-                        <th><?= $this->Paginator->sort('creator_id') ?></th>
+                        <th><?= $this->Paginator->sort('ユーザID') ?></th>
+                        <th><?= $this->Paginator->sort('ユーザ名') ?></th>
+                        <th><?= $this->Paginator->sort('電話番号') ?></th>
+                        <th><?= $this->Paginator->sort('メールアドレス') ?></th>
+                        <th><?= $this->Paginator->sort('弁護士番号') ?></th>
+                        <!-- <th><?= $this->Paginator->sort('creator_id') ?></th>
                         <th><?= $this->Paginator->sort('created_at') ?></th>
                         <th><?= $this->Paginator->sort('updater_id') ?></th>
-                        <th><?= $this->Paginator->sort('updated_at') ?></th>
+                        <th><?= $this->Paginator->sort('updated_at') ?></th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -35,10 +35,10 @@
                         <td><?= h($user->phone_number) ?></td>
                         <td><?= h($user->email) ?></td>
                         <td><?= $user->lawyer_no === null ? '' : $this->Number->format($user->lawyer_no) ?></td>
-                        <td><?= $user->creator ? h($user->creator->user_name) : '' ?></td>
+                        <!-- <td><?= $user->creator ? h($user->creator->user_name) : '' ?></td>
                         <td><?= h($user->created_at) ?></td>
                         <td><?= $user->updater ? h($user->updater->user_name) : '' ?></td>
-                        <td><?= h($user->updated_at) ?></td>
+                        <td><?= h($user->updated_at) ?></td> -->
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -47,11 +47,11 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('最初へ')) ?>
+            <?= $this->Paginator->prev('< ' . __('前へ')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('次へ') . ' >') ?>
+            <?= $this->Paginator->last(__('最後へ') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
