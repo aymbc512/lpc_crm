@@ -6,58 +6,92 @@
  * @var \Cake\Collection\CollectionInterface|string[] $users
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Consultations'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<div class="desktop">
+    <div class="overlap-wrapper">
+        <div class="overlap-2">
+            <div class="view-6"></div>
+            <div class="text-wrapper-6"><?= __('新規相談登録') ?></div>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="consultations form content">
-            <?= $this->Form->create($consultation) ?>
-            <fieldset>
-                <legend><?= __('Add Consultation') ?></legend>
-                <?php
-                    echo $this->Form->control('consultation_name');
-                    echo $this->Form->control('consultation_at', ['empty' => true]);
-                    echo $this->Form->control('consultation_content');
-                    
-                    // Client検索
-                    echo $this->Form->control('client_search', [
-                        'label' => 'Client',
-                        'type' => 'text',
-                        'onchange' => 'this.form.submit()'
-                    ]);
-                    if (!empty($clients)) {
-                        echo $this->Form->control('client_id', [
-                            'options' => $clients,
-                            'empty' => true
-                        ]);
-                    }
-
-                    // Lawyer検索
-                    echo $this->Form->control('lawyer_search', [
-                        'label' => 'Lawyer',
-                        'type' => 'text',
-                        'onchange' => 'this.form.submit()'
-                    ]);
-                    if (!empty($users)) {
-                        echo $this->Form->control('lawyer_id', [
-                            'options' => $users,
-                            'empty' => true
-                        ]);
-                    }
-
-                    echo $this->Form->control('consultation_kbn');
-                    echo $this->Form->control('creator_id');
-                    echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id');
-                    echo $this->Form->control('updated_at');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+    </div>
+    <div class="detail-container">
+        <div class="detail-content-area">
+            <div class="detail-content-frame">
+                <?= $this->Form->create($consultation) ?>
+                <fieldset>
+                    <table class="form-table">
+                        <tr>
+                            <th><?= $this->Form->label('consultation_name', __('Consultation Name')) ?></th>
+                            <td><?= $this->Form->control('consultation_name', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('consultation_at', __('Consultation At')) ?></th>
+                            <td><?= $this->Form->control('consultation_at', ['empty' => true, 'label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('consultation_content', __('Consultation Content')) ?></th>
+                            <td><?= $this->Form->control('consultation_content', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('client_search', __('Client')) ?></th>
+                            <td>
+                                <?= $this->Form->control('client_search', [
+                                    'type' => 'text',
+                                    'label' => false,
+                                    'onchange' => 'this.form.submit()'
+                                ]) ?>
+                                <?php if (!empty($clients)): ?>
+                                    <?= $this->Form->control('client_id', [
+                                        'options' => $clients,
+                                        'empty' => true,
+                                        'label' => false
+                                    ]) ?>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('lawyer_search', __('Lawyer')) ?></th>
+                            <td>
+                                <?= $this->Form->control('lawyer_search', [
+                                    'type' => 'text',
+                                    'label' => false,
+                                    'onchange' => 'this.form.submit()'
+                                ]) ?>
+                                <?php if (!empty($users)): ?>
+                                    <?= $this->Form->control('lawyer_id', [
+                                        'options' => $users,
+                                        'empty' => true,
+                                        'label' => false
+                                    ]) ?>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('consultation_kbn', __('Consultation Kbn')) ?></th>
+                            <td><?= $this->Form->control('consultation_kbn', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('creator_id', __('Creator Id')) ?></th>
+                            <td><?= $this->Form->control('creator_id', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('created_at', __('Created At')) ?></th>
+                            <td><?= $this->Form->control('created_at', ['empty' => true, 'label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('updater_id', __('Updater Id')) ?></th>
+                            <td><?= $this->Form->control('updater_id', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('updated_at', __('Updated At')) ?></th>
+                            <td><?= $this->Form->control('updated_at', ['label' => false]) ?></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <div class="detail-actions">
+                    <?= $this->Form->button(__('登録'), ['class' => 'detail-action-button']) ?>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
 </div>

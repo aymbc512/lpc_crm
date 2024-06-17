@@ -35,6 +35,7 @@
                     echo $this->Form->control('created_at', ['empty' => true]);
                     echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
                     echo $this->Form->control('updated_at');
+                    echo $this->Form->hidden('redirect', ['value' => $this->request->getQuery('redirect')]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

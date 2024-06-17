@@ -9,28 +9,25 @@
 ?>
 <div class="row">
     <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Advisor Consultations'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
+     
     </aside>
     <div class="column column-80">
         <div class="advisorConsultations form content">
             <?= $this->Form->create($advisorConsultation) ?>
             <fieldset>
-                <legend><?= __('Add Advisor Consultation') ?></legend>
+                <legend><?= __('新規顧問相談登録') ?></legend>
                 <?php
-                    echo $this->Form->control('consultation_name');
-                    echo $this->Form->control('consultation_at', ['empty' => true]);
-                    echo $this->Form->control('consultation_content');
-                    echo $this->Form->control('customer_id', ['options' => $clients, 'empty' => true]);
-                    echo $this->Form->control('lawyer_id', ['options' => $lawyers, 'empty' => true]);
-                    echo $this->Form->control('advisor_contract_id', ['type' => 'hidden']);
-                    echo $this->Form->control('paralegal_id', ['options' => $paralegals, 'empty' => true]);
+                    echo $this->Form->control('相談名');
+                    echo $this->Form->control('相談日', ['empty' => true]);
+                    echo $this->Form->control('相談内容');
+                    echo $this->Form->control('顧客名', ['options' => $clients, 'empty' => true]);
+                    echo $this->Form->control('担当弁護士', ['options' => $lawyers, 'empty' => true]);
+                    echo $this->Form->control('担当パラリーガル', ['options' => $paralegals, 'empty' => true]);
+                    echo $this->Form->control('顧問契約', ['type' => 'hidden']);
                     // creator_id, updater_id, created_at, updated_at are set automatically, so no need to display them
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('保存')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

@@ -8,7 +8,7 @@
     <div class="overlap-wrapper">
         <div class="overlap-2">
             <div class="view-6"></div>
-            <div class="text-wrapper-6">Clients</div>
+            <div class="text-wrapper-6">顧客一覧</div>
         </div>
     </div>
     <div class="overlap">

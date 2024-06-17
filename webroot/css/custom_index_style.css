@@ -8,7 +8,6 @@ body {
     height: 100vh; /* ビューポート全体の高さを確保 */
 }
 
-
 .desktop {
     position: relative; /* 位置を相対に変更 */
     top: 0; /* 上部に固定 */
@@ -183,6 +182,11 @@ body {
     width: 100%;
     border-collapse: collapse;
     font-size: 24px; /* サイズを大きくしました */
+}
+
+.custom-table th,
+.custom-table td {
+    writing-mode: horizontal-tb; /* 横書きに設定 */
 }
 
 .custom-table th {

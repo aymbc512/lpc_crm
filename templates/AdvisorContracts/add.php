@@ -18,7 +18,7 @@
         <div class="advisorContracts form content">
             <?= $this->Form->create($advisorContract) ?>
             <fieldset>
-                <legend><?= __('Add Advisor Contract') ?></legend>
+                <legend><?= __('新規顧問契約登録') ?></legend>
                 <?php
                     echo $this->Form->control('customer_id', ['options' => $clients, 'empty' => true]);
                     echo $this->Form->control('advisor_start_at', ['empty' => true]);
@@ -32,13 +32,13 @@
                     echo $this->Form->control('payment_method_kbn');
                     echo $this->Form->control('lawyer_id');
                     echo $this->Form->control('paralegal_id');
-                    echo $this->Form->control('creator_id');
-                    echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id', ['empty' => true]);
-                    echo $this->Form->control('updated_at');
+                    // echo $this->Form->control('creator_id');
+                    // echo $this->Form->control('created_at', ['empty' => true]);
+                    // echo $this->Form->control('updater_id', ['empty' => true]);
+                    // echo $this->Form->control('updated_at');
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('保存')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
