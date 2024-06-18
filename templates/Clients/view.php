@@ -67,7 +67,7 @@
             <div class="detail-related-section">
                 <h4><?= __('Related Cases') ?></h4>
                 <div class="add-button-container">
-                    <?= $this->Html->link(__('追加'), ['controller' => 'Cases', 'action' => 'add', '?' => ['customer_id' => $client->stakeholder_id]], ['class' => 'add-button']) ?>
+                    <?= $this->Html->link(__('追加'), ['controller' => 'Cases', 'action' => 'add', '?' => ['customer_id' => $client->stakeholder_id]], ['class' => 'detail-add-button']) ?>
                 </div>
                 <?php if (!empty($client->cases)) : ?>
                 <table class="detail-data-table">
@@ -96,7 +96,7 @@
             <div class="detail-related-section">
                 <h4><?= __('Related Advisor Contracts') ?></h4>
                 <div class="add-button-container-title">
-                    <?= $this->Html->link(__('追加'), ['controller' => 'AdvisorContracts', 'action' => 'add', '?' => ['customer_id' => $client->stakeholder_id]], ['class' => 'add-button-title']) ?>
+                    <?= $this->Html->link(__('追加'), ['controller' => 'AdvisorContracts', 'action' => 'add', '?' => ['customer_id' => $client->stakeholder_id]], ['class' => 'detail.add-button']) ?>
                 </div>
                 <?php if (!empty($client->advisor_contracts)) : ?>
                 <table class="detail-data-table">

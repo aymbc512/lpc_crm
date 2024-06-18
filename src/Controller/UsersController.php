@@ -57,7 +57,7 @@ class UsersController extends AppController
     }
     $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
     $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
-    $this->set(compact('user', 'creators', 'updaters'));
+    $this->set(compact('user'));
 }
 
 
@@ -83,7 +83,7 @@ class UsersController extends AppController
         }
         $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
-        $this->set(compact('user', 'creators', 'updaters'));
+        $this->set(compact('user'));
     }
 
     /**

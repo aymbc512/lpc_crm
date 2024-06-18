@@ -4,14 +4,14 @@
  * @var iterable<\Cake\Datasource\EntityInterface> $cases
  */ 
 ?>
-<div class="desktop">
-    <div class="overlap-wrapper">
-        <div class="overlap-2">
-            <div class="view-6"></div>
+<div class="body">
+ <div class="desktop">
+     <div class="overlap-wrapper">
+         <div class="overlap-2">
             <div class="text-wrapper-6">案件一覧</div>
-        </div>
-    </div>
-    <div class="overlap">
+         </div>
+      </div>
+     <div class="overlap">
         <div class="search-container">
             <?= $this->Form->create(null, ['type' => 'get', 'url' => ['action' => 'search'], 'class' => 'search-form']) ?>
             <fieldset>
@@ -24,11 +24,11 @@
             </div>
             <?= $this->Form->end() ?>
         </div>
-    </div>
-    <div class="div-wrapper">
+     </div>
+     <div class="div-wrapper">
         <?= $this->Html->link(__('追加'), ['action' => 'add'], ['class' => 'add-button']) ?>
-    </div>
-    <div class="frame">
+     </div>
+     <div class="frame">
         <div class="custom-table-container">
             <table class="custom-table">
                 <thead>
@@ -63,8 +63,8 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="paginator">
+     </div>
+     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('最初へ')) ?>
             <?= $this->Paginator->prev('< ' . __('前へ')) ?>
@@ -73,6 +73,7 @@
             <?= $this->Paginator->last(__('最後へ') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+     </div>
+ 
+<div>
 
