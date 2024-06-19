@@ -20,16 +20,16 @@
                 <?php
                     echo $this->Form->control('password');
                     echo $this->Form->control('user_name');
-                    echo $this->Form->control('role_kbn');
-                    echo $this->Form->control('department_kbn');
-                    echo $this->Form->control('expertise_kbn');
+                    echo $this->Form->control('role_kbn', ['options' => $roles , 'empty' => 'Select Role']);
+                    echo $this->Form->control('department_kbn', ['options' => $departments, 'empty' => 'Select Department']);
+                    echo $this->Form->control('expertise_kbn', ['options' => $expertises, 'empty' => 'Select Expertise']);
                     echo $this->Form->control('phone_number');
                     echo $this->Form->control('email');
                     echo $this->Form->control('lawyer_no');
-                    echo $this->Form->control('creator_id');
-                    echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
-                    echo $this->Form->control('updated_at');
+                    // echo $this->Form->control('creator_id');
+                    // echo $this->Form->control('created_at', ['empty' => true]);
+                    // echo $this->Form->control('updater_id', [ 'empty' => true]);
+                    // echo $this->Form->control('updated_at');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

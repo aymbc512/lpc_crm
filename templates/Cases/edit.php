@@ -27,7 +27,7 @@
                 <legend><?= __('Edit Case') ?></legend>
                 <?php
                     echo $this->Form->control('case_name');
-                    echo $this->Form->control('case_kbn');
+                    echo $this->Form->control('case_kbn', ['options' => $cases , 'empty' => 'Select case']);
                     echo $this->Form->control('customer_id', ['options' => $customers, 'empty' => true]);
                     echo $this->Form->control('opponent_id', ['options' => $opponents, 'empty' => true]);
                     echo $this->Form->control('case_content');
@@ -41,7 +41,7 @@
                     echo $this->Form->control('case_amount');
                     echo $this->Form->control('goal_achievement_deadline_at', ['empty' => true]);
                     echo $this->Form->control('advisor_consultation_id', ['options' => $advisorConsultations, 'empty' => true]);
-                    echo $this->Form->control('case_status_kbn');
+                    echo $this->Form->control('case_status_kbn',['options' => $case_statuses, 'empty' => 'Select case_status']);
                     echo $this->Form->control('creator_id');
                     echo $this->Form->control('created_at', ['empty' => true]);
                     echo $this->Form->control('updater_id');

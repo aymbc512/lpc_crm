@@ -31,10 +31,10 @@
                     echo $this->Form->control('phone_number');
                     echo $this->Form->control('email');
                     echo $this->Form->control('lawyer_no');
-                    echo $this->Form->control('creator_id');
-                    echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
-                    echo $this->Form->control('updated_at');
+                    // echo $this->Form->control('creator_id');
+                    // echo $this->Form->control('created_at', ['empty' => true]);
+                    // echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
+                    // echo $this->Form->control('updated_at');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
