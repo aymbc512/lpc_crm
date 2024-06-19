@@ -23,8 +23,7 @@ class UsersController extends AppController
 
         $this->set(compact('users'));
 
-        $selectionListsTable = TableRegistry::getTableLocator()->get('SelectionLists');
-
+        
 
         //$roles = $selectionListsTable->getNamesByDataId('1');
         //$departments = $SelectionListsTable->getNamesByDataId('2');
@@ -94,6 +93,7 @@ class UsersController extends AppController
    $departments =$this->fetchTable('SelectionLists')->getNamesByDataId('2');
    $expertises = $this->fetchTable('SelectionLists')->getNamesByDataId('3');
    $this->set(compact('roles', 'departments', 'expertises'));
+ 
 }
 
 
@@ -119,7 +119,7 @@ class UsersController extends AppController
         }
         $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
-        $this->set(compact('user', 'creators', 'updaters'));
+        $this->set(compact('user'));
     }
 
     /**
@@ -142,4 +142,6 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 }
+
+
 

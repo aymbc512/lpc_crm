@@ -8,7 +8,7 @@
     <div class="overlap-wrapper">
         <div class="overlap-2">
             <div class="view-6"></div>
-            <div class="text-wrapper-6">Clients</div>
+            <div class="text-wrapper-6">顧客一覧</div>
         </div>
     </div>
     <div class="overlap">
@@ -37,20 +37,20 @@
             <table class="custom-table">
                 <thead>
                     <tr>
-                        <th><?= $this->Paginator->sort('stakeholder_id') ?></th>
-                        <th><?= $this->Paginator->sort('name') ?></th>
-                        <th><?= $this->Paginator->sort('post_cd') ?></th>
-                        <th><?= $this->Paginator->sort('prefectures') ?></th>
-                        <th><?= $this->Paginator->sort('city') ?></th>
-                        <th><?= $this->Paginator->sort('kuchouson') ?></th>
-                        <th><?= $this->Paginator->sort('adress_below') ?></th>
-                        <th><?= $this->Paginator->sort('phone_number') ?></th>
-                        <th><?= $this->Paginator->sort('email') ?></th>
-                        <th><?= $this->Paginator->sort('lawyer_id') ?></th>
-                        <th><?= $this->Paginator->sort('creator_id') ?></th>
+                        <th><?= $this->Paginator->sort('顧客ID') ?></th>
+                        <th><?= $this->Paginator->sort('名前') ?></th>
+                        <th><?= $this->Paginator->sort('郵便番号') ?></th>
+                        <th><?= $this->Paginator->sort('都道府県') ?></th>
+                        <th><?= $this->Paginator->sort('市') ?></th>
+                        <th><?= $this->Paginator->sort('区町村') ?></th>
+                        <th><?= $this->Paginator->sort('以下住所') ?></th>
+                        <th><?= $this->Paginator->sort('電話番号') ?></th>
+                        <th><?= $this->Paginator->sort('メールアドレス') ?></th>
+                        <th><?= $this->Paginator->sort('主任弁護士') ?></th>
+                        <!-- <th><?= $this->Paginator->sort('creator_id') ?></th>
                         <th><?= $this->Paginator->sort('created_at') ?></th>
                         <th><?= $this->Paginator->sort('updater_id') ?></th>
-                        <th><?= $this->Paginator->sort('updated_at') ?></th>
+                        <th><?= $this->Paginator->sort('updated_at') ?></th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -66,10 +66,10 @@
                         <td><?= $client->phone_number === null ? '' : $this->Number->format($client->phone_number) ?></td>
                         <td><?= h($client->email) ?></td>
                         <td><?= h($client->lawyer_id) ?></td>
-                        <td><?= h($client->creator_id) ?></td>
+                        <!-- <td><?= h($client->creator_id) ?></td>
                         <td><?= h($client->created_at) ?></td>
                         <td><?= $client->hasValue('user') ? $this->Html->link($client->user->user_id, ['controller' => 'Users', 'action' => 'view', $client->user->user_id]) : '' ?></td>
-                        <td><?= h($client->updated_at) ?></td>
+                        <td><?= h($client->updated_at) ?></td> -->
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -78,11 +78,11 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('最初へ')) ?>
+            <?= $this->Paginator->prev('< ' . __('前へ')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('次へ') . ' >') ?>
+            <?= $this->Paginator->last(__('最後へ') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>

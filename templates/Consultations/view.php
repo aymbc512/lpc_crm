@@ -4,163 +4,125 @@
  * @var \App\Model\Entity\Consultation $consultation
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Consultation'), ['action' => 'edit', $consultation->consultations_id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Consultation'), ['action' => 'delete', $consultation->consultations_id], ['confirm' => __('Are you sure you want to delete # {0}?', $consultation->consultations_id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Consultations'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Consultation'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+<div class="desktop">
+    <div class="overlap-wrapper">
+        <div class="overlap-2">
+            <div class="view-6"></div>
+            <div class="text-wrapper-6"><?= h($consultation->consultations_id) ?></div>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="consultations view content">
-            <h3><?= h($consultation->consultations_id) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Consultation Name') ?></th>
-                    <td><?= h($consultation->consultation_name) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Client') ?></th>
-                    <td><?= $consultation->hasValue('client') ? $this->Html->link($consultation->client->name, ['controller' => 'Clients', 'action' => 'view', $consultation->client->client_id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Lawyer Id') ?></th>
-                    <td><?= h($consultation->lawyer_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Creator Id') ?></th>
-                    <td><?= h($consultation->creator_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Consultations Id') ?></th>
-                    <td><?= $this->Number->format($consultation->consultations_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Consultation At') ?></th>
-                    <td><?= h($consultation->consultation_at) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Created At') ?></th>
-                    <td><?= h($consultation->created_at) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Updated At') ?></th>
-                    <td><?= h($consultation->updated_at) ?></td>
-                </tr>
-            </table>
-            <div class="text">
-                <strong><?= __('Consultation Content') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($consultation->consultation_content)); ?>
-                </blockquote>
-            </div>
-            <div class="text">
-                <strong><?= __('Consultation Kbn') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($consultation->consultation_kbn)); ?>
-                </blockquote>
-            </div>
-            <div class="related">
-                <h4><?= __('Related Advisor Contracts') ?></h4>
-                <?php if (!empty($consultation->advisor_contracts)) : ?>
-                <div class="table-responsive">
-                    <table>
+    </div>
+    <div class="detail-container">
+        <div class="detail-content-area">
+            <div class="detail-content-frame">
+                <h3><?= h($consultation->consultations_id) ?></h3>
+                <table class="detail-table">
+                    <tr>
+                    <tr>
+                        <th><?= __('相談ID') ?></th>
+                        <td><?= $this->Number->format($consultation->consultations_id) ?></td>
+                    </tr>
+                        <th><?= __('相談名') ?></th>
+                        <td><?= h($consultation->consultation_name) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('相談日') ?></th>
+                        <td><?= h($consultation->consultation_at) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('顧客名') ?></th>
+                        <td><?= $consultation->hasValue('client') ? $this->Html->link($consultation->client->name, ['controller' => 'Clients', 'action' => 'view', $consultation->client->client_id]) : '' ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('担当弁護士') ?></th>
+                        <td><?= h($consultation->lawyer_id) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('作成者') ?></th>
+                        <td><?= h($consultation->creator_id) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('作成日') ?></th>
+                        <td><?= h($consultation->created_at) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('更新日') ?></th>
+                        <td><?= h($consultation->updated_at) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('相談内容') ?></th>
+                        <td><?= h($consultation->consultation_content) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('相談種別区分') ?></th>
+                        <td><?= h($consultation->consultation_kbn) ?></td>
+                    </tr>
+                </table>
+                <div class="detail-related-section">
+                    <h4><?= __('関連する顧問契約一覧') ?></h4>
+                    <div class="add-button-container">
+                        <?= $this->Html->link(__('追加'), ['controller' => 'AdvisorContracts', 'action' => 'add', 'consultation_id' => $consultation->consultations_id], ['class' => 'add-button']) ?>
+                    </div>
+                    <?php if (!empty($consultation->advisor_contracts)) : ?>
+                    <table class="detail-data-table">
                         <tr>
-                            <th><?= __('Advisor Contracts Id') ?></th>
-                            <th><?= __('Customer Id') ?></th>
-                            <th><?= __('Advisor Start At') ?></th>
-                            <th><?= __('Advisor End At') ?></th>
-                            <th><?= __('Advisor Fee') ?></th>
-                            <th><?= __('Advisor Content') ?></th>
-                            <th><?= __('Consultation Id') ?></th>
-                            <th><?= __('Initial Contract At') ?></th>
-                            <th><?= __('Initial Consultation At') ?></th>
-                            <th><?= __('Payment At') ?></th>
-                            <th><?= __('Payment Method Kbn') ?></th>
-                            <th><?= __('Lawyer Id') ?></th>
-                            <th><?= __('Paralegal Id') ?></th>
-                            <th><?= __('Creator Id') ?></th>
-                            <th><?= __('Created At') ?></th>
-                            <th><?= __('Updater Id') ?></th>
-                            <th><?= __('Updated At') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
+                            <th><?= __('顧問契約ID') ?></th>
+                            <th><?= __('顧客名') ?></th>
+                            <th><?= __('顧問開始日') ?></th>
+                            <th><?= __('顧問終了日') ?></th>
+                            <th><?= __('顧問費用') ?></th>
+                            <th><?= __('担当弁護士') ?></th>
+                            <th><?= __('担当パラリーガル') ?></th>
                         </tr>
                         <?php foreach ($consultation->advisor_contracts as $advisorContract) : ?>
                         <tr>
                             <td><?= h($advisorContract->advisor_contracts_id) ?></td>
-                            <td><?= h($advisorContract->customer_id) ?></td>
+                            <td><?= h($advisorContract->customer_name) ?></td>
                             <td><?= h($advisorContract->advisor_start_at) ?></td>
                             <td><?= h($advisorContract->advisor_end_at) ?></td>
                             <td><?= h($advisorContract->advisor_fee) ?></td>
-                            <td><?= h($advisorContract->advisor_content) ?></td>
-                            <td><?= h($advisorContract->consultation_id) ?></td>
-                            <td><?= h($advisorContract->initial_contract_at) ?></td>
-                            <td><?= h($advisorContract->initial_consultation_at) ?></td>
-                            <td><?= h($advisorContract->payment_at) ?></td>
-                            <td><?= h($advisorContract->payment_method_kbn) ?></td>
                             <td><?= h($advisorContract->lawyer_id) ?></td>
                             <td><?= h($advisorContract->paralegal_id) ?></td>
-                            <td><?= h($advisorContract->creator_id) ?></td>
-                            <td><?= h($advisorContract->created_at) ?></td>
-                            <td><?= h($advisorContract->updater_id) ?></td>
-                            <td><?= h($advisorContract->updated_at) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'AdvisorContracts', 'action' => 'view', $advisorContract->advisor_contracts_id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'AdvisorContracts', 'action' => 'edit', $advisorContract->advisor_contracts_id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'AdvisorContracts', 'action' => 'delete', $advisorContract->advisor_contracts_id], ['confirm' => __('Are you sure you want to delete # {0}?', $advisorContract->advisor_contracts_id)]) ?>
-                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </table>
+                    <div class="action-buttons">
+                        <?= $this->Html->link(__('削除'), ['controller' => 'AdvisorContracts', 'action' => 'delete', $advisorContract->advisor_contracts_id], ['class' => 'detail-small-button']) ?>
+                        <?= $this->Html->link(__('編集'), ['controller' => 'AdvisorContracts', 'action' => 'edit', $advisorContract->advisor_contracts_id], ['class' => 'detail-small-button']) ?>
+                    </div>
+                    <?php else : ?>
+                    <p><?= __('関連する顧問契約はありません。') ?></p>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
-            </div>
-            <div class="related">
-                <h4><?= __('Related Corporate Contact Assignments') ?></h4>
-                <div class="button-container" style="text-align: right;">
-                    <?= $this->Html->link(__('Add Corporate Contact Assignment'), ['controller' => 'CorporateContactsAssignment', 'action' => 'add', '?' => ['consultation_id' => $consultation->consultations_id]], ['class' => 'button']) ?>
-                </div>
-                <?php if (!empty($consultation->corporate_contact_assignment)) : ?>
-                <div class="table-responsive">
-                    <table>
+                <div class="detail-related-section">
+                    <h4><?= __('関連する法人連絡担当者') ?></h4>
+                    <div class="add-button-container">
+                        <?= $this->Html->link(__('追加'), ['controller' => 'CorporateContactsAssignment', 'action' => 'add', 'consultation_id' => $consultation->consultations_id], ['class' => 'add-button']) ?>
+                    </div>
+                    <?php if (!empty($consultation->corporate_contact_assignment)) : ?>
+                    <table class="detail-data-table">
                         <tr>
-                            <th><?= __('Corporate Contact Assignment Id') ?></th>
-                            <th><?= __('Assignment Kbn') ?></th>
-                            <th><?= __('Corporate Contact Id') ?></th>
-                            <th><?= __('Case Id') ?></th>
-                            <th><?= __('Consultation Id') ?></th>
-                            <th><?= __('Advisor Consultation Id') ?></th>
-                            <th><?= __('Creator Id') ?></th>
-                            <th><?= __('Created At') ?></th>
-                            <th><?= __('Updater Id') ?></th>
-                            <th><?= __('Updated At') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
+                            <th><?= __('法人連絡担当者割り当てID') ?></th>
+                            <th><?= __('割り当て区分') ?></th>
+                            <th><?= __('法人連絡担当者') ?></th>
+
                         </tr>
                         <?php foreach ($consultation->corporate_contact_assignment as $corporateContactAssignment) : ?>
                         <tr>
                             <td><?= h($corporateContactAssignment->corporate_contact_assignment_id) ?></td>
                             <td><?= h($corporateContactAssignment->assignment_kbn) ?></td>
                             <td><?= h($corporateContactAssignment->corporate_contact_id) ?></td>
-                            <td><?= h($corporateContactAssignment->case_id) ?></td>
-                            <td><?= h($corporateContactAssignment->consultation_id) ?></td>
-                            <td><?= h($corporateContactAssignment->advisor_consultation_id) ?></td>
-                            <td><?= h($corporateContactAssignment->creator_id) ?></td>
-                            <td><?= h($corporateContactAssignment->created_at) ?></td>
-                            <td><?= h($corporateContactAssignment->updater_id) ?></td>
-                            <td><?= h($corporateContactAssignment->updated_at) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'CorporateContactsAssignment', 'action' => 'view', $corporateContactAssignment->corporate_contact_assignment_id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'CorporateContactsAssignment', 'action' => 'edit', $corporateContactAssignment->corporate_contact_assignment_id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'CorporateContactsAssignment', 'action' => 'delete', $corporateContactAssignment->corporate_contact_assignment_id], ['confirm' => __('Are you sure you want to delete # {0}?', $corporateContactAssignment->corporate_contact_assignment_id)]) ?>
-                            </td>
+
                         </tr>
                         <?php endforeach; ?>
                     </table>
+                    <div class="action-buttons">
+                        <?= $this->Html->link(__('削除'), ['controller' => 'CorporateContactsAssignment', 'action' => 'delete', $corporateContactAssignment->corporate_contact_assignment_id], ['class' => 'detail-small-button']) ?>
+                        <?= $this->Html->link(__('編集'), ['controller' => 'CorporateContactsAssignment', 'action' => 'edit', $corporateContactAssignment->corporate_contact_assignment_id], ['class' => 'detail-small-button']) ?>
+                    </div>
+                    <?php else : ?>
+                    <p><?= __('関連する法人連絡担当者はいません。') ?></p>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
             </div>
         </div>
     </div>

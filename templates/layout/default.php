@@ -30,17 +30,18 @@ $action = $this->request->getParam('action');
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css(['custom_index_style', 'custom_index_global', 'custom_index_styleguide','custom_detail_style','menu.css']) ?> <!-- カスタムCSSファイルを読み込む -->
+    <?= $this->Html->css(['custom_index_style', 'custom_index_global','custom_detail_style','menu.css']) ?> <!-- カスタムCSSファイルを読み込む -->
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <main class="main">
+    <div class="body">
         <?php if (!in_array($action, $noMenuActions)): ?>
+            
         <div class="menu-bar">
             <ul>
-                <li><?= $this->Html->link('ユーザー一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('ユーザ一覧', ['controller' => 'Users', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('顧客一覧', ['controller' => 'Clients', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('案件一覧', ['controller' => 'Cases', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('相談一覧', ['controller' => 'Consultations', 'action' => 'index']) ?></li>
@@ -55,7 +56,7 @@ $action = $this->request->getParam('action');
                 <?= $this->fetch('content') ?>
             </div>
         </div>
-    </main>
+        </div>
     <footer>
     </footer>
 </body>
