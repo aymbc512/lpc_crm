@@ -7,6 +7,10 @@ use App\Controller\AppController;
 use App\Model\Table\UsersTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Exception\NotFoundException;
+use Cake\Mailer\Mailer;
+use Cake\Utility\Security;
+use Cake\I18n\FrozenTime;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -146,7 +150,7 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         // 認証を必要としないログインアクションを構成し、
         // 無限リダイレクトループの問題を防ぎます
-        $this->Authentication->addUnauthenticatedActions(['login', 'add']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'add','restpassword']);
     }
 
     public function login()
@@ -176,7 +180,7 @@ class UsersController extends AppController
         }
         // ユーザーがsubmit後、認証失敗した場合は、エラーを表示します
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error(__('Invalid username or password'));
+            $this->Flash->error(__('ユーザIDかパスワードが無効です。'));
         }
     }
 

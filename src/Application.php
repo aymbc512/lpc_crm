@@ -129,7 +129,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
           // identifiers email と password のフィールドを確認します
           $authenticationService->loadIdentifier('Authentication.Password', [
               'fields' => [
-                  'username' => 'email',
+                  'username' => 'user_id',
                   'password' => 'password',
               ]
           ]);
@@ -139,7 +139,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
           // 入力した emailと password をチェックする為のフォームデータを設定
           $authenticationService->loadAuthenticator('Authentication.Form', [
               'fields' => [
-                  'username' => 'email',
+                  'username' => 'user_id',
                   'password' => 'password',
               ],
               'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login']),

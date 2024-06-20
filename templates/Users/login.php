@@ -19,7 +19,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         background-color: #f9f9f9;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 4px 4px #00000040;
         box-sizing: border-box;
         margin-top: 10%;
         text-align: center;
@@ -112,8 +112,8 @@
     <fieldset>
         <legend><?= __('ユーザー名とパスワードを入力してください') ?></legend>
         <div class="form-group">
-            <?= $this->Form->label('email', 'Email') ?>
-            <?= $this->Form->control('email', ['required' => true, 'label' => false, 'style' => 'width:100%; max-width:300px;']) ?>
+            <?= $this->Form->label('user_id', 'ユーザID') ?>
+            <?= $this->Form->control('user_id', ['type' => 'text','required' => true, 'label' => false, 'style' => 'width:100%; max-width:300px;']) ?>
         </div>
         <div class="form-group">
             <?= $this->Form->label('password', 'Password') ?>
