@@ -35,7 +35,7 @@ $action = $this->request->getParam('action');
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
-<body>
+<body class="<?= in_array($action, $noMenuActions) ? 'no-menu' : '' ?>">
     <div class="body">
         <?php if (!in_array($action, $noMenuActions)): ?>
             
@@ -47,6 +47,7 @@ $action = $this->request->getParam('action');
                 <li><?= $this->Html->link('相談一覧', ['controller' => 'Consultations', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('請求一覧', ['controller' => 'Invoices', 'action' => 'index']) ?></li>
                 <li><?= $this->Html->link('顧問契約一覧', ['controller' => 'AdvisorContracts', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('ログアウト', ['controller' => 'Users', 'action' => 'logout']) ?></li>
             </ul>
         </div>
         <?php endif; ?>

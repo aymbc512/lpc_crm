@@ -72,7 +72,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('updater_id', __('更新者')) ?></th>
-                            <td><?= $this->Form->control('updater_id', ['options' => $users, 'empty' => true, 'label' => false]) ?></td>
+                            <td><?= $this->Form->control('updater_id', [ 'empty' => true, 'label' => false]) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('updated_at', __('更新日')) ?></th>

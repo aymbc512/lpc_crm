@@ -89,7 +89,7 @@ body.detail-view {
     top: 0;
 }
 
-.detail.add-button {
+.detail-add-button {
     background-color: #00BFFF;
     color: #3c3c3c;
     padding: 2px 6px;

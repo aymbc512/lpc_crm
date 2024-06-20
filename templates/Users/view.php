@@ -65,8 +65,8 @@
                     </tr>
                 </table>
                 <div class="detail-actions">
-                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $user->user_id], ['class' => 'detail-action-button']) ?>
                     <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $user->user_id], ['confirm' => __('本当に{0}を削除しますか？', $user->user_id), 'class' => 'detail-action-button']) ?>
+                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $user->user_id], ['class' => 'detail-action-button']) ?>
                 </div>
             </div>
         </div>

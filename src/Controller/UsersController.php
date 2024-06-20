@@ -57,7 +57,7 @@ class UsersController extends AppController
     }
     $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
     $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
-    $this->set(compact('user'));
+    $this->set(compact('user', 'creators', 'updaters'));
 }
 
 
@@ -83,7 +83,7 @@ class UsersController extends AppController
         }
         $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
-        $this->set(compact('user'));
+        $this->set(compact('user', 'creators', 'updaters'));
     }
 
     /**
@@ -105,4 +105,55 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // 認証を必要としないログインアクションを構成し、
+        // 無限リダイレクトループの問題を防ぎます
+        $this->Authentication->addUnauthenticatedActions(['login', 'add']);
+    }
+
+    public function login()
+    {
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+        // POST, GETを問わず、ユーザーがログインしている場合はリダイレクトします
+        if ($result->isValid()) {
+            // 認証に成功した場合、identity 属性を取得
+            $user = $this->request->getAttribute('identity');
+            \Cake\Log\Log::write('debug', 'User identity data: ' . json_encode($user));
+
+            
+            // ログインに成功した場合、ユーザー一覧にリダイレクトします
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Users',
+                'action' => 'index',
+            ]);
+            \Cake\Log\Log::write('debug', 'Redirecting to: ' . json_encode($redirect));
+            // セッションデータの確認
+             $session = $this->request->getSession();
+             \Cake\Log\Log::write('debug', 'Session data (identity): ' . json_encode($session->read()));
+
+
+
+            return $this->redirect($redirect);
+        }
+        // ユーザーがsubmit後、認証失敗した場合は、エラーを表示します
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error(__('Invalid username or password'));
+        }
+    }
+
+    public function logout()
+    {
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            $this->Authentication->logout();
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
+    }
+    
 }
+
+
