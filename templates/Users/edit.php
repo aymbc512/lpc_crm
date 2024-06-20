@@ -25,9 +25,9 @@
                 <?php
                     echo $this->Form->control('password');
                     echo $this->Form->control('user_name');
-                    echo $this->Form->control('role_kbn');
-                    echo $this->Form->control('department_kbn');
-                    echo $this->Form->control('expertise_kbn');
+                    echo $this->Form->control('role_kbn',['options'=>$roles,'empty'=>'Select Role']);
+                    echo $this->Form->control('department_kbn',['options'=>$departments,'empty'=>'Select Department']);
+                    echo $this->Form->control('expertise_kbn',['options'=>$expertises,'empty'=>'Select Expertise']);
                     echo $this->Form->control('phone_number');
                     echo $this->Form->control('email');
                     echo $this->Form->control('lawyer_no');

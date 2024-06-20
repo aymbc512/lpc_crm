@@ -26,7 +26,7 @@
                     echo $this->Form->control('初回契約日', ['empty' => true]);
                     echo $this->Form->control('初回相談日', ['empty' => true]);
                     echo $this->Form->control('支払日', ['empty' => true]);
-                    echo $this->Form->control('支払方法区分');
+                    echo $this->Form->control('支払方法区分',['options'=>$payment_methods,'empty'=>'select payment_method']);
                     echo $this->Form->control('担当弁護士');
                     echo $this->Form->control('担当パラリーガル');
                     // echo $this->Form->control('creator_id');

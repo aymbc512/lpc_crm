@@ -29,7 +29,7 @@
                     echo $this->Form->control('initial_contract_at', ['empty' => true]);
                     echo $this->Form->control('initial_consultation_at', ['empty' => true]);
                     echo $this->Form->control('payment_at', ['empty' => true]);
-                    echo $this->Form->control('payment_method_kbn');
+                    echo $this->Form->control('payment_method_kbn',['options'=>$payment_methods,'empty'=>'select Payment_method']);
                     echo $this->Form->control('lawyer_id');
                     echo $this->Form->control('paralegal_id');
                     // echo $this->Form->control('creator_id');

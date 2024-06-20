@@ -109,6 +109,15 @@ class AdvisorContractsController extends AppController
         $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
         $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
         $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals'));
+
+
+        $this->fetchTable('SelectionLists');
+   //$recentSelectionLists = $this -> SelectionLists ->find(all);
+  // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+   $payment_methods = $this->fetchTable('SelectionLists')->getNamesByDataId('6');
+   $this->set(compact('payment_methods'));
+
+
     }
 
     /**
@@ -141,6 +150,15 @@ class AdvisorContractsController extends AppController
         $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
         $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
         $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals'));
+
+
+        $this->fetchTable('SelectionLists');
+        //$recentSelectionLists = $this -> SelectionLists ->find(all);
+       // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+        $payment_methods = $this->fetchTable('SelectionLists')->getNamesByDataId('6');
+        $this->set(compact('payment_methods'));
+     
+
     }
 
     /**

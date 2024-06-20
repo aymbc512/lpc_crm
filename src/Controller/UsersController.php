@@ -120,6 +120,16 @@ class UsersController extends AppController
         $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('user'));
+
+
+        $this->fetchTable('SelectionLists');
+   //$recentSelectionLists = $this -> SelectionLists ->find(all);
+  // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+   $roles = $this->fetchTable('SelectionLists')->getNamesByDataId('1');
+   $departments =$this->fetchTable('SelectionLists')->getNamesByDataId('2');
+   $expertises = $this->fetchTable('SelectionLists')->getNamesByDataId('3');
+   $this->set(compact('roles', 'departments', 'expertises'));
+
     }
 
     /**

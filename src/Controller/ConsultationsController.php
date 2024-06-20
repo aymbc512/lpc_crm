@@ -115,6 +115,16 @@ class ConsultationsController extends AppController
         }
 
         $this->set(compact('consultation', 'clients', 'lawyers'));
+
+
+        $this->fetchTable('SelectionLists');
+        //$recentSelectionLists = $this -> SelectionLists ->find(all);
+       // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+        
+        $consultation_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('7');
+        $this->set(compact('consultation_kbns'));
+
+
     }
 
     /**
@@ -161,6 +171,15 @@ class ConsultationsController extends AppController
         }
 
         $this->set(compact('consultation', 'clients', 'lawyers'));
+
+        $this->fetchTable('SelectionLists');
+        //$recentSelectionLists = $this -> SelectionLists ->find(all);
+       // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+        
+        $consultation_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('7');
+        $this->set(compact('consultation_kbns'));
+
+
     }
 
     /**

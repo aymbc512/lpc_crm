@@ -67,7 +67,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('consultation_kbn', __('Consultation Kbn')) ?></th>
-                            <td><?= $this->Form->control('consultation_kbn', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('consultation_kbn', ['options' => $consultation_kbns, 'empty' => true]) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('creator_id', __('Creator Id')) ?></th>
