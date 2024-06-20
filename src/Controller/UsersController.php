@@ -9,7 +9,7 @@ use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Mailer\Mailer;
 use Cake\Utility\Security;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\Routing\Router;
 
 /**
@@ -150,7 +150,7 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         // 認証を必要としないログインアクションを構成し、
         // 無限リダイレクトループの問題を防ぎます
-        $this->Authentication->addUnauthenticatedActions(['login', 'add','restpassword']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'add','requestPasswordReset','resetPassword']);
     }
 
     public function login()
@@ -192,7 +192,71 @@ class UsersController extends AppController
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
     }
-    
+
+
+
+    public function requestPasswordReset()
+    {
+        if ($this->request->is('post')) {
+            $email = $this->request->getData('email');
+            $user = $this->Users->findByEmail($email)->first();
+
+            if ($user) {
+                $token = Security::hash(Security::randomBytes(25), 'sha256', true);
+                $user->password_reset_token = $token;
+                $user->token_created_at = DateTime::now();
+
+                if ($this->Users->save($user)) {
+                    $resetUrl = Router::url([
+                        'controller' => 'Users',
+                        'action' => 'resetPassword',
+                        $token
+                    ], true);
+
+                    // ここにメール送信のロジックを追加できます。現時点ではログにURLを記録
+                    \Cake\Log\Log::write('debug', 'Password reset URL: ' . $resetUrl);
+
+                    $this->Flash->success(__('パスワード再設定用のリンクが送信されました。送信されたリンクからパスワード再設定を行ってください'));
+                } else {
+                    $this->Flash->error(__('パスワード再設定用のリンクを生成できませんでした。もう一度お試しください。'));
+                }
+            } else {
+                $this->Flash->error(__('無効なメールアドレスです'));
+            }
+        }
+    }
+
+    public function resetPassword($token = null)
+    {
+        if ($token) {
+            $user = $this->Users->find('all')
+                ->where(['password_reset_token' => $token, 'token_created_at >' =>DateTime::now()->subHours(1)])
+                ->first();
+
+            if ($user) {
+                if ($this->request->is(['patch', 'post', 'put'])) {
+                    $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'password']);
+                    $user->password_reset_token = null;
+                    $user->token_created_at = null;
+
+                    if ($this->Users->save($user)) {
+                        $this->Flash->success(__('パスワードが変更されました。'));
+                        return $this->redirect(['action' => 'login']);
+                        //更新者カラムに自分のユーザIDを入れる
+                        
+                    } else {
+                        $this->Flash->error(__('パスワードを変更できませんでした。もう一度お試しください。'));
+                    }
+                }
+                $this->set(compact('user'));
+            } else {
+                $this->Flash->error(__('パスワードリセットの期限が過ぎています。'));
+                return $this->redirect(['action' => 'login']);
+            }
+        } else {
+            throw new NotFoundException(__('トークンが必要です。'));
+        }
+    }
 }
 
 

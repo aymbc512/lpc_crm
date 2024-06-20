@@ -54,18 +54,6 @@ class UsersTable extends Table
     }
 
 
-
-    // public function getNamesByDataId($data_id)
-    // {
-    //     $query = $this->find()
-    //                   ->select(['name'])
-    //                   ->where(['data_id' => $data_id]);
-
-    //     return $query->all();
-    // }
-
-
-
     /**
      * Default validation rules.
      *
@@ -143,6 +131,22 @@ class UsersTable extends Table
         $rules->add($rules->existsIn(['creator_id'], 'Creators'), ['errorField' => 'creator_id']);
         $rules->add($rules->existsIn(['updater_id'], 'Updaters'), ['errorField' => 'updater_id']);
             return $rules;   
+    }
+    public function validationPassword(Validator $validator): Validator
+    {
+        $validator
+            ->scalar('password')
+            ->maxLength('password', 255)
+            ->requirePresence('password', 'create')
+            ->notEmptyString('password')
+            ->add('password', [
+                'length' => [
+                    'rule' => ['minLength', 8],
+                    'message' => 'パスワードは8文字以上でなければなりません。',
+                ]
+            ]);
+
+        return $validator;
     }
 
 }

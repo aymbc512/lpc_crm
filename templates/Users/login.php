@@ -19,7 +19,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         background-color: #f9f9f9;
-        box-shadow: 2px 4px 4px #00000040;
+        box-shadow: 0px 2px 3px 3px #00000040;
         box-sizing: border-box;
         margin-top: 10%;
         text-align: center;
@@ -110,13 +110,13 @@
     <h3>ログイン</h3>
     <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __('ユーザー名とパスワードを入力してください') ?></legend>
+        <legend><?= __('ユーザーIDとパスワードを入力してください') ?></legend>
         <div class="form-group">
             <?= $this->Form->label('user_id', 'ユーザID') ?>
             <?= $this->Form->control('user_id', ['type' => 'text','required' => true, 'label' => false, 'style' => 'width:100%; max-width:300px;']) ?>
         </div>
         <div class="form-group">
-            <?= $this->Form->label('password', 'Password') ?>
+            <?= $this->Form->label('password', 'パスワード') ?>
             <?= $this->Form->control('password', ['required' => true, 'label' => false, 'style' => 'width:100%; max-width:300px;']) ?>
         </div>
     </fieldset>
@@ -126,6 +126,8 @@
     <?= $this->Form->end() ?>
 
     <?= $this->Html->link("ユーザ追加", ['action' => 'add'], ['class' => 'link']) ?>
+    <?= $this->Html->link("パスワードを忘れた場合", ['action' => 'requestResetPassword'], ['class' => 'link']) ?>
+</div>
 </div>
 
 
