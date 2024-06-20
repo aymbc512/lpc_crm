@@ -100,6 +100,16 @@ class CasesController extends AppController
         $consultations = $this->Cases->Consultations->find('list', ['limit' => 200])->all();
         $advisorConsultations = $this->Cases->AdvisorConsultations->find('list', ['limit' => 200])->all();
         $this->set(compact('case', 'customers', 'opponents', 'consultations', 'advisorConsultations'));
+
+
+        $this->fetchTable('SelectionLists');
+        //$recentSelectionLists = $this -> SelectionLists ->find(all);
+       // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+        $cases = $this->fetchTable('SelectionLists')->getNamesByDataId('4');
+        $case_statuses =$this->fetchTable('SelectionLists')->getNamesByDataId('5');
+        $this->set(compact('cases', 'case_statuses'));
+
+
     }
 
     /**
@@ -128,6 +138,15 @@ class CasesController extends AppController
         $consultations = $this->Cases->Consultations->find('list', ['limit' => 200])->all();
         $advisorConsultations = $this->Cases->AdvisorConsultations->find('list', ['limit' => 200])->all();
         $this->set(compact('case', 'customers', 'opponents', 'consultations', 'advisorConsultations'));
+
+
+        $this->fetchTable('SelectionLists');
+        //$recentSelectionLists = $this -> SelectionLists ->find(all);
+       // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+        $cases = $this->fetchTable('SelectionLists')->getNamesByDataId('4');
+        $case_statuses =$this->fetchTable('SelectionLists')->getNamesByDataId('5');
+        $this->set(compact('cases', 'case_statuses'));
+
     }
 
     /**

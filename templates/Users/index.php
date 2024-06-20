@@ -21,10 +21,6 @@
                         <th><?= $this->Paginator->sort('電話番号') ?></th>
                         <th><?= $this->Paginator->sort('メールアドレス') ?></th>
                         <th><?= $this->Paginator->sort('弁護士番号') ?></th>
-                        <!-- <th><?= $this->Paginator->sort('creator_id') ?></th>
-                        <th><?= $this->Paginator->sort('created_at') ?></th>
-                        <th><?= $this->Paginator->sort('updater_id') ?></th>
-                        <th><?= $this->Paginator->sort('updated_at') ?></th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -35,10 +31,6 @@
                         <td><?= h($user->phone_number) ?></td>
                         <td><?= h($user->email) ?></td>
                         <td><?= $user->lawyer_no === null ? '' : $this->Number->format($user->lawyer_no) ?></td>
-                        <!-- <td><?= $user->creator ? h($user->creator->user_name) : '' ?></td>
-                        <td><?= h($user->created_at) ?></td>
-                        <td><?= $user->updater ? h($user->updater->user_name) : '' ?></td>
-                        <td><?= h($user->updated_at) ?></td> -->
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -14,6 +14,7 @@
             <div class="view-6"></div>
             <div class="text-wrapper-6"><?= __('新規案件追加') ?></div>
         </div>
+
     </div>
     <div class="detail-container">
         <div class="detail-content-area">
@@ -27,7 +28,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('case_kbn', __('案件区分')) ?></th>
-                            <td><?= $this->Form->control('case_kbn', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('case_kbn', ['options' => $cases , 'empty' => 'Select case']) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('customer_id', __('顧客')) ?></th>
@@ -84,7 +85,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('case_status_kbn', __('案件ステータス区分')) ?></th>
-                            <td><?= $this->Form->control('case_status_kbn', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('case_status_kbn', ['options' => $case_statuses, 'empty' => 'Select case_status']) ?></td>
                         </tr>
                         <tr>
                             <!-- <th><?= $this->Form->label('creator_id', __('Creator Id')) ?></th>

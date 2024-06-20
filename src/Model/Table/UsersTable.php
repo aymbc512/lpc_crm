@@ -39,6 +39,9 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('user_id');
         $this->setPrimaryKey('user_id');
+        //$this->setTable('selection_lists');
+        //$this->setPrimaryKey('id');
+
 
         $this->belongsTo('Creators', [
             'className' => 'Users',
@@ -49,6 +52,19 @@ class UsersTable extends Table
             'foreignKey' => 'updater_id',
         ]);
     }
+
+
+
+    // public function getNamesByDataId($data_id)
+    // {
+    //     $query = $this->find()
+    //                   ->select(['name'])
+    //                   ->where(['data_id' => $data_id]);
+
+    //     return $query->all();
+    // }
+
+
 
     /**
      * Default validation rules.
@@ -126,7 +142,7 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
         $rules->add($rules->existsIn(['creator_id'], 'Creators'), ['errorField' => 'creator_id']);
         $rules->add($rules->existsIn(['updater_id'], 'Updaters'), ['errorField' => 'updater_id']);
-
-        return $rules;
+            return $rules;   
     }
+
 }

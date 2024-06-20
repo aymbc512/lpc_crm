@@ -32,11 +32,11 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('department_kbn', __('所属部署区分')) ?></th>
-                            <td><?= $this->Form->control('department_kbn', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('department_kbn', ['options'=>$departments,'empty'=>'Select Department']) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('expertise_kbn', __('専門領域区分')) ?></th>
-                            <td><?= $this->Form->control('expertise_kbn', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('expertise_kbn', ['options'=>$expertises,'empty'=>'Select Expertise']) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('phone_number', __('電話番号')) ?></th>
@@ -50,29 +50,12 @@
                             <th><?= $this->Form->label('lawyer_no', __('弁護士番号')) ?></th>
                             <td><?= $this->Form->control('lawyer_no', ['label' => false]) ?></td>
                         </tr>
-                        <!-- <tr>
-                            <th><?= $this->Form->label('creator_id', __('Creator Id')) ?></th>
-                            <td><?= $this->Form->control('creator_id', ['label' => false]) ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= $this->Form->label('created_at', __('Created At')) ?></th>
-                            <td><?= $this->Form->control('created_at', ['empty' => true, 'label' => false]) ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= $this->Form->label('updater_id', __('Updater Id')) ?></th>
-                            <td><?= $this->Form->control('updater_id', ['options' => $users, 'empty' => true, 'label' => false]) ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= $this->Form->label('updated_at', __('Updated At')) ?></th>
-                            <td><?= $this->Form->control('updated_at', ['label' => false]) ?></td>
-                        </tr> -->
                     </table>
                 </fieldset>
                 <div class="detail-actions">
                     <?= $this->Form->button(__('保存'), ['class' => 'detail-action-button']) ?>
                 </div>
                 <?= $this->Form->end() ?>
-            </div>
-        </div>
+            </div> </div>
     </div>
 </div>

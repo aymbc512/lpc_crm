@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Controller\AppController;
+use App\Model\Table\UsersTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\Exception\NotFoundException;
+
 /**
  * Users Controller
  *
@@ -10,18 +15,21 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
+    
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index() 
     {
         $query = $this->Users->find()
             ->contain(['Creators', 'Updaters']); // エイリアスを使用して自己参照リレーションを含める
         $users = $this->paginate($query);
 
         $this->set(compact('users'));
+
+
     }
 
     /**
@@ -57,7 +65,20 @@ class UsersController extends AppController
     }
     $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
     $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
+
     $this->set(compact('user', 'creators', 'updaters'));
+
+    $this->set(compact('creators', 'updaters'));
+  
+   $this->fetchTable('SelectionLists');
+   //$recentSelectionLists = $this -> SelectionLists ->find(all);
+  // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+   $roles = $this->fetchTable('SelectionLists')->getNamesByDataId('1');
+   $departments =$this->fetchTable('SelectionLists')->getNamesByDataId('2');
+   $expertises = $this->fetchTable('SelectionLists')->getNamesByDataId('3');
+   $this->set(compact('roles', 'departments', 'expertises'));
+ 
+
 }
 
 
@@ -83,7 +104,21 @@ class UsersController extends AppController
         }
         $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
+
         $this->set(compact('user', 'creators', 'updaters'));
+
+        $this->set(compact('user'));
+
+
+        $this->fetchTable('SelectionLists');
+   //$recentSelectionLists = $this -> SelectionLists ->find(all);
+  // $this->set('SelectionLists',$this->SelectionLists->find('all'));
+   $roles = $this->fetchTable('SelectionLists')->getNamesByDataId('1');
+   $departments =$this->fetchTable('SelectionLists')->getNamesByDataId('2');
+   $expertises = $this->fetchTable('SelectionLists')->getNamesByDataId('3');
+   $this->set(compact('roles', 'departments', 'expertises'));
+
+
     }
 
     /**
@@ -155,5 +190,6 @@ class UsersController extends AppController
     }
     
 }
+
 
 

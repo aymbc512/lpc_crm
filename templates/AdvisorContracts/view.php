@@ -60,6 +60,8 @@
                     <tr>
                         <th><?= __('更新日') ?></th>
                         <td><?= h($advisorContract->updated_at) ?></td>
+                        <th><?= __('支払い方法区分') ?></th>
+                        <td><?= h($advisorContract->payment_method_kbn) ?></td>
                     </tr>
                 </table>
                 

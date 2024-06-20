@@ -23,7 +23,7 @@
                         echo $this->Form->control('consultation_name');
                         echo $this->Form->control('consultation_at', ['empty' => true]);
                         echo $this->Form->control('consultation_content');
-                        echo $this->Form->control('consultation_kbn');
+                        echo $this->Form->control('consultation_kbn',['options'=>$consultation_kbns,'empty'=>'Select Consultation_kbn']);
                         echo $this->Form->control('creator_id');
                         echo $this->Form->control('created_at', ['empty' => true]);
                         echo $this->Form->control('updater_id');
