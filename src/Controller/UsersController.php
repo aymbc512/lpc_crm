@@ -11,6 +11,7 @@ use Cake\Mailer\Mailer;
 use Cake\Utility\Security;
 use Cake\I18n\DateTime;
 use Cake\Routing\Router;
+use Cake\I18n\FrozenTime;
 
 /**
  * Users Controller
@@ -221,13 +222,18 @@ class UsersController extends AppController
 
 
 
-    public function requestPasswordReset()
+    public function requestPasswordReset($userId=null)
     {
         if ($this->request->is('post')) {
-            $email = $this->request->getData('email');
-            $user = $this->Users->findByEmail($email)->first();
+            $userId = $this->request->getData('user_id');
 
-            if ($user) {
+            $usersTable = $this->fetchTable('Users');
+           try{
+                $user = $usersTable->get($userId);
+            
+                if ($user) {
+                    
+                $email = $user->email;   
                 $token = Security::hash(Security::randomBytes(25), 'sha256', true);
                 $user->password_reset_token = $token;
                 $user->token_created_at = DateTime::now();
@@ -238,39 +244,69 @@ class UsersController extends AppController
                         'action' => 'resetPassword',
                         $token
                     ], true);
-
-                    // ここにメール送信のロジックを追加できます。現時点ではログにURLを記録
-                    \Cake\Log\Log::write('debug', 'Password reset URL: ' . $resetUrl);
-
-                    $this->Flash->success(__('パスワード再設定用のリンクが送信されました。送信されたリンクからパスワード再設定を行ってください'));
+                    $this->sendEmptyMail($email,$resetUrl);
                 } else {
-                    $this->Flash->error(__('パスワード再設定用のリンクを生成できませんでした。もう一度お試しください。'));
+                    $this->Flash->error(__('パスワード再設定用のトークンの保存に失敗しました。'));
                 }
             } else {
-                $this->Flash->error(__('無効なメールアドレスです'));
+                $this->Flash->error(__('無効なユーザーIDです。'));
             }
+        } catch (RecordNotFoundException $e) {
+            $this->Flash->error(__('無効なユーザーIDです。'));
+                }
+            }
+           }
+        
+                     
+    
+    
+
+ private function sendEmptyMail($email,$resetUrl)
+    {
+
+        $mailer = new Mailer('default');
+        
+        try{
+            \Cake\Log\Log::write('debug', 'Sending email to: ' . $email);
+             $result=$mailer
+            ->setTo($email)
+            ->setSubject('パスワード再設定')
+            ->deliver($resetUrl);
+
+            \Cake\Log\Log::write('debug', 'Email send result: ' . json_encode($result));
+            
+            if ($result) {
+                $this->Flash->success(__('パスワード再設定用のリンクを記載したメールを送信しました。'));
+            } else {
+            $this->Flash->error(__('メールの送信中にエラーが発生しました。'));
         }
+    } catch (MissingActionException $e) {
+        \Cake\Log\Log::write('error', 'Email send exception: ' . $e->getMessage());
+        $this->Flash->error(__('メールの送信中にエラーが発生しました。'));
     }
+  }
+
+        
 
     public function resetPassword($token = null)
     {
         if ($token) {
+            $expiryTime = new FrozenTime('-1 hours');
             $user = $this->Users->find('all')
-                ->where(['password_reset_token' => $token, 'token_created_at >' =>DateTime::now()->subHours(1)])
+                ->where(['password_reset_token' => $token, 'token_created_at >' => $expiryTime])
                 ->first();
-
+    
             if ($user) {
                 if ($this->request->is(['patch', 'post', 'put'])) {
                     $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'password']);
                     $user->password_reset_token = null;
                     $user->token_created_at = null;
-
+                    //更新者カラムに自分のユーザIDを入れる
+                    $user->updater_id = $user->id;
+    
                     if ($this->Users->save($user)) {
                         $this->Flash->success(__('パスワードが変更されました。'));
                         return $this->redirect(['action' => 'login']);
-                        //更新者カラムに自分のユーザIDを入れる
-                        
-
                     } else {
                         $this->Flash->error(__('パスワードを変更できませんでした。もう一度お試しください。'));
                     }
@@ -284,10 +320,11 @@ class UsersController extends AppController
             throw new NotFoundException(__('トークンが必要です。'));
         }
     }
+    
+
+
+
 }
-
-
-
 
 
     

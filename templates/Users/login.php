@@ -14,7 +14,7 @@
     }
 
     .login-container {
-        width: 75%;
+        width: 65%;
         padding: 40px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -31,6 +31,7 @@
         color: #333;
         font-size: 24px;
         margin-bottom: 20px;
+        margin-top:10px;
     }
 
     .login-container fieldset {
@@ -126,7 +127,7 @@
     <?= $this->Form->end() ?>
 
     <?= $this->Html->link("ユーザ追加", ['action' => 'add'], ['class' => 'link']) ?>
-    <?= $this->Html->link("パスワードを忘れた場合", ['action' => 'requestResetPassword'], ['class' => 'link']) ?>
+    <?= $this->Html->link("パスワードをお忘れの方はこちら", ['action' => 'requestPasswordReset'], ['class' => 'link']) ?>
 </div>
 </div>
 

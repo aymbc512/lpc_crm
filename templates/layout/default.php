@@ -17,7 +17,7 @@
 $cakeDescription = 'CakePHP: the rapid development php framework';
 
 // メニューバーを表示しないアクションを指定
-$noMenuActions = ['login', 'forgotPassword', 'resetPassword']; // ここにメニューバーを表示しないアクションを追加
+$noMenuActions = ['login', 'requestPasswordReset', 'resetPassword']; // ここにメニューバーを表示しないアクションを追加
 $action = $this->request->getParam('action');
 ?>
 <!DOCTYPE html>

@@ -102,4 +102,4 @@ return function (RouteBuilder $routes): void {
 };
 
 
-$routes->connect('/users/send-mail', ['controller' => 'Mails', 'action' => 'send']);
+$routes->connect( '/',['controller' => 'Users', 'action' => 'requestPasswordReset']);
