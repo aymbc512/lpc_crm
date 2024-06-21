@@ -270,6 +270,7 @@ class UsersController extends AppController
                         return $this->redirect(['action' => 'login']);
                         //更新者カラムに自分のユーザIDを入れる
                         
+
                     } else {
                         $this->Flash->error(__('パスワードを変更できませんでした。もう一度お試しください。'));
                     }

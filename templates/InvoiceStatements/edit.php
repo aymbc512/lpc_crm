@@ -6,36 +6,42 @@
  * @var string[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $invoiceStatement->invoice_statement_id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $invoiceStatement->invoice_statement_id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Invoice Statements'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<div class="desktop detail-view">
+    <div class="overlap-wrapper">
+        <div class="overlap-2">
+            <div class="view-6"></div>
+            <div class="text-wrapper-6">明細情報編集</div>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="invoiceStatements form content">
-            <?= $this->Form->create($invoiceStatement) ?>
-            <fieldset>
-                <legend><?= __('Edit Invoice Statement') ?></legend>
-                <?php
-                    echo $this->Form->control('invoice_statement_item');
-                    echo $this->Form->control('invoice_statement_amount');
-                    echo $this->Form->control('invoice_statement_tax');
-                    echo $this->Form->control('invoice_id', ['options' => $invoices, 'empty' => true]);
-                    echo $this->Form->control('creator_id');
-                    echo $this->Form->control('created_at', ['empty' => true]);
-                    echo $this->Form->control('updater_id', ['options' => $users, 'empty' => true]);
-                    echo $this->Form->control('updated_at');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+    </div>
+    <div class="detail-container">
+        <div class="detail-content-area">
+            <div class="detail-content-frame">
+                <?= $this->Form->create($invoiceStatement) ?>
+                <fieldset>
+                    <table class="form-table">
+                        <tr>
+                            <th><?= $this->Form->label('invoice_statement_item', __('請求項目')) ?></th>
+                            <td><?= $this->Form->control('invoice_statement_item', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('invoice_statement_amount', __('金額')) ?></th>
+                            <td><?= $this->Form->control('invoice_statement_amount', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('invoice_statement_tax', __('消費税')) ?></th>
+                            <td><?= $this->Form->control('invoice_statement_tax', ['label' => false]) ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $this->Form->label('invoice_id', __('請求')) ?></th>
+                            <td><?= $this->Form->control('invoice_id', ['options' => $invoices, 'empty' => true, 'label' => false]) ?></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <div class="detail-actions">
+                    <?= $this->Form->button(__('保存'), ['class' => 'detail-action-button']) ?>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
 </div>

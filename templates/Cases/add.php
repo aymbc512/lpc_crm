@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('case_kbn', __('案件区分')) ?></th>
-                            <td><?= $this->Form->control('case_kbn', ['options' => $cases , 'empty' => 'Select case']) ?></td>
+                            <td><?= $this->Form->control('case_kbn', ['options' => $cases , 'empty' => 'Select case','label' => false]) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('customer_id', __('顧客')) ?></th>
@@ -85,7 +85,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('case_status_kbn', __('案件ステータス区分')) ?></th>
-                            <td><?= $this->Form->control('case_status_kbn', ['options' => $case_statuses, 'empty' => 'Select case_status']) ?></td>
+                            <td><?= $this->Form->control('case_status_kbn', ['options' => $case_statuses, 'empty' => 'Select case_status','label' => false]) ?></td>
                         </tr>
                         <tr>
                             <!-- <th><?= $this->Form->label('creator_id', __('Creator Id')) ?></th>
