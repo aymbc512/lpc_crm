@@ -100,3 +100,6 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/search', ['controller' => 'AdvisorContracts', 'action' => 'search']);
     });
 };
+
+
+$routes->connect('/users/send-mail', ['controller' => 'Mails', 'action' => 'send']);
