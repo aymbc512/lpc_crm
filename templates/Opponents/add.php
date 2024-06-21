@@ -52,7 +52,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('関係者区分') ?></th>
-                            <td><?= $this->Form->control('関係者区分', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('関係者区分',['type' => 'select','options'=>$stakeholder_kbns,'empty'=>'Select Stakeholder_kbn'] ) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('主任弁護士') ?></th>

@@ -26,7 +26,7 @@
                     echo $this->Form->control('adress_below');
                     echo $this->Form->control('phone_number');
                     echo $this->Form->control('email');
-                    echo $this->Form->control('stakeholder_kbn');
+                    echo $this->Form->control('stakeholder_kbn',['type' => 'select','options'=>$stakeholder_kbns,'empty'=>'Select Stakeholder_kbn']);
                     echo $this->Form->control('client');
                     echo $this->Form->control('opponent');
                     echo $this->Form->control('lawyer_id');

@@ -25,7 +25,7 @@
                     echo $this->Form->control('invoice_at', ['empty' => true]);
                     echo $this->Form->control('invoice_deadline_at', ['empty' => true]);
                     echo $this->Form->control('invoice_amount');
-                    echo $this->Form->control('invoice_status_kbn');
+                    echo $this->Form->control('invoice_status_kbn',['options'=>$invoice_status_kbns,'empty'=>'Select Invoice_status_kbn']);
                     echo $this->Form->control('invoice_creation_at', ['empty' => true]);
                     echo $this->Form->control('invoice_updated_at', ['empty' => true]);
                     echo $this->Form->control('invoice_payment_at', ['empty' => true]);

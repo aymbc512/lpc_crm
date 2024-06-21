@@ -94,6 +94,12 @@ class InvoicesController extends AppController
         $creators = $this->Invoices->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Invoices->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('invoice', 'cases', 'clients', 'advisorContracts', 'creators', 'updaters'));
+
+    
+        $this->fetchTable('SelectionLists');
+        $invoice_status_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('11');
+        $this->set(compact('invoice_status_kbns'));
+
     }
 
     /**
@@ -122,6 +128,11 @@ class InvoicesController extends AppController
         $creators = $this->Invoices->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Invoices->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('invoice', 'cases', 'clients', 'advisorContracts', 'creators', 'updaters'));
+
+        $this->fetchTable('SelectionLists');
+        $invoice_status_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('11');
+        $this->set(compact('invoice_status_kbns'));
+
     }
 
     /**

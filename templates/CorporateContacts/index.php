@@ -15,7 +15,7 @@
                     <th><?= $this->Paginator->sort('name') ?></th>
                     <th><?= $this->Paginator->sort('email') ?></th>
                     <th><?= $this->Paginator->sort('phone_number') ?></th>
-                    <th><?= $this->Paginator->sort('corporate_contact_position_kbn') ?></th>
+                    <th><?= $this->Paginator->sort('corporate_contact_position_kbn',['options'=>$corporate_contact_position_kbns,'empty'=>'Select Corporate_contact_position_kbn']) ?></th>
                     <th><?= $this->Paginator->sort('stakeholder_id') ?></th>
                     <th><?= $this->Paginator->sort('case_id') ?></th>
                     <th><?= $this->Paginator->sort('creator_id') ?></th>

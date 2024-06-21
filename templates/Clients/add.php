@@ -52,7 +52,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('stakeholder_kbn', __('関係者区分')) ?></th>
-                            <td><?= $this->Form->control('stakeholder_kbn', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('stakeholder_kbn',['label' => false,'options'=>$stakeholder_kbns,'empty'=>'Select Stakeholder_kbn']) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('lawyer_id', __('主任弁護士')) ?></th>

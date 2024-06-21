@@ -23,7 +23,7 @@
                     echo $this->Form->control('name');
                     echo $this->Form->control('email');
                     echo $this->Form->control('phone_number');
-                    echo $this->Form->control('corporate_contact_position_kbn');
+                    echo $this->Form->control('corporate_contact_position_kbn',['options'=>$corporate_contact_position_kbns,'empty'=>'Select Corporate_contact_position_kbn']);
                     echo $this->Form->control('corporate_contact_remarks');
                     echo $this->Form->control('stakeholder_id', ['options' => $stakeholders, 'empty' => true]);
                     echo $this->Form->control('case_id', ['options' => $cases, 'empty' => true]);

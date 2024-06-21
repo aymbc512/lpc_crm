@@ -54,6 +54,11 @@ class OpponentsController extends AppController
             $this->Flash->error(__('The opponent could not be saved. Please, try again.'));
         }
         $this->set(compact('opponent'));
+
+        $this->fetchTable('SelectionLists');
+        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+        $this->set(compact('stakeholder_kbns'));
+
     }
 
     /**
@@ -76,6 +81,11 @@ class OpponentsController extends AppController
             $this->Flash->error(__('The opponent could not be saved. Please, try again.'));
         }
         $this->set(compact('opponent'));
+
+        $this->fetchTable('SelectionLists');
+        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+        $this->set(compact('stakeholder_kbns'));
+
     }
 
     /**

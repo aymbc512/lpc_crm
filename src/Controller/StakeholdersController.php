@@ -56,6 +56,12 @@ class StakeholdersController extends AppController
         }
         $users = $this->Stakeholders->Users->find('list', limit: 200)->all();
         $this->set(compact('stakeholder', 'users'));
+
+
+        
+        $this->fetchTable('SelectionLists');
+        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+        $this->set(compact('stakeholder_kbns'));
     }
 
     /**
@@ -79,6 +85,12 @@ class StakeholdersController extends AppController
         }
         $users = $this->Stakeholders->Users->find('list', limit: 200)->all();
         $this->set(compact('stakeholder', 'users'));
+
+
+        $this->fetchTable('SelectionLists');
+        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+    
+        $this->set(compact('stakeholder_kbns'));
     }
 
     /**

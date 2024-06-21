@@ -103,6 +103,10 @@ class ClientsController extends AppController
             $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
         $this->set(compact('client'));
+
+        $this->fetchTable('SelectionLists');
+        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+        $this->set(compact('stakeholder_kbns'));
     }
 
     /**
@@ -125,6 +129,10 @@ class ClientsController extends AppController
             $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
         $this->set(compact('client'));
+
+        $this->fetchTable('SelectionLists');
+        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+        $this->set(compact('stakeholder_kbns'));
     }
 
     /**

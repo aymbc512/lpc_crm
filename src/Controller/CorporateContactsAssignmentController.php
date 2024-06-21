@@ -85,6 +85,16 @@ class CorporateContactsAssignmentController extends AppController
         $creators = $this->CorporateContactsAssignment->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->CorporateContactsAssignment->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('corporateContactsAssignment', 'corporateContacts', 'cases', 'consultations', 'advisorConsultations', 'creators', 'updaters'));
+
+
+
+        $this->fetchTable('SelectionLists');
+            $corporateContacts = $this->fetchTable('SelectionLists')->getNamesByDataId('8');
+            $this->set(compact('corporateContacts'));
+
+
+
+
     }
 
     /**
@@ -117,6 +127,13 @@ class CorporateContactsAssignmentController extends AppController
         $creators = $this->CorporateContactsAssignment->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->CorporateContactsAssignment->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('corporateContactsAssignment', 'corporateContacts', 'cases', 'consultations', 'advisorConsultations', 'creators', 'updaters'));
+
+
+        $this->fetchTable('SelectionLists');
+            $corporateContacts = $this->fetchTable('SelectionLists')->getNamesByDataId('8');
+            $this->set(compact('corporateContacts'));
+
+
     }
 
     /**

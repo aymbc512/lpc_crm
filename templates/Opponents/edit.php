@@ -20,7 +20,7 @@
                     echo $this->Form->control('以下住所');
                     echo $this->Form->control('電話番号');
                     echo $this->Form->control('メールアドレス');
-                    echo $this->Form->control('関係者区分');
+                    echo $this->Form->control('関係者区分',['type' => 'select','options'=>$stakeholder_kbns,'empty'=>'Select Stakeholder_kbn']);
                     echo $this->Form->control('顧客', ['type' => 'hidden', 'value' => 0]);
                     echo $this->Form->control('対立相手', ['type' => 'hidden', 'value' => 1]);
                     echo $this->Form->control('主任弁護士');

@@ -58,6 +58,13 @@ class CorporateContactsController extends AppController
         $cases = $this->CorporateContacts->Cases->find('list', limit: 200)->all();
         $users = $this->CorporateContacts->Users->find('list', limit: 200)->all();
         $this->set(compact('corporateContact', 'stakeholders', 'cases', 'users'));
+
+
+        $this->fetchTable('SelectionLists');
+        $corporate_contact_position_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('10');
+        $this->set(compact('corporate_contact_position_kbn'));
+
+
     }
 
     /**
@@ -83,6 +90,12 @@ class CorporateContactsController extends AppController
         $cases = $this->CorporateContacts->Cases->find('list', limit: 200)->all();
         $users = $this->CorporateContacts->Users->find('list', limit: 200)->all();
         $this->set(compact('corporateContact', 'stakeholders', 'cases', 'users'));
+
+        $this->fetchTable('SelectionLists');
+        $corporate_contact_position_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('10');
+        $this->set(compact('corporate_contact_position_kbn'));
+
+
     }
 
     /**

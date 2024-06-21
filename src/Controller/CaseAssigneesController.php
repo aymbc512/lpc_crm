@@ -65,6 +65,12 @@ class CaseAssigneesController extends AppController
         ])->all();
         $caseId = $this->request->getQuery('case_id');
         $this->set(compact('caseAssignee', 'users', 'caseId'));
+
+
+        $this->fetchTable('SelectionLists');
+        $case_role_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('9');
+        $this->set(compact('case_role_kbns'));
+
     }
 
     /**
@@ -96,6 +102,11 @@ class CaseAssigneesController extends AppController
         ])->all();
         $cases = $this->CaseAssignees->Cases->find('list', ['limit' => 200])->all();
         $this->set(compact('caseAssignee', 'users', 'cases'));
+
+        $this->fetchTable('SelectionLists');
+        $case_role_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('9');
+        $this->set(compact('case_role_kbns'));
+
     }
 
     /**

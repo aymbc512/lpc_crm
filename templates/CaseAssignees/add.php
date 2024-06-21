@@ -20,7 +20,7 @@
                 <legend><?= __('Add Case Assignee') ?></legend>
                 <?php
                     echo $this->Form->control('lawyer_id', ['options' => $users, 'empty' => true, 'label' => 'Lawyer']);
-                    echo $this->Form->control('case_role_kbn');
+                    echo $this->Form->control('case_role_kbn',['options'=>$case_role_kbns,'empty'=>'Select Case_role_kbn']);
                     echo $this->Form->hidden('case_id', ['value' => $caseId]);
                     // creator_id と updater_id は setAuditFields メソッドで自動設定されるため、フォームで入力する必要はなし
                 ?>

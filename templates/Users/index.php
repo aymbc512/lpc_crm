@@ -11,6 +11,24 @@
             <div class="text-wrapper-6">ユーザ一覧</div>
         </div>
     </div>
+
+    <div class="overlap">
+        <div class="search-container">
+           <?= $this->Form->create(null, ['type' => 'get', 'url' => ['action' => 'search'], 'class' => 'search-form']) ?>
+            <fieldset>
+            <?= $this->Form->control('user_name', ['label' => false, 'value' => $this->request->getQuery('user_name'), 'placeholder' => '従業員名', 'class' => 'search-input']) ?>
+             <?= $this->Form->control('role_kbn', ['label' => false, 'value' => $this->request->getQuery('role_kbn'), 'placeholder' => '属性', 'class' => 'search-input']) ?>
+            </fieldset>
+           <div class="button-group">
+                <?= $this->Html->link(__('絞込解除'), ['action' => 'index'], ['class' => 'clear-link']) ?>
+                <?= $this->Form->button(__('検索'), ['class' => 'search-button']) ?>
+            </div>
+            <?= $this->Form->end() ?>
+        </div>
+     </div>
+   
+
+
     <div class="frame">
         <div class="custom-table-container">
             <table class="custom-table">

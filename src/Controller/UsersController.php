@@ -51,6 +51,32 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
+
+    public function search()
+    {
+
+        $user_name = $this->request->getQuery('user_name');
+        $role_kbn = $this->request->getQuery('role_kbn');
+
+        $query = $this->Users->find();
+
+
+         if (!empty($user_name)) {
+             $query->where(['Users.user_name LIKE' => '%' . $user_name . '%']);
+             }
+        if (!empty($role_kbn)) {
+            $query->where(['Users.role_kbn LIKE' => '%' . $role_kbn . '%']);
+            }    
+        // ページネーション
+        $users = $this->paginate($query);
+        $this->set(compact('users'));
+        $this->render('index'); // index ビューを使用
+     }
+
+
+            
+
+
     /**
      * Add method
      *
