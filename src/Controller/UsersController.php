@@ -75,6 +75,8 @@ class UsersController extends AppController
     $this->set(compact('creators', 'updaters'));
   
    $this->fetchTable('SelectionLists');
+   //$recentSelectionLists = $this -> SelectionLists ->find(all);
+  // $this->set('SelectionLists',$this->SelectionLists->find('all'));
    $roles = $this->fetchTable('SelectionLists')->getNamesByDataId('1');
    $departments =$this->fetchTable('SelectionLists')->getNamesByDataId('2');
    $expertises = $this->fetchTable('SelectionLists')->getNamesByDataId('3');
@@ -236,7 +238,6 @@ class UsersController extends AppController
                     $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'password']);
                     $user->password_reset_token = null;
                     $user->token_created_at = null;
-                    $user->updater_id = $user->id; 
 
                     if ($this->Users->save($user)) {
                         $this->Flash->success(__('パスワードが変更されました。'));
