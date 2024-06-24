@@ -54,7 +54,7 @@
                         <td><?= h($consultation->consultation_at) ?></td>
                         <td><?= $consultation->hasValue('client') ? $this->Html->link($consultation->client->name, ['controller' => 'Clients', 'action' => 'view', $consultation->client->stakeholder_id]) : '' ?></td>
                         <td><?= h($consultation->consultation_kbn) ?></td>
-                        <td><?= h($consultation->lawyer_id) ?></td>
+                        <td><?= $consultation->hasValue('lawyer') ? $this->Html->link($consultation->lawyer->user_name, ['controller' => 'Users', 'action' => 'view', $consultation->lawyer->user_id]) : '' ?></td>
                         <!-- <td><?= h($consultation->creator_id) ?></td>
                         <td><?= h($consultation->created_at) ?></td>
                         <td><?= $consultation->hasValue('user') ? $this->Html->link($consultation->user->user_id, ['controller' => 'Users', 'action' => 'view', $consultation->user->user_id]) : '' ?></td>

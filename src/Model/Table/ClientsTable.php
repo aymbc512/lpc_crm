@@ -25,7 +25,7 @@ class ClientsTable extends Table
         parent::initialize($config);
 
         // Set table to stakeholders
-        $this->setTable('stakeholders');
+        $this->setTable('Stakeholders');
         $this->setDisplayField('name');
         $this->setPrimaryKey('stakeholder_id');
 
@@ -36,14 +36,33 @@ class ClientsTable extends Table
 
         // Add associations
         $this->hasMany('Cases', [
-            'foreignKey' => 'customer_id',
+            'foreignKey' => 'case_id',
+        ]);
+        $this->belongsTo('Clients', [
+            'className' => 'Stakeholders',
+            'foreignKey' => 'stakeholder_id',
         ]);
         $this->hasMany('AdvisorContracts', [
-            'foreignKey' => 'customer_id',
+            'foreignKey' => 'advisorcontract_id',
         ]);
         $this->hasMany('Invoices', [
-            'foreignKey' => 'customer_id',
+            'foreignKey' => 'invoice_id',
         ]);
+        
+        $this->belongsTo('Lawyers', [
+            'className' => 'Users',
+            'foreignKey' => 'lawyer_id',
+        ]);
+        
+        $this->belongsTo('Creators', [
+            'className' => 'Users',
+            'foreignKey' => 'creator_id',
+        ]);
+        $this->belongsTo('Updaters', [
+            'className' => 'Users',
+            'foreignKey' => 'updater_id',
+        ]);
+       
     }
 
     /**
