@@ -78,7 +78,7 @@
                 <div class="detail-related-section">
                     <h4><?= __('関連する明細') ?></h4>
                     <div class="add-button-container">
-                        <?= $this->Html->link(__('追加'), ['controller' => 'InvoiceStatements', 'action' => 'add', $invoice->invoice_id], ['class' => 'add-button']) ?>
+                        <?= $this->Html->link(__('追加'), ['controller' => 'InvoiceStatements', 'action' => 'add', $invoice->invoice_id], ['class' => 'detail-add-button']) ?>
                     </div>
                     <?php if (!empty($invoice->invoice_statements)) : ?>
                     <table class="detail-data-table">

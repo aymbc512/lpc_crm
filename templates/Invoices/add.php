@@ -13,34 +13,6 @@
             <div class="view-6"></div>
             <div class="text-wrapper-6"><?= __('新規請求追加') ?></div>
         </div>
-<<<<<<< HEAD
-    </aside>
-    <div class="column column-80">
-        <div class="invoices form content">
-            <?= $this->Form->create($invoice) ?>
-            <fieldset>
-                <legend><?= __('Add Invoice') ?></legend>
-                <?php
-                    echo $this->Form->control('invoice_adress');
-                    echo $this->Form->control('invoice_at', ['empty' => true]);
-                    echo $this->Form->control('invoice_deadline_at', ['empty' => true]);
-                    echo $this->Form->control('invoice_amount');
-                    echo $this->Form->control('invoice_status_kbn',['options'=>$invoice_status_kbns,'empty'=>'Select Invoice_status_kbn']);
-                    echo $this->Form->control('invoice_creation_at', ['empty' => true]);
-                    echo $this->Form->control('invoice_updated_at', ['empty' => true]);
-                    echo $this->Form->control('invoice_payment_at', ['empty' => true]);
-                    echo $this->Form->control('case_id', ['options' => $cases, 'empty' => true]);
-                    echo $this->Form->control('stakeholder_id', ['options' => $clients, 'empty' => true]);
-                    echo $this->Form->control('advisor_contract_id', ['options' => $advisorContracts, 'empty' => true, 'default' => $invoice->advisor_contract_id]);
-                    echo $this->Form->control('creator_id', ['type' => 'hidden', 'value' => $invoice->creator_id]);
-                    echo $this->Form->control('created_at', ['type' => 'hidden', 'value' => $invoice->created_at]);
-                    echo $this->Form->control('updater_id', ['type' => 'hidden', 'value' => $invoice->updater_id]);
-                    echo $this->Form->control('updated_at', ['type' => 'hidden', 'value' => $invoice->updated_at]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-=======
     </div>
     <div class="detail-container">
         <div class="detail-content-area">
@@ -62,7 +34,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('invoice_status_kbn', __('請求ステータス区分')) ?></th>
-                            <td><?= $this->Form->control('invoice_status_kbn', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('invoice_status_kbn',['options'=>$invoice_status_kbns,'empty'=>'Select Invoice_status_kbn','label' => false]) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('invoice_creation_at', __('請求書作成日')) ?></th>
@@ -95,7 +67,6 @@
                 </div>
                 <?= $this->Form->end() ?>
             </div>
->>>>>>> 3973253c07e3a1c3fb7c2eb877ea758a028a85af
         </div>
     </div>
 </div>

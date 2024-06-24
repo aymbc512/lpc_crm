@@ -90,22 +90,27 @@ body.detail-view {
 }
 
 .detail-add-button {
-    background-color: #00BFFF;
-    color: #3c3c3c;
-    padding: 2px 6px;
-    border-radius: 16px;
+    display: block;
+    width: 10%; /* サイズを調整 */
+    height:7%;
+    background-color:#00BFFF;
+    font-size: 30px; /* サイズを調整 */
     text-align: center;
+    color: #3c3c3c; /* 濃いグレー */
+    line-height: 260%; /* サイズを調整 */
     text-decoration: none;
+    border-radius: 16px;
     box-shadow: 1px 4px 4px #00000040;
 }
 
-.add-button:hover {
+
+.detail-add-button:hover {
     background-color: #104e8b;
     color: #ffffff;
 }
 
 .detail-data-table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
     font-size: 20px;
 }

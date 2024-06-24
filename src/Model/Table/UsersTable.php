@@ -152,13 +152,13 @@ class UsersTable extends Table
             ->requirePresence('password', 'create')
             ->notEmptyString('password')
             ->add('password', [
-                'length' => [
-                    'rule' => ['minLength', 8],
-                    'message' => 'パスワードは8文字以上でなければなりません。',
-                ]
+                'rule' => function ($value, $context) {
+                    // Check if the password is at least 8 characters long and contains both letters and numbers
+                    return preg_match('/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/', $value);
+                },
+                'message' => 'パスワードは文字と数字の両方を含む8文字以上でなければなりません。',
             ]);
-
+    
         return $validator;
     }
-
 }

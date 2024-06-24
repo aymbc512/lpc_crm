@@ -64,11 +64,11 @@
                         <td><?= h($advisorContract->payment_method_kbn) ?></td>
                     </tr>
                 </table>
-                
+                </div>
                 <div class="detail-related-section">
                     <h4><?= __('関連する顧問相談一覧') ?></h4>
                     <div class="add-button-container">
-                        <?= $this->Html->link(__('追加'), ['controller' => 'AdvisorConsultations', 'action' => 'add', 'advisor_contract_id' => $advisorContract->advisor_contracts_id], ['class' => 'add-button']) ?>
+                        <?= $this->Html->link(__('追加'), ['controller' => 'AdvisorConsultations', 'action' => 'add', 'advisor_contract_id' => $advisorContract->advisor_contracts_id], ['class' => 'detail-add-button']) ?>
                     </div>
                     <?php if (!empty($advisorContract->advisor_consultations)) : ?>
                     <table class="detail-data-table">
@@ -100,7 +100,7 @@
                 <div class="detail-related-section">
                     <h4><?= __('関連する請求一覧') ?></h4>
                     <div class="add-button-container">
-                        <?= $this->Html->link(__('追加'), ['controller' => 'Invoices', 'action' => 'add', 'advisor_contract_id' => $advisorContract->advisor_contracts_id], ['class' => 'add-button']) ?>
+                        <?= $this->Html->link(__('追加'), ['controller' => 'Invoices', 'action' => 'add', 'advisor_contract_id' => $advisorContract->advisor_contracts_id], ['class' => 'detail-add-button']) ?>
                     </div>
                     <?php if (!empty($advisorContract->invoices)) : ?>
                     <table class="detail-data-table">
@@ -127,5 +127,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 </div>

@@ -151,12 +151,6 @@ body {
     margin-top : 2%
 }
 
-.add-button {
-    display: block;
-    width: 50%; /* サイズを調整 */
-    height: 100%; /* サイズを調整 */
-    background-color:#00BFFF;
-}
 
 .add-button {
     display: block;

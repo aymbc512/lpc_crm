@@ -31,8 +31,15 @@ class UsersController extends AppController
         $query = $this->Users->find()
             ->contain(['Creators', 'Updaters']); // エイリアスを使用して自己参照リレーションを含める
         $users = $this->paginate($query);
+         // SelectionLists テーブルから役割のリストを取得
+    $roles = $this->fetchTable('SelectionLists')->getNamesByDataId('1');
+    
+    // ユーザー一覧を取得
+    $query = $this->Users->find();
+    $users = $this->paginate($query);
 
-        $this->set(compact('users'));
+    // ビューに変数を渡す
+    $this->set(compact('users', 'roles'));
 
 
     }
@@ -50,29 +57,42 @@ class UsersController extends AppController
             'contain' => ['Creators', 'Updaters'], // エイリアスを使用して自己参照リレーションを含める
         ]);
         $this->set(compact('user'));
+        
     }
 
 
     public function search()
-    {
-
-        $user_name = $this->request->getQuery('user_name');
-        $role_kbn = $this->request->getQuery('role_kbn');
-
-        $query = $this->Users->find();
-
-
-         if (!empty($user_name)) {
-             $query->where(['Users.user_name LIKE' => '%' . $user_name . '%']);
-             }
-        if (!empty($role_kbn)) {
-            $query->where(['Users.role_kbn LIKE' => '%' . $role_kbn . '%']);
-            }    
-        // ページネーション
-        $users = $this->paginate($query);
-        $this->set(compact('users'));
-        $this->render('index'); // index ビューを使用
+{
+    // SelectionLists テーブルから役割のリストを取得
+    $roles = $this->fetchTable('SelectionLists')->getNamesByDataId('1');
+     // 役割のリストがnullであれば空の配列を設定
+     if (is_null($roles)) {
+        $roles = [];
      }
+    
+    // クエリパラメータを取得
+    $user_name = $this->request->getQuery('user_name');
+    $role_kbn = $this->request->getQuery('role_kbn');
+
+    // クエリの初期化
+    $query = $this->Users->find();
+
+    // 条件をクエリに追加
+    if (!empty($user_name)) {
+        $query->where(['Users.user_name LIKE' => '%' . $user_name . '%']);
+    }
+    if (!empty($role_kbn)) {
+        $query->where(['Users.role_kbn' => $role_kbn]);
+    }
+
+    // ページネーション
+    $users = $this->paginate($query);
+
+    // ビューに変数を渡す
+    $this->set(compact('users', 'roles'));
+    $this->render('index'); // index ビューを使用
+}
+
 
 
             
@@ -302,7 +322,7 @@ class UsersController extends AppController
                     $user->password_reset_token = null;
                     $user->token_created_at = null;
                     //更新者カラムに自分のユーザIDを入れる
-                    $user->updater_id = $user->id;
+                    $user->updater_id = $user->user_id;
     
                     if ($this->Users->save($user)) {
                         $this->Flash->success(__('パスワードが変更されました。'));
@@ -320,9 +340,6 @@ class UsersController extends AppController
             throw new NotFoundException(__('トークンが必要です。'));
         }
     }
-    
-
-
 
 }
 
