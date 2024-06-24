@@ -5,13 +5,15 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\ORM\Entity;
+use Cake\I18n\FrozenTime;
+
 
 class CommonController extends Controller
 {
     public function initialize(): void
     {
         parent::initialize();
-        $this->loadComponent('Auth');
+        $this->loadComponent('Authentication.Authentication');
     }
 
     /**
@@ -23,9 +25,10 @@ class CommonController extends Controller
      */
     public function setAuditFields(Entity $entity, bool $isNew = true): void
     {
-        $userId = $this->Auth->user('id');
-        $currentDateTime = date('Y-m-d H:i:s');
-        
+        $user = $this->request->getAttribute('identity');
+        $userId = $user ? $user->getIdentifier() : null;
+        $currentDateTime = FrozenTime::now();
+
         if ($isNew) {
             if ($entity->has('creator_id')) {
                 $entity->set('creator_id', $userId);
@@ -34,7 +37,7 @@ class CommonController extends Controller
                 $entity->set('created_at', $currentDateTime);
             }
         }
-        
+
         if ($entity->has('updater_id')) {
             $entity->set('updater_id', $userId);
         }

@@ -22,7 +22,7 @@
                     </tr>
                     <tr>
                         <th><?= __('顧客') ?></th>
-                        <td><?= $invoice->hasValue('client') ? $this->Html->link($invoice->client->name, ['controller' => 'Clients', 'action' => 'view', $invoice->client->client_id]) : '' ?></td>
+                        <td><?= $invoice->hasValue('client') ? $this->Html->link($invoice->client->name, ['controller' => 'Clients', 'action' => 'view', $invoice->client->stakeholder_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('顧問契約') ?></th>
@@ -78,7 +78,7 @@
                 <div class="detail-related-section">
                     <h4><?= __('関連する明細') ?></h4>
                     <div class="add-button-container">
-                        <?= $this->Html->link(__('追加'), ['controller' => 'InvoiceStatements', 'action' => 'add', $invoice->invoice_id], ['class' => 'add-button']) ?>
+                        <?= $this->Html->link(__('追加'), ['controller' => 'InvoiceStatements', 'action' => 'add', $invoice->invoice_id], ['class' => 'detail-add-button']) ?>
                     </div>
                     <?php if (!empty($invoice->invoice_statements)) : ?>
                     <table class="detail-data-table">

@@ -78,7 +78,7 @@ class AdvisorContractsController extends AppController
     public function view($id = null)
     {
         $advisorContract = $this->AdvisorContracts->get($id, [
-            'contain' => ['Lawyers', 'Clients', 'Consultations', 'AdvisorConsultations', 'Invoices']
+            'contain' => ['Lawyers', 'Paralegals','Clients', 'Consultations', 'AdvisorConsultations', 'Invoices','Creators', 'Updaters']
         ]);
 
         $this->set(compact('advisorContract'));

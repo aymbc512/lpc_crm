@@ -30,7 +30,7 @@
                     </tr>
                     <tr>
                         <th><?= __('顧客名') ?></th>
-                        <td><?= $consultation->hasValue('client') ? $this->Html->link($consultation->client->name, ['controller' => 'Clients', 'action' => 'view', $consultation->client->client_id]) : '' ?></td>
+                        <td><?= $consultation->hasValue('client') ? $this->Html->link($consultation->client->name, ['controller' => 'Clients', 'action' => 'view', $consultation->client->stakeholder_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('担当弁護士') ?></th>
