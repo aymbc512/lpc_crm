@@ -35,7 +35,7 @@ class AdvisorContractsController extends AppController
      */
     public function index()
     {
-        $advisorContracts = $this->paginate($this->AdvisorContracts->find()->contain(['Lawyers', 'Clients', 'Consultations']));
+        $advisorContracts = $this->paginate($this->AdvisorContracts->find()->contain(['Lawyers', 'Clients', 'Consultations','Paralegals']));
 
         $this->set(compact('advisorContracts'));
     }
@@ -78,7 +78,7 @@ class AdvisorContractsController extends AppController
     public function view($id = null)
     {
         $advisorContract = $this->AdvisorContracts->get($id, [
-            'contain' => ['Lawyers', 'Paralegals','Clients', 'Consultations', 'AdvisorConsultations', 'Invoices','Creators', 'Updaters']
+            'contain' => ['Lawyers', 'Clients', 'Consultations', 'AdvisorConsultations', 'Invoices','Creators','Updaters','Paralegals']
         ]);
 
         $this->set(compact('advisorContract'));

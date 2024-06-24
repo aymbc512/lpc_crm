@@ -20,9 +20,13 @@ class ClientsController extends AppController
     public function index()
     {
         // Clientsテーブルを使ってクエリを実行
-        $clients = $this->paginate($this->Clients->find()->where(['client' => 1]));
+       
 
-        $this->set(compact('clients'));
+        
+    $clients = $this->paginate($this->Clients->find()
+    ->where(['client' => 1])
+    ->contain(['Lawyers', 'Cases','Invoices','Lawyers','Creators','Updaters']));
+    $this->set(compact('clients'));
     }
 
     /**
@@ -72,18 +76,14 @@ class ClientsController extends AppController
      */
     public function view($id = null)
     {
-        $client = $this->Clients->get($id, [
-            'contain' => [
-                'Cases',
-                'AdvisorContracts' => ['Consultations', 'Lawyers', 'Paralegals', 'Creators', 'Updaters'],
-                'Cases.Invoices',
-                'AdvisorContracts.Invoices'
-            ]
-        ]);
-    
-        $this->set(compact('client'));
+        $client = $this->Clients->get($id,[
+   
+    'contain' => ['Lawyers', 'Cases','Invoices','Lawyers','Creators','Updaters']
+    ]);
+    $this->set(compact('client'));
     }
     
+       
 
     /**
      * Add method

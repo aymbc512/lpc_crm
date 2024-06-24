@@ -17,7 +17,7 @@
                 <table class="detail-table">
                     <tr>
                         <th><?= __('顧客名') ?></th>
-                        <td><?= $advisorContract->hasValue('client') ? $this->Html->link($advisorContract->client->name, ['controller' => 'Clients', 'action' => 'view', $advisorContract->client->id]) : '' ?></td>
+                        <td><?= $advisorContract->hasValue('client') ? $this->Html->link($advisorContract->client->name, ['controller' => 'Clients', 'action' => 'view', $advisorContract->client->stakeholder_id]) : '' ?></td>
                         <th><?= __('相談') ?></th>
                         <td><?= $advisorContract->hasValue('consultation') ? $this->Html->link($advisorContract->consultation->consultations_id, ['controller' => 'Consultations', 'action' => 'view', $advisorContract->consultation->consultations_id]) : '' ?></td>
                     </tr>

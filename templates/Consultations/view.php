@@ -34,11 +34,12 @@
                     </tr>
                     <tr>
                         <th><?= __('担当弁護士') ?></th>
-                        <td><?= h($consultation->lawyer_id) ?></td>
+                        <td><?= $consultation->hasValue('lawyer') ? $this->Html->link($consultation->lawyer->user_name, ['controller' => 'Users', 'action' => 'view', $consultation->lawyer->user_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('作成者') ?></th>
-                        <td><?= h($consultation->creator_id) ?></td>
+                        <td><?= $consultation->hasValue('creator') ? $this->Html->link($consultation->creator->user_name, ['controller' => 'Users', 'action' => 'view', $consultation->creator->user_id]) : '' ?></td>
+
                     </tr>
                     <tr>
                         <th><?= __('作成日') ?></th>

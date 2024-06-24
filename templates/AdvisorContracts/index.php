@@ -59,11 +59,10 @@
                         <!-- <td><?= h($advisorContract->initial_contract_at) ?></td> -->
                         <!-- <td><?= h($advisorContract->initial_consultation_at) ?></td> -->
                         <td><?= h($advisorContract->payment_at) ?></td>
-                        <td><?= h($advisorContract->lawyer_id) ?></td>
-                        <td><?= h($advisorContract->paralegal_id) ?></td>
+                        <td><?= $advisorContract->hasValue('lawyer') ? $this->Html->link($advisorContract->lawyer->user_name, ['controller' => 'Users', 'action' => 'view', $advisorContract->lawyer->user_id]) : '' ?></td>
+                        <td><?= $advisorContract->hasValue('paralegal') ? $this->Html->link($advisorContract->paralegal->user_name, ['controller' => 'Users', 'action' => 'view', $advisorContract->paralegal->user_id]) : '' ?></td>
                         <!-- <td><?= h($advisorContract->creator_id) ?></td>
                         <td><?= h($advisorContract->created_at) ?></td>
-                        <td><?= $advisorContract->hasValue('user') ? $this->Html->link($advisorContract->user->user_id, ['controller' => 'Users', 'action' => 'view', $advisorContract->user->user_id]) : '' ?></td>
                         <td><?= h($advisorContract->updated_at) ?></td> -->
                     </tr>
                     <?php endforeach; ?>

@@ -65,11 +65,10 @@
                         <td><?= h($client->adress_below) ?></td>
                         <td><?= $client->phone_number === null ? '' : $this->Number->format($client->phone_number) ?></td>
                         <td><?= h($client->email) ?></td>
-                        <td><?= h($client->lawyer_id) ?></td>
-                        <!-- <td><?= h($client->creator_id) ?></td>
-                        <td><?= h($client->created_at) ?></td>
-                        <td><?= $client->hasValue('user') ? $this->Html->link($client->user->user_id, ['controller' => 'Users', 'action' => 'view', $client->user->user_id]) : '' ?></td>
-                        <td><?= h($client->updated_at) ?></td> -->
+                        <td><?= $client->hasValue('lawyer') ? $this->Html->link($client->lawyer->user_id, ['controller' => 'Users', 'action' => 'view', $client->lawyer->user_id]) : '' ?></th>
+                         <!--<th><?= h($client->created_at) ?></th>
+                        <th><?= $client->hasValue('updater') ? $this->Html->link($client->updater->user_name, ['controller' => 'Users', 'action' => 'view', $client->updater->user_id]) : '' ?></th>
+                        <th><?= h($client->updated_at) ?></th>  -->
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

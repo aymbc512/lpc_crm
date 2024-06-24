@@ -29,13 +29,13 @@
                     </tr>
                     <tr>
                         <th><?= __('主任弁護士ID') ?></th>
-                        <td><?= h($client->lawyer_id) ?></td>
+                        <td><?= $client->hasValue('lawyer') ? $this->Html->link($client->lawyer->user_id, ['controller' => 'Users', 'action' => 'view', $client->lawyer->user_id]) : '' ?></th>
                         <th><?= __('作成者') ?></th>
-                        <td><?= h($client->creator_id) ?></td>
+                        <td><?= $client->hasValue('creator') ? $this->Html->link($client->creator->user_name, ['controller' => 'Users', 'action' => 'view', $client->creator->user_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('主任弁護士名') ?></th>
-                        <td><?= $client->hasValue('user') ? $this->Html->link($client->user->user_id, ['controller' => 'Users', 'action' => 'view', $client->user->user_id]) : '' ?></td>
+                        <td><?= $client->hasValue('lawyer') ? $this->Html->link($client->lawyer->user_name, ['controller' => 'Users', 'action' => 'view', $client->lawyer->user_id]) : '' ?></td>
                         <th><?= __('関係者ID') ?></th>
                         <td><?= $this->Number->format($client->stakeholder_id) ?></td>
                     </tr>
