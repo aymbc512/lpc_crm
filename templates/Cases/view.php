@@ -19,11 +19,11 @@
                         <th><?= __('案件名') ?></th>
                         <td><?= h($case->case_name) ?></td>
                         <th><?= __('顧客名') ?></th>
-                        <td><?= $case->hasValue('customer') ? $this->Html->link($case->customer->name, ['controller' => 'Stakeholders', 'action' => 'view', $case->customer->stakeholder_id]) : '' ?></td>
+                        <td><?= $case->hasValue('customer') ? $this->Html->link($case->customer->name, ['controller' => 'Clients', 'action' => 'view', $case->customer->stakeholder_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('対立相手') ?></th>
-                        <td><?= $case->hasValue('opponent') ? $this->Html->link($case->opponent->name, ['controller' => 'Stakeholders', 'action' => 'view', $case->opponent->stakeholder_id]) : '' ?></td>
+                        <td><?= $case->hasValue('opponent') ? $this->Html->link($case->opponent->name, ['controller' => 'Opponents', 'action' => 'view', $case->opponent->stakeholder_id]) : '' ?></td>
                         <th><?= __('案件の内容') ?></th>
                         <td><?= h($case->case_content) ?></td>
                     </tr>

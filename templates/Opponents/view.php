@@ -4,13 +4,15 @@
  * @var \App\Model\Entity\Opponent $opponent
  */
 ?>
-<div class="row">
+<?= $this->Html->css('detail.css') ?>
+
+<div class="row detail-view">
     <aside class="column">
     </aside>
     <div class="column column-80">
         <div class="opponents view content">
             <h3><?= h($opponent->name) ?></h3>
-            <table>
+            <table class="detail-table">
                 <tr>
                     <th><?= __('対立相手名') ?></th>
                     <td><?= h($opponent->name) ?></td>
@@ -82,7 +84,7 @@
                     <?= $this->Text->autoParagraph(h($opponent->stakeholder_kbn)); ?>
                 </blockquote>
             </div>
-
         </div>
     </div>
 </div>
+
