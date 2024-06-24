@@ -40,10 +40,7 @@
                         <th><?= $this->Paginator->sort('顧客名') ?></th>
                         <th><?= $this->Paginator->sort('相談種別区分') ?></th>
                         <th><?= $this->Paginator->sort('担当弁護士') ?></th>
-                        <!-- <th><?= $this->Paginator->sort('creator_id') ?></th>
-                        <th><?= $this->Paginator->sort('created_at') ?></th>
-                        <th><?= $this->Paginator->sort('updater_id') ?></th>
-                        <th><?= $this->Paginator->sort('updated_at') ?></th> -->
+
                     </tr>
                 </thead>
                 <tbody>

@@ -21,7 +21,7 @@
         background-color: #f9f9f9;
         box-shadow: 0px 2px 3px 3px #00000040;
         box-sizing: border-box;
-        margin-top: 10%;
+        margin-top: 5%;
         text-align: center;
         
     }

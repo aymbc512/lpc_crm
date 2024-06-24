@@ -14,10 +14,8 @@
      <div class="overlap">
         <div class="search-container">
             <?= $this->Form->create(null, ['type' => 'get', 'url' => ['action' => 'search'], 'class' => 'search-form']) ?>
-            <fieldset>
             <?= $this->Form->control('customer_name', ['label' => false, 'value' => $this->request->getQuery('customer_name'), 'placeholder' => '顧客名', 'class' => 'search-input']) ?>
             <?= $this->Form->control('case_name', ['label' => false, 'value' => $this->request->getQuery('case_name'), 'placeholder' => '案件名', 'class' => 'search-input']) ?>
-            </fieldset>
             <div class="button-group">
                 <?= $this->Html->link(__('絞込解除'), ['action' => 'index'], ['class' => 'clear-link']) ?>
                 <?= $this->Form->button(__('検索'), ['class' => 'search-button']) ?>

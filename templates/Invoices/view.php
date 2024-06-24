@@ -69,12 +69,6 @@
                         <td><?= h($invoice->updated_at) ?></td>
                     </tr>
                 </table>
-                <div class="text">
-                    <strong><?= __('請求ステータス区分') ?></strong>
-                    <blockquote>
-                        <?= $this->Text->autoParagraph(h($invoice->invoice_status_kbn)); ?>
-                    </blockquote>
-                </div>
                 <div class="detail-related-section">
                     <h4><?= __('関連する明細') ?></h4>
                     <div class="add-button-container">
