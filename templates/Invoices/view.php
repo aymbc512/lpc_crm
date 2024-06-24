@@ -22,7 +22,7 @@
                     </tr>
                     <tr>
                         <th><?= __('顧客') ?></th>
-                        <td><?= $invoice->hasValue('client') ? $this->Html->link($invoice->client->name, ['controller' => 'Clients', 'action' => 'view', $invoice->client->client_id]) : '' ?></td>
+                        <td><?= $invoice->hasValue('client') ? $this->Html->link($invoice->client->name, ['controller' => 'Clients', 'action' => 'view', $invoice->client->stakeholder_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('顧問契約') ?></th>

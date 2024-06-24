@@ -39,20 +39,31 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('user_id');
         $this->setPrimaryKey('user_id');
-        //$this->setTable('selection_lists');
-        //$this->setPrimaryKey('id');
-
 
         $this->belongsTo('Creators', [
-            'className' => 'Users',
             'foreignKey' => 'creator_id',
+            
+            'className' => 'Users'
         ]);
-        $this->belongsTo('Updaters', [
-            'className' => 'Users',
-            'foreignKey' => 'updater_id',
-        ]);
-    }
 
+        $this->belongsTo('Updaters', [
+            'foreignKey' => 'updater_id',
+            
+            'className' => 'Users'
+        ]);
+
+        $this->belongsTo('Lawyers', [
+            'foreignKey' => 'lawyer_id',
+            
+            'className' => 'Users'
+        ]);
+
+        $this->belongsTo('Paralegals', [
+            'foreignKey' => 'paralegal_id',
+            
+            'className' => 'Users'
+        ]); 
+    }
 
     /**
      * Default validation rules.
@@ -117,6 +128,7 @@ class UsersTable extends Table
 
         return $validator;
     }
+
 
     /**
      * Returns a rules checker object that will be used for validating

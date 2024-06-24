@@ -17,21 +17,21 @@
                 <table class="detail-table">
                     <tr>
                         <th><?= __('顧客名') ?></th>
-                        <td><?= $advisorContract->hasValue('client') ? $this->Html->link($advisorContract->client->name, ['controller' => 'Clients', 'action' => 'view', $advisorContract->client->id]) : '' ?></td>
+                        <td><?= $advisorContract->hasValue('client') ? $this->Html->link($advisorContract->client->name, ['controller' => 'Clients', 'action' => 'view', $advisorContract->client->stakeholder_id]) : '' ?></td>
                         <th><?= __('相談') ?></th>
                         <td><?= $advisorContract->hasValue('consultation') ? $this->Html->link($advisorContract->consultation->consultations_id, ['controller' => 'Consultations', 'action' => 'view', $advisorContract->consultation->consultations_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('担当弁護士') ?></th>
-                        <td><?= h($advisorContract->lawyer_id) ?></td>
+                        <td><?= $advisorContract->hasValue('lawyer') ? $this->Html->link($advisorContract->lawyer->user_name, ['controller' => 'Users', 'action' => 'view', $advisorContract->lawyer->user_id]) : '' ?></td>
                         <th><?= __('担当パラリーガル') ?></th>
-                        <td><?= h($advisorContract->paralegal_id) ?></td>
+                        <td><?= $advisorContract->hasValue('paralegal') ? $this->Html->link($advisorContract->paralegal->user_name, ['controller' => 'Users', 'action' => 'view', $advisorContract->paralegal->user_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('作成者') ?></th>
-                        <td><?= h($advisorContract->creator_id) ?></td>
+                        <td><?= $advisorContract->hasValue('creator') ? $this->Html->link($advisorContract->creator->user_name, ['controller' => 'Users', 'action' => 'view', $advisorContract->creator->user_id]) : '' ?></td>
                         <th><?= __('更新者') ?></th>
-                        <td><?= h($advisorContract->updater_id) ?></td>
+                        <td><?= $advisorContract->hasValue('updater') ? $this->Html->link($advisorContract->updater->user_name, ['controller' => 'Users', 'action' => 'view', $advisorContract->updater->user_id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th><?= __('顧問契約') ?></th>

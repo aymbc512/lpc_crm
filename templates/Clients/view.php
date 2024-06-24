@@ -35,7 +35,7 @@
                     </tr>
                     <tr>
                         <th><?= __('主任弁護士名') ?></th>
-                        <td><?= $client->hasValue('user') ? $this->Html->link($client->user->user_id, ['controller' => 'Users', 'action' => 'view', $client->user->user_id]) : '' ?></td>
+                        <td><?= $client->hasValue('user') ? $this->Html->link($client->user->name, ['controller' => 'Users', 'action' => 'view', $client->user->user_id]) : '' ?></td>
                         <th><?= __('関係者ID') ?></th>
                         <td><?= $this->Number->format($client->stakeholder_id) ?></td>
                     </tr>
