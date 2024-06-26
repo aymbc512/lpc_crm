@@ -8,7 +8,7 @@
     <div class="overlap-wrapper">
         <div class="overlap-2">
             <div class="view-6"></div>
-            <div class="text-wrapper-6"><?= h('顧問契約情報') ?></div>
+            <div class="text-wrapper-6">顧問契約情報</div>
         </div>
     </div>
     <div class="detail-container">

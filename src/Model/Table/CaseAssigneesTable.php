@@ -89,7 +89,7 @@ class CaseAssigneesTable extends Table
         $validator
             ->scalar('case_role_kbn')
             ->requirePresence('case_role_kbn', 'create')
-            ->notEmptyString('case_role_kbn');
+            ->allowEmptyString('case_role_kbn');
 
         $validator
             ->integer('case_id')

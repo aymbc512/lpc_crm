@@ -1,3 +1,8 @@
+
+以下に指定されたCSSを適用し、HTML構造を調整したコードを示します。
+
+php
+コードをコピーする
 <?php
 /**
  * @var \App\View\AppView $this
@@ -6,27 +11,35 @@
  * @var int $caseId
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Case Assignees'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<div class="desktop">
+    <div class="overlap-wrapper">
+        <div class="overlap-2">
+            <div class="view-6"></div>
+            <div class="text-wrapper-6"><?= __('Add Case Assignee') ?></div>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="caseAssignees form content">
-            <?= $this->Form->create($caseAssignee) ?>
-            <fieldset>
-                <legend><?= __('Add Case Assignee') ?></legend>
-                <?php
-                    echo $this->Form->control('lawyer_id', ['options' => $users, 'empty' => true, 'label' => 'Lawyer']);
-                    echo $this->Form->control('case_role_kbn',['options'=>$case_role_kbns,'empty'=>'Select Case_role_kbn']);
-                    echo $this->Form->hidden('case_id', ['value' => $caseId]);
-                    // creator_id と updater_id は setAuditFields メソッドで自動設定されるため、フォームで入力する必要はなし
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+    </div>
+    <div class="detail-container">
+        <div class="detail-content-area">
+            <div class="detail-content-frame">
+                <?= $this->Form->create($caseAssignee) ?>
+                <table class="detail-table">
+                    <tr>
+                        <th><?= $this->Form->label('lawyer_id', __('担当弁護士')) ?></th>
+                        <td><?= $this->Form->control('lawyer_id', ['options' => $users, 'empty' => true, 'label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $this->Form->label('case_role_kbn', __('役割区分')) ?></th>
+                        <td><?= $this->Form->control('case_role_kbn', ['options' => $case_role_kbns, 'empty' => 'Select Case_role_kbn', 'label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><?= $this->Form->hidden('case_id', ['value' => $caseId]) ?></td>
+                    </tr>
+                </table>
+                <div class="detail-actions">
+                    <?= $this->Form->button(__('Submit'), ['class' => 'detail-action-button']) ?>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
 </div>

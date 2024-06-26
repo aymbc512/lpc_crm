@@ -71,7 +71,7 @@
                 </table>
                 <div class="detail-actions">
                     <?= $this->Html->link(__('編集'), ['action' => 'edit', $invoice->invoice_id], ['class' => 'detail-action-button']) ?>
-                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $invoice->invoice_id], ['confirm' => __('Are you sure you want to delete # {0}?', $case->case_id), 'class' => 'detail-action-button']) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $invoice->invoice_id], ['confirm' => __('Are you sure you want to delete # {0}?', $invoice->invoice_id), 'class' => 'detail-action-button']) ?>
                 </div>
                 </div>
                 <div class="detail-related-section">
@@ -86,7 +86,7 @@
                             <th><?= __('請求項目') ?></th>
                             <th><?= __('金額') ?></th>
                             <th><?= __('消費税') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
+
                         </tr>
                         <?php foreach ($invoice->invoice_statements as $statement) : ?>
                         <tr>
@@ -94,9 +94,9 @@
                             <td><?= h($statement->invoice_statement_item) ?></td>
                             <td><?= h($statement->invoice_statement_amount) ?></td>
                             <td><?= h($statement->invoice_statement_tax) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('編集'), ['controller' => 'InvoiceStatements', 'action' => 'edit', $statement->invoice_statement_id]) ?>
-                                <?= $this->Form->postLink(__('削除'), ['controller' => 'InvoiceStatements', 'action' => 'delete', $statement->invoice_statement_id], ['confirm' => __('Are you sure you want to delete # {0}?', $statement->invoice_statement_id)]) ?>
+                            <td class="action-buttons">
+                                <?= $this->Html->link(__('編集'), ['controller' => 'InvoiceStatements', 'action' => 'edit', $statement->invoice_statement_id], ['class' => 'detail-small-button']) ?>
+                                <?= $this->Form->postLink(__('削除'), ['controller' => 'InvoiceStatements', 'action' => 'delete', $statement->invoice_statement_id], ['confirm' => __('Are you sure you want to delete # {0}?', $statement->invoice_statement_id)], ['class' => 'detail-small-button']) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

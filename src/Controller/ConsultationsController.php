@@ -10,6 +10,13 @@ namespace App\Controller;
  */
 class ConsultationsController extends AppController
 {
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
+        $this->loadComponent('Common'); // CommonComponentをロード
+    }
     /**
      * Index method
      *
@@ -85,6 +92,7 @@ class ConsultationsController extends AppController
         $consultation = $this->Consultations->newEmptyEntity();
         if ($this->request->is('post')) {
             $consultation = $this->Consultations->patchEntity($consultation, $this->request->getData());
+            $this->Common->setAuditFields($consultation, $this->request, true);
             if ($this->Consultations->save($consultation)) {
                 $this->Flash->success(__('The consultation has been saved.'));
                 return $this->redirect(['action' => 'index']);
@@ -114,7 +122,7 @@ class ConsultationsController extends AppController
             ])->toArray();
         }
 
-        $this->set(compact('consultation', 'clients', 'lawyers'));
+        $this->set(compact('consultation', 'clients', 'lawyers', 'creators', 'updaters'));
 
 
         $this->fetchTable('SelectionLists');

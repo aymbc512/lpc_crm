@@ -154,9 +154,9 @@ class InvoicesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['case_id'], 'Cases'), ['errorField' => 'case_id']);
-        $rules->add($rules->existsIn(['stakeholder_id'], 'Clients'), ['errorField' => 'stakeholder_id']);
-        $rules->add($rules->existsIn(['advisor_contracts_id'], 'AdvisorContracts'), ['errorField' => 'advisor_contracts_id']);
+        // $rules->add($rules->existsIn(['case_id'], 'Cases'), ['errorField' => 'case_id']);
+        // $rules->add($rules->existsIn(['stakeholder_id'], 'Clients'), ['errorField' => 'stakeholder_id']);
+        // $rules->add($rules->existsIn(['advisor_contracts_id'], 'AdvisorContracts'), ['errorField' => 'advisor_contracts_id']);
         $rules->add($rules->existsIn(['creator_id'], 'Creators'), ['errorField' => 'creator_id']);
         $rules->add($rules->existsIn(['updater_id'], 'Updaters'), ['errorField' => 'updater_id']);
 

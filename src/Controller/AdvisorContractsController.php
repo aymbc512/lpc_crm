@@ -24,8 +24,8 @@ class AdvisorContractsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        // Load the Invoices table
-        $this->Invoices = TableRegistry::getTableLocator()->get('Invoices');
+        $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
+        $this->loadComponent('Common'); // CommonComponentをロード
     }
 
     /**
@@ -94,6 +94,7 @@ class AdvisorContractsController extends AppController
         $advisorContract = $this->AdvisorContracts->newEmptyEntity();
         if ($this->request->is('post')) {
             $advisorContract = $this->AdvisorContracts->patchEntity($advisorContract, $this->request->getData());
+            $this->Common->setAuditFields($advisorContract, $this->request, true);
             if ($this->AdvisorContracts->save($advisorContract)) {
                 $this->Flash->success(__('The advisor contract has been saved.'));
 
@@ -108,7 +109,7 @@ class AdvisorContractsController extends AppController
         $consultations = $this->AdvisorContracts->Consultations->find('list', ['limit' => 200])->all();
         $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
         $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
-        $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals'));
+        $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals', 'creators', 'updaters'));
 
 
         $this->fetchTable('SelectionLists');
@@ -134,8 +135,9 @@ class AdvisorContractsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $advisorContract = $this->AdvisorContracts->patchEntity($advisorContract, $this->request->getData());
-            $this->Common->setAuditFields($advisorContract, false); // Audit fieldsを設定
+           
             if ($this->AdvisorContracts->save($advisorContract)) {
+                $this->Common->setAuditFields($advisorContract, $this->request, true);
                 $this->Flash->success(__('The advisor contract has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -149,7 +151,7 @@ class AdvisorContractsController extends AppController
         $consultations = $this->AdvisorContracts->Consultations->find('list', ['limit' => 200])->all();
         $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
         $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
-        $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals'));
+        $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals', 'creators', 'updaters'));
 
 
         $this->fetchTable('SelectionLists');

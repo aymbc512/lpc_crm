@@ -39,7 +39,7 @@ body {
     background-color: #00BFFF; /* ボタンと同じ色 */
     border-radius: 0.25rem; /* ボーダー半径をremに変更 */
     text-align: center;
-    font-size: 1.5rem; /* フォントサイズをremに変更 */
+    font-size: 1rem; /* フォントサイズをremに変更 */
     font-weight: bold; /* フォントを太字に */
 }
 

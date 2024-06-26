@@ -8,7 +8,7 @@
     <div class="overlap-wrapper">
         <div class="overlap-2">
             <div class="view-6"></div>
-            <div class="text-wrapper-6"><?= h($consultation->consultations_id) ?></div>
+            <div class="text-wrapper-6">相談情報詳細</div>
         </div>
     </div>
     <div class="detail-container">
@@ -57,6 +57,8 @@
                         <th><?= __('相談種別区分') ?></th>
                         <td><?= h($consultation->consultation_kbn) ?></td>
                     </tr>
+                    </div>
+                    </div>
                 </table>
                 <div class="detail-related-section">
                     <h4><?= __('関連する顧問契約一覧') ?></h4>
@@ -124,7 +126,7 @@
                     <p><?= __('関連する法人連絡担当者はいません。') ?></p>
                     <?php endif; ?>
                 </div>
-            </div>
-        </div>
+            
+        
     </div>
 </div>

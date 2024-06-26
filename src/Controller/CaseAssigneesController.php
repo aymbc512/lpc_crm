@@ -9,7 +9,14 @@ namespace App\Controller;
  * @property \App\Model\Table\CaseAssigneesTable $CaseAssignees
  */
 class CaseAssigneesController extends AppController
+
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
+        $this->loadComponent('Common'); // CommonComponentをロード
+    }
     /**
      * Index method
      *
@@ -50,11 +57,14 @@ class CaseAssigneesController extends AppController
         $caseAssignee = $this->CaseAssignees->newEmptyEntity();
         if ($this->request->is('post')) {
             $caseAssignee = $this->CaseAssignees->patchEntity($caseAssignee, $this->request->getData());
-            $this->setAuditFields($caseAssignee, true);
+            $this->Common->setAuditFields($caseAssignee, $this->request, true);
+
+            $caseId = $this->request->getQuery('case_id'); // case_id を取得
+
             if ($this->CaseAssignees->save($caseAssignee)) {
                 $this->Flash->success(__('The case assignee has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Cases', 'action' => 'view', $caseId]);
             }
             $this->Flash->error(__('The case assignee could not be saved. Please, try again.'));
         }
@@ -87,6 +97,7 @@ class CaseAssigneesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $caseAssignee = $this->CaseAssignees->patchEntity($caseAssignee, $this->request->getData());
+            this->Common->setAuditFields($caseAssignee, $this->request, true);
             $this->setAuditFields($caseAssignee, false);
             if ($this->CaseAssignees->save($caseAssignee)) {
                 $this->Flash->success(__('The case assignee has been saved.'));

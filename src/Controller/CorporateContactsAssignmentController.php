@@ -10,6 +10,13 @@ namespace App\Controller;
  */
 class CorporateContactsAssignmentController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
+        $this->loadComponent('Common'); // CommonComponentをロード
+    }
+    
     /**
      * Index method
      *
@@ -50,12 +57,12 @@ class CorporateContactsAssignmentController extends AppController
         $caseId = $this->request->getQuery('case_id');
         $consultationId = $this->request->getQuery('consultation_id');
         $advisorConsultationId = $this->request->getQuery('advisor_consultation_id');
-
+        $this->Common->setAuditFields($corporateContactsAssignment, $this->request, true);
         if ($this->request->is('post')) {
             $corporateContactsAssignment = $this->CorporateContactsAssignment->patchEntity($corporateContactsAssignment, $this->request->getData());
 
             // CommonControllerのメソッドを呼び出してフィールドを更新
-            $this->Common->setAuditFields($corporateContactsAssignment);
+            $this->Common->setAuditFields($corporateContactsAssignment, $this->request, true);
 
             if ($this->CorporateContactsAssignment->save($corporateContactsAssignment)) {
                 $this->Flash->success(__('The corporate contacts assignment has been saved.'));
@@ -109,6 +116,7 @@ class CorporateContactsAssignmentController extends AppController
         $corporateContactsAssignment = $this->CorporateContactsAssignment->get($id, ['contain' => []]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $corporateContactsAssignment = $this->CorporateContactsAssignment->patchEntity($corporateContactsAssignment, $this->request->getData());
+            $this->Common->setAuditFields($corporateContactsAssignment, $this->request, true);
 
             // CommonControllerのメソッドを呼び出してフィールドを更新
             $this->Common->setAuditFields($corporateContactsAssignment, false);
