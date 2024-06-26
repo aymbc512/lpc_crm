@@ -68,7 +68,8 @@ class SelectionListsTable extends Table
     // $results はデータの配列であり、それを名前の配列に変換する
     $names = [];
     foreach ($results as $result) {
-        $names[$result->detail_id] = $result->name;
+        $namesBydetailId[$result->detail_id] = $result->name;
+        $names[] = $result->name;
     }
 
     return $names;
