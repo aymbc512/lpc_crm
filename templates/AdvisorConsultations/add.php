@@ -7,28 +7,52 @@
  * @var \Cake\Collection\CollectionInterface|string[] $advisorContracts
  */
 ?>
-<div class="row">
-    <aside class="column">
-     
-    </aside>
-    <div class="column column-80">
-        <div class="advisorConsultations form content">
-            <?= $this->Form->create($advisorConsultation) ?>
-            <fieldset>
-                <legend><?= __('新規顧問相談登録') ?></legend>
-                <?php
-                    echo $this->Form->control('相談名');
-                    echo $this->Form->control('相談日', ['empty' => true]);
-                    echo $this->Form->control('相談内容');
-                    echo $this->Form->control('顧客名', ['options' => $clients, 'empty' => true]);
-                    echo $this->Form->control('担当弁護士', ['options' => $lawyers, 'empty' => true]);
-                    echo $this->Form->control('担当パラリーガル', ['options' => $paralegals, 'empty' => true]);
-                    echo $this->Form->control('顧問契約', ['type' => 'hidden']);
-                    // creator_id, updater_id, created_at, updated_at are set automatically, so no need to display them
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('保存')) ?>
-            <?= $this->Form->end() ?>
+<div class="desktop">
+    <div class="overlap-wrapper">
+        <div class="overlap-2">
+            <div class="view-6"></div>
+            <div class="text-wrapper-6"><?= __('新規顧問相談登録') ?></div>
+        </div>
+    </div>
+    <div class="detail-container">
+        <div class="detail-content-area">
+            <div class="detail-content-frame">
+                <?= $this->Form->create($advisorConsultation) ?>
+                <table class="detail-table">
+                    <tr>
+                        <th><?= $this->Form->label('相談名', __('相談名')) ?></th>
+                        <td><?= $this->Form->control('相談名', ['label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $this->Form->label('相談日', __('相談日')) ?></th>
+                        <td><?= $this->Form->control('相談日', ['empty' => true, 'label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $this->Form->label('相談内容', __('相談内容')) ?></th>
+                        <td><?= $this->Form->control('相談内容', ['label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $this->Form->label('顧客名', __('顧客名')) ?></th>
+                        <td><?= $this->Form->control('顧客名', ['options' => $clients, 'empty' => true, 'label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $this->Form->label('担当弁護士', __('担当弁護士')) ?></th>
+                        <td><?= $this->Form->control('担当弁護士', ['options' => $lawyers, 'empty' => true, 'label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $this->Form->label('担当パラリーガル', __('担当パラリーガル')) ?></th>
+                        <td><?= $this->Form->control('担当パラリーガル', ['options' => $paralegals, 'empty' => true, 'label' => false]) ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><?= $this->Form->control('顧問契約', ['type' => 'hidden']) ?></td>
+                    </tr>
+                </table>
+                <div class="detail-actions">
+                    <?= $this->Form->button(__('保存'), ['class' => 'detail-action-button']) ?>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
     </div>
 </div>
+
