@@ -12,7 +12,7 @@ use Cake\Event\EventInterface;
 /**
  * Clients Model
  */
-class ClientsTable extends Table
+class ClientsTable extends StakeholdersTable
 {
     /**
      * Initialize method
@@ -41,6 +41,7 @@ class ClientsTable extends Table
         $this->belongsTo('Clients', [
             'className' => 'Stakeholders',
             'foreignKey' => 'stakeholder_id',
+            'propertyName' => 'client_stakeholder'
         ]);
         $this->hasMany('AdvisorContracts', [
             'foreignKey' => 'advisorcontract_id',
@@ -76,5 +77,19 @@ class ClientsTable extends Table
         $validator = parent::validationDefault($validator);
 
         return $validator;
+    }
+        /**
+     * Before Save callback
+     *
+     * @param \Cake\Event\EventInterface $event The beforeSave event
+     * @param \Cake\ORM\Entity $entity The entity being saved
+     * @param \ArrayObject $options The options for the save operation
+     * @return void
+     */
+    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options)
+    {
+        if ($entity->isNew()) {
+            $entity->set('client', 1);
+        }
     }
 }

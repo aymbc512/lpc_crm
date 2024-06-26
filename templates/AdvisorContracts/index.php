@@ -16,7 +16,7 @@
             <?= $this->Form->create(null, ['type' => 'get', 'url' => ['action' => 'search'], 'class' => 'search-form']) ?>
             <?= $this->Form->control('name', ['label' => false, 'value' => $this->request->getQuery('name'), 'placeholder' => '顧客名', 'class' => 'search-input']) ?>
             <div class="button-group">
-                <?= $this->Html->link(__('絞込解除'), ['action' => 'index'], ['class' => 'clear-link']) ?>
+                <?= $this->Html->link(__('絞込解除'), ['action' => 'index'], ['class' => 'clear-button']) ?>
                 <?= $this->Form->button(__('検索'), ['class' => 'search-button']) ?>
             </div>
             <?= $this->Form->end() ?>

@@ -4,14 +4,23 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Controller\Component\CommonComponent;
+use Cake\Log\Log;
 
 /**
  * Clients Controller
  *
  * @property \App\Model\Table\ClientsTable $Clients
+ * @property \App\Controller\Component\CommonComponent $Common
  */
 class ClientsController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Common'); // Load the Common component
+    }
+
     /**
      * Index method
      *
@@ -20,13 +29,10 @@ class ClientsController extends AppController
     public function index()
     {
         // Clientsテーブルを使ってクエリを実行
-       
-
-        
-    $clients = $this->paginate($this->Clients->find()
-    ->where(['client' => 1])
-    ->contain(['Lawyers', 'Cases','Invoices','Lawyers','Creators','Updaters']));
-    $this->set(compact('clients'));
+        $clients = $this->paginate($this->Clients->find()
+            ->where(['client' => 1])
+            ->contain(['Lawyers', 'Cases','Invoices','Creators','Updaters']));
+        $this->set(compact('clients'));
     }
 
     /**
@@ -76,39 +82,44 @@ class ClientsController extends AppController
      */
     public function view($id = null)
     {
-        $client = $this->Clients->get($id,[
-   
-    'contain' => ['Lawyers', 'Cases','Invoices','Lawyers','Creators','Updaters']
-    ]);
-    $this->set(compact('client'));
+        $client = $this->Clients->get($id, [
+            'contain' => ['Lawyers', 'Cases','Invoices','Creators','Updaters']
+        ]);
+        $this->set(compact('client'));
     }
-    
-       
 
     /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
-        $client = $this->Clients->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $client = $this->Clients->patchEntity($client, $this->request->getData());
+public function add()
+{
+    $client = $this->Clients->newEmptyEntity();
+    if ($this->request->is('post')) {
+        // Ensure 'client' field is set to 1 when creating a new client
+        $data = $this->request->getData();
+        $data['client'] = 1;
+
+        $client = $this->Clients->patchEntity($client, $data);
+            $this->Common->setAuditFields($client, $this->request, true); // Set audit fields
             if ($this->Clients->save($client)) {
                 $this->Flash->success(__('The client has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
+            } else {
+                Log::error('Client save failed: ' . print_r($client->getErrors(), true));
             }
             $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
-        $this->set(compact('client'));
 
-        $this->fetchTable('SelectionLists');
-        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
-        $this->set(compact('stakeholder_kbns'));
-    }
+     $lawyers = $this->Clients->Lawyers->find('list', ['limit' => 200])->all();
+    $this->set(compact('client','lawyers'));
 
+    $this->fetchTable('SelectionLists');
+    $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+    $this->set(compact('stakeholder_kbns'));
+}
     /**
      * Edit method
      *
@@ -121,6 +132,7 @@ class ClientsController extends AppController
         $client = $this->Clients->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Clients->patchEntity($client, $this->request->getData());
+            $this->Common->setAuditFields($client, $this->request, false); // Set audit fields
             if ($this->Clients->save($client)) {
                 $this->Flash->success(__('The client has been saved.'));
 
@@ -155,4 +167,5 @@ class ClientsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 }
+
 

@@ -74,6 +74,12 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+        ->scalar('user_id')
+        ->maxLength('user_id', 255)
+        ->requirePresence('user_id', 'create');
+
+        
+        $validator
             ->scalar('password')
             ->maxLength('password', 255)
             ->allowEmptyString('password');

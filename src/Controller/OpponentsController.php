@@ -42,24 +42,32 @@ class OpponentsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
-        $opponent = $this->Opponents->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $opponent = $this->Opponents->patchEntity($opponent, $this->request->getData());
-            if ($this->Opponents->save($opponent)) {
-                $this->Flash->success(__('The opponent has been saved.'));
+{
+    $opponent = $this->Opponents->newEmptyEntity();
+    if ($this->request->is('post')) {
+        // Ensure 'opponent' field is set to 1 when creating a new opponent
+        $data = $this->request->getData();
+        $data['opponent'] = 1;
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The opponent could not be saved. Please, try again.'));
+        $opponent = $this->Opponents->patchEntity($opponent, $data);
+        if ($this->Opponents->save($opponent)) {
+            $this->Flash->success(__('The opponent has been saved.'));
+
+             // Get the return URL from the query parameter, use a default if not set
+             $returnUrl = $this->request->getQuery('returnUrl') ?: ['controller' => 'Cases', 'action' => 'add'];
+
+            return $this->redirect($returnUrl);
         }
-        $this->set(compact('opponent'));
-
-        $this->fetchTable('SelectionLists');
-        $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
-        $this->set(compact('stakeholder_kbns'));
-
+        $this->Flash->error(__('The opponent could not be saved. Please, try again.'));
     }
+    $this->set(compact('opponent'));
+
+    $this->fetchTable('SelectionLists');
+    $stakeholder_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('12');
+    $this->set(compact('stakeholder_kbns'));
+
+    $this->set('returnUrl', $this->request->getQuery('returnUrl'));
+}
 
     /**
      * Edit method

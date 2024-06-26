@@ -69,6 +69,11 @@
                         <td><?= h($invoice->updated_at) ?></td>
                     </tr>
                 </table>
+                <div class="detail-actions">
+                    <?= $this->Html->link(__('編集'), ['action' => 'edit', $invoice->invoice_id], ['class' => 'detail-action-button']) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $invoice->invoice_id], ['confirm' => __('Are you sure you want to delete # {0}?', $case->case_id), 'class' => 'detail-action-button']) ?>
+                </div>
+                </div>
                 <div class="detail-related-section">
                     <h4><?= __('関連する明細') ?></h4>
                     <div class="add-button-container">
@@ -100,6 +105,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 </div>
 

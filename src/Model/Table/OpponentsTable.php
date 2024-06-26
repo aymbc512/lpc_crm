@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\Validation\Validator;
 use Cake\Event\EventInterface;
+use Cake\ORM\TableRegistry;
 
 /**
  * Opponents Model
@@ -23,10 +24,7 @@ class OpponentsTable extends StakeholdersTable
     {
         parent::initialize($config);
 
-        // Add a condition to filter only opponents
-        $this->addBehavior('Filter', [
-            'fields' => ['opponent' => 1]
-        ]);
+        $this->setTable('stakeholders');  // Ensure the correct table is being used
     }
 
     /**
@@ -38,24 +36,23 @@ class OpponentsTable extends StakeholdersTable
     public function validationDefault(Validator $validator): Validator
     {
         $validator = parent::validationDefault($validator);
-
         // Additional validation rules specific to opponents can be added here
 
         return $validator;
     }
 
     /**
-     * Apply filters to query to fetch only opponents
+     * Before Save callback
      *
-     * @param \Cake\Event\EventInterface $event The beforeFind event
-     * @param \Cake\ORM\Query $query The query to modify
-     * @param \ArrayObject $options The options for the query
-     * @param bool $primary Whether this is the primary query being executed
-     * @return \Cake\ORM\Query The modified query
+     * @param \Cake\Event\EventInterface $event The beforeSave event
+     * @param \Cake\ORM\Entity $entity The entity being saved
+     * @param \ArrayObject $options The options for the save operation
+     * @return void
      */
-    public function beforeFind(EventInterface $event, Query $query, \ArrayObject $options, bool $primary): Query
+    public function beforeSave(EventInterface $event, $entity, \ArrayObject $options)
     {
-        // Ensure that only opponents are fetched
-        return $query->where(['Opponents.opponent' => 1]);
+        if ($entity->isNew()) {
+            $entity->set('opponent', 1);
+        }
     }
 }

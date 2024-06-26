@@ -131,6 +131,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
               'fields' => [
                   'username' => 'user_id',
                   'password' => 'password',
+                  'id' => 'user_id', // ここを追加
               ]
           ]);
   
@@ -146,6 +147,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
           ]);
   
           return $authenticationService;
+    }
+    public function getUser(ServerRequestInterface $request)
+    {
+        $result = $this->getAuthenticationService($request)->getResult();
+        if ($result->isValid()) {
+            return $request->getAttribute('identity');
+        }
+        return null;
     }
   
 }

@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\ORM\Entity;
+use Cake\Log\Log; 
 
 /**
  * Invoices Controller
@@ -9,7 +11,14 @@ namespace App\Controller;
  * @property \App\Model\Table\InvoicesTable $Invoices
  */
 class InvoicesController extends AppController
-{
+
+{ 
+       public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
+        $this->loadComponent('Common'); // CommonComponentをロード
+    }
     /**
      * Index method
      *
@@ -59,7 +68,8 @@ class InvoicesController extends AppController
         $invoice = $this->Invoices->get($id, [
             'contain' => ['Cases', 'Clients', 'AdvisorContracts', 'Creators', 'Updaters', 'InvoiceStatements']
         ]);
-        $this->set(compact('invoice'));
+        $case = $invoice->case ?? null;
+        $this->set(compact('invoice','case'));
     }
 
     /**
@@ -73,33 +83,30 @@ class InvoicesController extends AppController
         $invoice = $this->Invoices->newEmptyEntity();
         if ($this->request->is('post')) {
             $invoice = $this->Invoices->patchEntity($invoice, $this->request->getData());
-            $this->Common->setAuditFields($invoice, true); // Audit fieldsを設定
+            Log::debug('Invoice Entity Before setAuditFields: ' . print_r($invoice->toArray(), true));
+    
+            // CommonComponentのsetAuditFieldsメソッドを呼び出していることを確認
+            $this->Common->setAuditFields($invoice, $this->request, true);
+            
+            Log::debug('Invoice Entity After setAuditFields: ' . print_r($invoice->toArray(), true));
             if ($this->Invoices->save($invoice)) {
                 $this->Flash->success(__('The invoice has been saved.'));
-
+    
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The invoice could not be saved. Please, try again.'));
         }
-
-        // Advisor Contract IDが指定されている場合、自動入力
-        if ($advisor_contract_id !== null) {
-            $invoice->advisor_contract_id = $advisor_contract_id;
-            $invoice->creator_id = $this->Auth->user('id');
-        }
-
+    
         $cases = $this->Invoices->Cases->find('list', ['limit' => 200])->all();
         $clients = $this->Invoices->Clients->find('list', ['limit' => 200])->all();
         $advisorContracts = $this->Invoices->AdvisorContracts->find('list', ['limit' => 200])->all();
         $creators = $this->Invoices->Creators->find('list', ['limit' => 200])->all();
         $updaters = $this->Invoices->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('invoice', 'cases', 'clients', 'advisorContracts', 'creators', 'updaters'));
-
     
         $this->fetchTable('SelectionLists');
         $invoice_status_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('11');
         $this->set(compact('invoice_status_kbns'));
-
     }
 
     /**

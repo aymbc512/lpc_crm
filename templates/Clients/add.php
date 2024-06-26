@@ -56,7 +56,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('lawyer_id', __('主任弁護士')) ?></th>
-                            <td><?= $this->Form->control('lawyer_id', ['label' => false]) ?></td>
+                            <td><?= $this->Form->control('lawyer_id', ['label' => '弁護士','options' => $lawyers, 'empty' => true]); ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('stakeholder_remarks', __('備考')) ?></th>

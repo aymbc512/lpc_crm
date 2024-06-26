@@ -10,6 +10,12 @@ namespace App\Controller;
  */
 class CasesController extends AppController
 {
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Common');
+    }
     /**
      * Index method
      *
@@ -85,9 +91,10 @@ class CasesController extends AppController
         $case = $this->Cases->newEmptyEntity();
         if ($this->request->is('post')) {
             $case = $this->Cases->patchEntity($case, $this->request->getData());
+            $this->Common->setAuditFields($case, $this->request, true); // Audit fieldsを設定
             if ($this->Cases->save($case)) {
                 $this->Flash->success(__('The case has been saved.'));
-
+    
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The case could not be saved. Please, try again.'));
@@ -99,26 +106,19 @@ class CasesController extends AppController
         $opponents = $this->Cases->Opponents->find('list', ['limit' => 200])->all();
         $consultations = $this->Cases->Consultations->find('list', ['limit' => 200])->all();
         $advisorConsultations = $this->Cases->AdvisorConsultations->find('list', ['limit' => 200])->all();
-        $this->set(compact('case', 'customers', 'opponents', 'consultations', 'advisorConsultations'));
-
-
+        $creators = $this->Cases->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->Cases->Updaters->find('list', ['limit' => 200])->all();
+    
         $this->fetchTable('SelectionLists');
-        //$recentSelectionLists = $this -> SelectionLists ->find(all);
-       // $this->set('SelectionLists',$this->SelectionLists->find('all'));
         $cases = $this->fetchTable('SelectionLists')->getNamesByDataId('4');
-        $case_statuses =$this->fetchTable('SelectionLists')->getNamesByDataId('5');
-        $this->set(compact('cases', 'case_statuses'));
+        $case_statuses = $this->fetchTable('SelectionLists')->getNamesByDataId('5');
+        $this->set(compact('cases', 'case_statuses', 'case', 'customers', 'opponents', 'consultations', 'advisorConsultations', 'creators', 'updaters'));
 
-
+            // Set the return URL to the opponent add page
+    $returnUrl = $this->request->getQuery('returnUrl', ['controller' => 'Cases', 'action' => 'add']);
+    $this->set('returnUrl', $returnUrl);
     }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Case id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function edit($id = null)
     {
         $case = $this->Cases->get($id, [
@@ -126,9 +126,10 @@ class CasesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $case = $this->Cases->patchEntity($case, $this->request->getData());
+            $this->Common->setAuditFields($case, $this->request, false); // Audit fieldsを設定
             if ($this->Cases->save($case)) {
                 $this->Flash->success(__('The case has been saved.'));
-
+    
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The case could not be saved. Please, try again.'));
@@ -137,16 +138,13 @@ class CasesController extends AppController
         $opponents = $this->Cases->Opponents->find('list', ['limit' => 200])->all();
         $consultations = $this->Cases->Consultations->find('list', ['limit' => 200])->all();
         $advisorConsultations = $this->Cases->AdvisorConsultations->find('list', ['limit' => 200])->all();
-        $this->set(compact('case', 'customers', 'opponents', 'consultations', 'advisorConsultations'));
-
-
+        $creators = $this->Cases->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->Cases->Updaters->find('list', ['limit' => 200])->all();
+        
         $this->fetchTable('SelectionLists');
-        //$recentSelectionLists = $this -> SelectionLists ->find(all);
-       // $this->set('SelectionLists',$this->SelectionLists->find('all'));
         $cases = $this->fetchTable('SelectionLists')->getNamesByDataId('4');
-        $case_statuses =$this->fetchTable('SelectionLists')->getNamesByDataId('5');
-        $this->set(compact('cases', 'case_statuses'));
-
+        $case_statuses = $this->fetchTable('SelectionLists')->getNamesByDataId('5');
+        $this->set(compact('cases', 'case_statuses', 'case', 'customers', 'opponents', 'consultations', 'advisorConsultations', 'creators', 'updaters'));
     }
 
     /**

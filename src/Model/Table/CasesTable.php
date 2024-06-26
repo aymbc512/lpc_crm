@@ -76,6 +76,14 @@ class CasesTable extends Table
             'foreignKey' => 'case_id',
             'targetForeignKey' => 'corporate_contact_id',
         ]);
+        $this->belongsTo('Creators', [
+            'className' => 'Users',
+            'foreignKey' => 'creator_id',
+        ]);
+        $this->belongsTo('Updaters', [
+            'className' => 'Users',
+            'foreignKey' => 'updater_id',
+        ]);
     }
 
     /**

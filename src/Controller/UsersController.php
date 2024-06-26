@@ -104,22 +104,21 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
-{
-    $user = $this->Users->newEmptyEntity();
-    if ($this->request->is('post')) {
-        $user = $this->Users->patchEntity($user, $this->request->getData());
-        if ($this->Users->save($user)) {
-            $this->Flash->success(__('The user has been saved.'));
-            return $this->redirect(['action' => 'index']);
+    {
+        $user = $this->Users->newEmptyEntity();
+        {
+            $user = $this->Users->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('The user has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
         }
-        $this->Flash->error(__('The user could not be saved. Please, try again.'));
-    }
-    $creators = $this->Users->Creators->find('list', ['limit' => 200])->all();
-    $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
+        $this->set(compact('user'));
 
-    $this->set(compact('user', 'creators', 'updaters'));
-
-    $this->set(compact('creators', 'updaters'));
   
    $this->fetchTable('SelectionLists');
    //$recentSelectionLists = $this -> SelectionLists ->find(all);
@@ -157,8 +156,6 @@ class UsersController extends AppController
         $updaters = $this->Users->Updaters->find('list', ['limit' => 200])->all();
 
         $this->set(compact('user', 'creators', 'updaters'));
-
-        $this->set(compact('user'));
 
 
         $this->fetchTable('SelectionLists');

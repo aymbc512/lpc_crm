@@ -47,6 +47,7 @@ class StakeholdersTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'lawyer_id',
+            'propertyName'=>'lawyer'
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'creator_id',

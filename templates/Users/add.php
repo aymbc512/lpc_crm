@@ -33,15 +33,15 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('role_kbn', __('属性区分')) ?></th>
-                            <td><?= $this->Form->control('role_kbn', ['options' => $roles , 'empty' => 'Select Role']) ?></td>
+                            <td><?= $this->Form->control('role_kbn', ['options' => $roles , 'empty' => 'Select Role','label' => false]) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('department_kbn', __('所属部署区分')) ?></th>
-                            <td><?= $this->Form->control('department_kbn', ['options' => $departments, 'empty' => 'Select Department']) ?></td>
+                            <td><?= $this->Form->control('department_kbn', ['options' => $departments, 'empty' => 'Select Department','label' => false]) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('expertise_kbn', __('専門領域区分')) ?></th>
-                            <td><?= $this->Form->control('expertise_kbn',  ['options' => $expertises, 'empty' => 'Select Expertise']) ?></td>
+                            <td><?= $this->Form->control('expertise_kbn',  ['options' => $expertises, 'empty' => 'Select Expertise','label' => false]) ?></td>
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('phone_number', __('電話番号')) ?></th>

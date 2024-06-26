@@ -37,6 +37,7 @@ class User extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'user_id'=>true,
         'password' => true,
         'user_name' => true,
         'role_kbn' => true,
@@ -51,6 +52,10 @@ class User extends Entity
         'updated_at' => true,
         'user' => true,
     ];
+    protected function _getIdentifier()
+    {
+        return $this->user_id;
+    }
 
     /**
      * Fields that are excluded from JSON versions of the entity.
