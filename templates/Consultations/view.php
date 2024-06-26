@@ -58,7 +58,7 @@
                         <td><?= h($consultation_kbn_Name) ?></td>
                     </tr>
                     </div>
-                    </div>
+    </div>
                 </table>
                 <div class="detail-related-section">
                     <h4><?= __('関連する顧問契約一覧') ?></h4>

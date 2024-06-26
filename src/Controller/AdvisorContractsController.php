@@ -13,15 +13,7 @@ use Cake\ORM\TableRegistry;
  */
 class AdvisorContractsController extends AppController
 {
-    /**
-     * @var \App\Model\Table\InvoicesTable
-     */
-    private $Invoices;
-
-    /**
-     * Initialize method
-     */
-    public function initialize(): void
+   function initialize(): void
     {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
@@ -101,7 +93,9 @@ class AdvisorContractsController extends AppController
         $advisorContract = $this->AdvisorContracts->newEmptyEntity();
         if ($this->request->is('post')) {
             $advisorContract = $this->AdvisorContracts->patchEntity($advisorContract, $this->request->getData());
-            $this->Common->setAuditFields($advisorContract, $this->request, true);
+
+            $this->Common->setAuditFields($advisorContract, false);
+
             if ($this->AdvisorContracts->save($advisorContract)) {
                 $this->Flash->success(__('The advisor contract has been saved.'));
 
@@ -116,6 +110,8 @@ class AdvisorContractsController extends AppController
         $consultations = $this->AdvisorContracts->Consultations->find('list', ['limit' => 200])->all();
         $lawyers = $this->AdvisorContracts->Lawyers->find('list', ['limit' => 200])->all();
         $paralegals = $this->AdvisorContracts->Paralegals->find('list', ['limit' => 200])->all();
+        $creators = $this->AdvisorContracts->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->AdvisorContracts->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('advisorContract', 'clients', 'consultations', 'lawyers', 'paralegals', 'creators', 'updaters'));
 
 

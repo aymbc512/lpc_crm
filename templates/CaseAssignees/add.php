@@ -1,8 +1,3 @@
-
-以下に指定されたCSSを適用し、HTML構造を調整したコードを示します。
-
-php
-コードをコピーする
 <?php
 /**
  * @var \App\View\AppView $this
@@ -11,25 +6,11 @@ php
  * @var int $caseId
  */
 ?>
-
-<div class="row">
-    <aside class="column">
-     
-    </aside>
-    <div class="column column-80">
-        <div class="caseAssignees form content">
-            <?= $this->Form->create($caseAssignee) ?>
-            <fieldset>
-                <legend><?= __('新規案件担当者登録') ?></legend>
-                <?php
-                    echo $this->Form->control('従業員ID', ['options' => $users, 'empty' => true, ]);
-                    echo $this->Form->control('役割', ['options'=>$case_role_kbns,'empty' => true,]);
-                    echo $this->Form->control('案件ID', ['type' => 'hidden']);
-                  
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('保存')) ?>
-            <?= $this->Form->end() ?>
+<div class="desktop">
+    <div class="overlap-wrapper">
+        <div class="overlap-2">
+            <div class="view-6"></div>
+            <div class="text-wrapper-6">新規案件担当者追加</div>
         </div>
     </div>
     <div class="detail-container">
@@ -50,7 +31,7 @@ php
                     </tr>
                 </table>
                 <div class="detail-actions">
-                    <?= $this->Form->button(__('Submit'), ['class' => 'detail-action-button']) ?>
+                    <?= $this->Form->button(__('保存'), ['class' => 'detail-action-button']) ?>
                 </div>
                 <?= $this->Form->end() ?>
             </div>

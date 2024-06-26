@@ -22,7 +22,7 @@ body {
 
 .overlap-wrapper {
     width: 55vw; /* 元のサイズの半分 */
-    height: 20vh; /* 元のサイズの半分 */
+    height: 15vh; /* 元のサイズの半分 */
     background-color: #ffffff;
     border-bottom: 0.125rem solid #928d8d; /* 元のサイズの半分 */
     box-shadow: 0.0625rem 0.25rem 0.25rem #00000040; /* 元のサイズの半分 */

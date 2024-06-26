@@ -78,6 +78,8 @@ class AdvisorConsultationsController extends AppController
         $lawyers = $this->AdvisorConsultations->Lawyers->find('list', ['limit' => 200])->all();
         $paralegals = $this->AdvisorConsultations->Paralegals->find('list', ['limit' => 200])->all();
         $advisorContracts = $this->AdvisorConsultations->AdvisorContracts->find('list', ['limit' => 200])->all();
+        $creators = $this->AdvisorConsultations->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->AdvisorConsultations->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('advisorConsultation', 'clients', 'lawyers', 'paralegals', 'advisorContracts', 'advisor_contract_id', 'creators', 'updaters'));
     }
 
@@ -95,7 +97,7 @@ class AdvisorConsultationsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $advisorConsultation = $this->AdvisorConsultations->patchEntity($advisorConsultation, $this->request->getData());
-            $this->Common->setAuditFields($advisorConsultation, $this->request, true);
+            $this->Common->setAuditFields($advisorConsultation,false);
             if ($this->AdvisorConsultations->save($advisorConsultation)) {
                 $this->Flash->success(__('The advisor consultation has been saved.'));
 
@@ -107,6 +109,8 @@ class AdvisorConsultationsController extends AppController
         $lawyers = $this->AdvisorConsultations->Lawyers->find('list', ['limit' => 200])->all();
         $paralegals = $this->AdvisorConsultations->Paralegals->find('list', ['limit' => 200])->all();
         $advisorContracts = $this->AdvisorConsultations->AdvisorContracts->find('list', ['limit' => 200])->all();
+        $creators = $this->AdvisorConsultations->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->AdvisorConsultations->Updaters->find('list', ['limit' => 200])->all();
         $this->set(compact('advisorConsultation', 'clients', 'lawyers', 'paralegals', 'advisorContracts', 'creators', 'updaters'));
     }
 

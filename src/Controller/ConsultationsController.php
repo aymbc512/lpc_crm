@@ -129,6 +129,9 @@ class ConsultationsController extends AppController
             ])->toArray();
         }
 
+        $creators = $this->Consultations->Creators->find('list', ['limit' => 200])->all();
+        $updaters = $this->Consultations->Updaters->find('list', ['limit' => 200])->all();
+
         $this->set(compact('consultation', 'clients', 'lawyers', 'creators', 'updaters'));
 
 
