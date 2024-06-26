@@ -47,6 +47,7 @@ class CorporateContactsController extends AppController
         $corporateContact = $this->CorporateContacts->newEmptyEntity();
         if ($this->request->is('post')) {
             $corporateContact = $this->CorporateContacts->patchEntity($corporateContact, $this->request->getData());
+            $this->Common->setAuditFields($corporateContact, $this->request, true);
             if ($this->CorporateContacts->save($corporateContact)) {
                 $this->Flash->success(__('The corporate contact has been saved.'));
 
@@ -57,7 +58,7 @@ class CorporateContactsController extends AppController
         $stakeholders = $this->CorporateContacts->Stakeholders->find('list', limit: 200)->all();
         $cases = $this->CorporateContacts->Cases->find('list', limit: 200)->all();
         $users = $this->CorporateContacts->Users->find('list', limit: 200)->all();
-        $this->set(compact('corporateContact', 'stakeholders', 'cases', 'users'));
+        $this->set(compact('corporateContact', 'stakeholders', 'cases', 'users', 'creators', 'updaters'));
 
 
         $this->fetchTable('SelectionLists');
@@ -79,6 +80,7 @@ class CorporateContactsController extends AppController
         $corporateContact = $this->CorporateContacts->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $corporateContact = $this->CorporateContacts->patchEntity($corporateContact, $this->request->getData());
+            $this->Common->setAuditFields($corporateContact, $this->request, true);
             if ($this->CorporateContacts->save($corporateContact)) {
                 $this->Flash->success(__('The corporate contact has been saved.'));
 
@@ -89,7 +91,7 @@ class CorporateContactsController extends AppController
         $stakeholders = $this->CorporateContacts->Stakeholders->find('list', limit: 200)->all();
         $cases = $this->CorporateContacts->Cases->find('list', limit: 200)->all();
         $users = $this->CorporateContacts->Users->find('list', limit: 200)->all();
-        $this->set(compact('corporateContact', 'stakeholders', 'cases', 'users'));
+        $this->set(compact('corporateContact', 'stakeholders', 'cases', 'users', 'creators', 'updaters'));
 
         $this->fetchTable('SelectionLists');
         $corporate_contact_position_kbns = $this->fetchTable('SelectionLists')->getNamesByDataId('10');

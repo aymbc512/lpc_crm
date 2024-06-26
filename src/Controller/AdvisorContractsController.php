@@ -81,7 +81,14 @@ class AdvisorContractsController extends AppController
             'contain' => ['Lawyers', 'Clients', 'Consultations', 'AdvisorConsultations', 'Invoices','Creators','Updaters','Paralegals']
         ]);
 
-        $this->set(compact('advisorContract'));
+        $selectionListsTable = $this->getTableLocator()->get('SelectionLists'); // SelectionListsTableを取得
+
+        $advisorContractDetail = $this->AdvisorContracts->get($id); // ケースの詳細を取得
+     
+        // SelectionListsTableから名前を取得する
+        $payment_method_kbn_Name = $selectionListsTable->getNameByDataIdAndDetailId(6, $advisorContractDetail->payment_method_kbn);
+
+        $this->set(compact('advisorContract','payment_method_kbn_Name'));
     }
 
     /**
@@ -135,7 +142,7 @@ class AdvisorContractsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $advisorContract = $this->AdvisorContracts->patchEntity($advisorContract, $this->request->getData());
-           
+            $this->Common->setAuditFields($advisorContract, $this->request, true);
             if ($this->AdvisorContracts->save($advisorContract)) {
                 $this->Common->setAuditFields($advisorContract, $this->request, true);
                 $this->Flash->success(__('The advisor contract has been saved.'));

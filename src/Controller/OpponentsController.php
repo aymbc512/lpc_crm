@@ -57,6 +57,9 @@ class OpponentsController extends AppController
              $returnUrl = $this->request->getQuery('returnUrl') ?: ['controller' => 'Cases', 'action' => 'add'];
 
             return $this->redirect($returnUrl);
+               
+            $errors = $opponent->getErrors();
+        $errorMessage = 'Failed to save opponent. Validation errors: ' . json_encode($errors);
         }
         $this->Flash->error(__('The opponent could not be saved. Please, try again.'));
     }

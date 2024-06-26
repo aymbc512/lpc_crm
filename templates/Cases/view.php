@@ -21,6 +21,13 @@
                         <th><?= __('顧客名') ?></th>
                         <td><?= $case->hasValue('customer') ? $this->Html->link($case->customer->name, ['controller' => 'Clients', 'action' => 'view', $case->customer->stakeholder_id]) : '' ?></td>
                     </tr>
+
+                    <tr>
+                        <th><?= __('案件区分') ?></th>
+                        <td><?= h($case_kbn_Name) ?></td>
+                    </tr>
+
+
                     <tr>
                         <th><?= __('対立相手') ?></th>
                         <td><?= $case->hasValue('opponent') ? $this->Html->link($case->opponent->name, ['controller' => 'Opponents', 'action' => 'view', $case->opponent->stakeholder_id]) : '' ?></td>

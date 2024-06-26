@@ -68,11 +68,21 @@ class SelectionListsTable extends Table
     // $results はデータの配列であり、それを名前の配列に変換する
     $names = [];
     foreach ($results as $result) {
-        $names[] = $result->name;
+        $names[$result->detail_id] = $result->name;
     }
 
     return $names;
 
+   }
+
+
+   public function getNameByDataIdAndDetailId($dataId, $detailId)
+   {
+       $selection = $this->find()
+                         ->select(['name'])
+                         ->where(['data_id' => $dataId, 'detail_id' => $detailId])
+                         ->first();
+       return $selection ? $selection->name : null;
    }
     
  

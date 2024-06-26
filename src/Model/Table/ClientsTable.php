@@ -44,7 +44,7 @@ class ClientsTable extends StakeholdersTable
             'propertyName' => 'client_stakeholder'
         ]);
         $this->hasMany('AdvisorContracts', [
-            'foreignKey' => 'advisorcontract_id',
+            'foreignKey' => 'advisor_contracts_id',
         ]);
         $this->hasMany('Invoices', [
             'foreignKey' => 'invoice_id',

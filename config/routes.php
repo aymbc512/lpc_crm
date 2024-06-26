@@ -103,3 +103,5 @@ return function (RouteBuilder $routes): void {
 
 
 $routes->connect( '/',['controller' => 'Users', 'action' => 'requestPasswordReset']);
+
+$routes->connect('/case-assignees/add', ['controller' => 'CaseAssignees', 'action' => 'add']);

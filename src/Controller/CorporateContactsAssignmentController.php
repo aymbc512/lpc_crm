@@ -119,8 +119,7 @@ class CorporateContactsAssignmentController extends AppController
             $this->Common->setAuditFields($corporateContactsAssignment, $this->request, true);
 
             // CommonControllerのメソッドを呼び出してフィールドを更新
-            $this->Common->setAuditFields($corporateContactsAssignment, false);
-
+            $this->Common->setAuditFields($corporateContactsAssignment, $this->request, true);
             if ($this->CorporateContactsAssignment->save($corporateContactsAssignment)) {
                 $this->Flash->success(__('The corporate contacts assignment has been saved.'));
 

@@ -37,15 +37,15 @@
                     </tr>
                     <tr>
                         <th><?= __('属性区分') ?></th>
-                        <td><?= h($user->role_kbn) ?></td>
+                        <td><?= h($role_kbn_Name) ?></td>
                     </tr>
                     <tr>
                         <th><?= __('所属部署区分') ?></th>
-                        <td><?= h($user->department_kbn) ?></td>
+                        <td><?= h($department_kbn_Name) ?></td>
                     </tr>
                     <tr>
                         <th><?= __('専門領域区分') ?></th>
-                        <td><?= h($user->expertise_kbn) ?></td>
+                        <td><?= h($expertise_kbn_Name) ?></td>
                     </tr>
                     <tr>
                         <th><?= __('作成者') ?></th>

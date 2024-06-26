@@ -11,11 +11,25 @@ php
  * @var int $caseId
  */
 ?>
-<div class="desktop">
-    <div class="overlap-wrapper">
-        <div class="overlap-2">
-            <div class="view-6"></div>
-            <div class="text-wrapper-6"><?= __('Add Case Assignee') ?></div>
+
+<div class="row">
+    <aside class="column">
+     
+    </aside>
+    <div class="column column-80">
+        <div class="caseAssignees form content">
+            <?= $this->Form->create($caseAssignee) ?>
+            <fieldset>
+                <legend><?= __('新規案件担当者登録') ?></legend>
+                <?php
+                    echo $this->Form->control('従業員ID', ['options' => $users, 'empty' => true, ]);
+                    echo $this->Form->control('役割', ['options'=>$case_role_kbns,'empty' => true,]);
+                    echo $this->Form->control('案件ID', ['type' => 'hidden']);
+                  
+                ?>
+            </fieldset>
+            <?= $this->Form->button(__('保存')) ?>
+            <?= $this->Form->end() ?>
         </div>
     </div>
     <div class="detail-container">

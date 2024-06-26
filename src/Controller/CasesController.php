@@ -42,7 +42,24 @@ class CasesController extends AppController
         $case = $this->Cases->get($id, [
             'contain' => ['Customers', 'Opponents', 'Consultations', 'AdvisorConsultations', 'CaseAssignees', 'Invoices', 'CorporateContacts']
         ]);
-        $this->set(compact('case'));
+       // $this->set(compact('case'));
+       //$case_id = $this->Cases->get('case_id');
+        // Fetch name by dataid and detailid for dataid = 4
+   // $case_kbn_Name = $this->SelectionLists->getNameByDataIdAndDetailId(4, $detail_id->case_kbn);
+   $selectionListsTable = $this->getTableLocator()->get('SelectionLists'); // SelectionListsTableを取得
+
+   $caseDetail = $this->Cases->get($id); // ケースの詳細を取得
+
+   // SelectionListsTableから名前を取得する
+   $case_kbn_Name = $selectionListsTable->getNameByDataIdAndDetailId(4, $caseDetail->case_kbn);
+
+   //$this->request->getSession()->write('case_id', $case_id);
+
+   $this->set(compact('case','caseDetail', 'case_kbn_Name'));
+    
+   // $this->set(compact('caseDetail', 'case_kbn_Name'));
+
+   //$this->set(compact('case', 'case_kbn_Name'));
     }
 
     public function search()

@@ -124,8 +124,8 @@
 
             <div class="detail-related-section">
                 <h4><?= __('関連請求') ?></h4>
-                <div class="detail-add-button-container">
-                    <?= $this->Html->link(__('追加'), ['controller' => 'Invoices', 'action' => 'add', '?' => ['customer_id' => $client->stakeholder_id]], ['class' => 'detail-add-button']) ?>
+                <div class="add-button-container-title">
+                    <?= $this->Html->link(__('追加'), ['controller' => 'Invoices', 'action' => 'add', '?' => ['customer_id' => $client->stakeholder_id]], ['class' =>'detail.add-button' ]) ?>
                 </div>
                 <?php if (!empty($client->cases) || !empty($client->advisor_contracts)) : ?>
                 <table class="detail-data-table">

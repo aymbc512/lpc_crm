@@ -10,6 +10,12 @@ namespace App\Controller;
  */
 class InvoiceStatementsController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
+        $this->loadComponent('Common'); // CommonComponentをロード
+    }
     /**
      * Index method
      *
@@ -48,6 +54,7 @@ public function add($invoice_id = null)
     $invoiceStatement = $this->InvoiceStatements->newEmptyEntity();
     if ($this->request->is('post')) {
         $invoiceStatement = $this->InvoiceStatements->patchEntity($invoiceStatement, $this->request->getData());
+        $this->Common->setAuditFields($invoiceStatement, $this->request, true);
         if ($this->InvoiceStatements->save($invoiceStatement)) {
             $this->Flash->success(__('The invoice statement has been saved.'));
 
@@ -63,7 +70,7 @@ public function add($invoice_id = null)
 
     $invoices = $this->InvoiceStatements->Invoices->find('list', ['limit' => 200])->all();
     $users = $this->InvoiceStatements->Users->find('list', ['limit' => 200])->all();
-    $this->set(compact('invoiceStatement', 'invoices', 'users'));
+    $this->set(compact('invoiceStatement', 'invoices', 'users', 'creators', 'updaters'));
 }
 
     /**
@@ -78,6 +85,7 @@ public function add($invoice_id = null)
         $invoiceStatement = $this->InvoiceStatements->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $invoiceStatement = $this->InvoiceStatements->patchEntity($invoiceStatement, $this->request->getData());
+            $this->Common->setAuditFields($invoiceStatement, $this->request, true);
             if ($this->InvoiceStatements->save($invoiceStatement)) {
                 $this->Flash->success(__('The invoice statement has been saved.'));
 
@@ -87,7 +95,7 @@ public function add($invoice_id = null)
         }
         $invoices = $this->InvoiceStatements->Invoices->find('list', limit: 200)->all();
         $users = $this->InvoiceStatements->Users->find('list', limit: 200)->all();
-        $this->set(compact('invoiceStatement', 'invoices', 'users'));
+        $this->set(compact('invoiceStatement', 'invoices', 'users', 'creators', 'updaters'));
     }
 
     /**

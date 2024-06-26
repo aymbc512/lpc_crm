@@ -82,10 +82,15 @@ class ClientsController extends AppController
      */
     public function view($id = null)
     {
-        $client = $this->Clients->get($id, [
-            'contain' => ['Lawyers', 'Cases','Invoices','Creators','Updaters']
-        ]);
-        $this->set(compact('client'));
+     $client = $this->Clients->get($id,[
+    'contain' => [
+        'Cases',
+       'AdvisorContracts' =>  ['Consultations','Lawyers', 'Paralegals','Creators','Updaters'],
+        'Cases.Invoices',
+        'AdvisorContracts.Invoices'
+    ]
+    ]);
+    $this->set(compact('client'));
     }
 
     /**

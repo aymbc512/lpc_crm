@@ -49,8 +49,8 @@ return [
     'App' => [
         'namespace' => 'App',
         'encoding' => env('APP_ENCODING', 'UTF-8'),
-        'defaultLocale' => env('APP_DEFAULT_LOCALE', 'en_US'),
-        'defaultTimezone' => env('APP_DEFAULT_TIMEZONE', 'UTC'),
+        'defaultLocale' => 'ja_JP',
+        'defaultTimezone' => 'Asia/Tokyo', 
         'base' => false,
         'dir' => 'src',
         'webroot' => 'webroot',

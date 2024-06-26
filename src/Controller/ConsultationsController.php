@@ -78,8 +78,15 @@ class ConsultationsController extends AppController
         $consultation = $this->Consultations->get($id, [
             'contain' => ['Clients', 'Lawyers', 'Creators', 'Updaters', 'AdvisorContracts', 'CorporateContactsAssignment']
         ]);
+      
+        $selectionListsTable = $this->getTableLocator()->get('SelectionLists'); // SelectionListsTableを取得
 
-        $this->set(compact('consultation'));
+         $consultationDetail = $this->Consultations->get($id); // ケースの詳細を取得
+
+    // SelectionListsTableから名前を取得する
+      $consultation_kbn_Name = $selectionListsTable->getNameByDataIdAndDetailId(7, $consultationDetail->consultation_kbn);
+
+        $this->set(compact('consultation','consultation_kbn_Name'));
     }
 
     /**

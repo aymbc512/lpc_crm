@@ -20,6 +20,12 @@ use Cake\I18n\FrozenTime;
  */
 class UsersController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('Authentication.Authentication'); // Authenticationプラグインを使用
+        $this->loadComponent('Common'); // CommonComponentをロード
+    }
     
     /**
      * Index method
@@ -32,6 +38,7 @@ class UsersController extends AppController
             ->contain(['Creators', 'Updaters']); // エイリアスを使用して自己参照リレーションを含める
         $users = $this->paginate($query);
          // SelectionLists テーブルから役割のリストを取得
+
     $roles = $this->fetchTable('SelectionLists')->getNamesByDataId('1');
     
     // ユーザー一覧を取得
@@ -56,7 +63,14 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Creators', 'Updaters'], // エイリアスを使用して自己参照リレーションを含める
         ]);
-        $this->set(compact('user'));
+
+        $selectionListsTable = $this->getTableLocator()->get('SelectionLists');
+        $userDetail = $this->Users->get($id);
+        $role_kbn_Name = $selectionListsTable->getNameByDataIdAndDetailId(1, $userDetail->role_kbn);
+        $department_kbn_Name= $selectionListsTable->getNameByDataIdAndDetailId(2, $userDetail->department_kbn);
+        $expertise_kbn_Name= $selectionListsTable->getNameByDataIdAndDetailId(3, $userDetail->expertise_kbn);
+
+        $this->set(compact('user','role_kbn_Name','department_kbn_Name','expertise_kbn_Name'));
         
     }
 
@@ -110,6 +124,7 @@ class UsersController extends AppController
             $user = $this->Users->newEmptyEntity();
             if ($this->request->is('post')) {
                 $user = $this->Users->patchEntity($user, $this->request->getData());
+                $this->Common->setAuditFields($user, $this->request, true);
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('The user has been saved.'));
                     return $this->redirect(['action' => 'index']);
@@ -117,7 +132,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('user'));
+        $this->set(compact('user', 'creators', 'updaters'));
 
   
    $this->fetchTable('SelectionLists');
@@ -146,6 +161,7 @@ class UsersController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $this->Common->setAuditFields($user, $this->request, true);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);

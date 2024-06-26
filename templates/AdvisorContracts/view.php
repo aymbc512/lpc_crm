@@ -61,7 +61,7 @@
                         <th><?= __('更新日') ?></th>
                         <td><?= h($advisorContract->updated_at) ?></td>
                         <th><?= __('支払い方法区分') ?></th>
-                        <td><?= h($advisorContract->payment_method_kbn) ?></td>
+                        <td><?= h($payment_method_kbn_Name) ?></td>
                     </tr>
                 </table>
             </div>
@@ -74,14 +74,16 @@
                 <table class="detail-data-table">
                     <tr>
                         <th><?= __('顧問相談ID') ?></th>
+                        
                         <th><?= __('顧問相談名') ?></th>
                         <th><?= __('相談日') ?></th>
                         <th><?= __('相談内容') ?></th>
                         <th><?= __('顧客名') ?></th>
                     </tr>
                     <?php foreach ($advisorContract->advisor_consultations as $advisorConsultation) : ?>
-                    <tr>
-                        <td><?= h($advisorConsultation->advisor_consultations_id) ?></td>
+                    <tr> 
+                        
+                        <td><?= $this->Html->link($advisorConsultation->advisor_consultations_id, ['controller' => 'AdvisorConsultations','action' => 'view',$advisorConsultation->advisor_consultations_id ]) ?></td>
                         <td><?= h($advisorConsultation->consultation_name) ?></td>
                         <td><?= h($advisorConsultation->consultation_at) ?></td>
                         <td><?= h($advisorConsultation->consultation_content) ?></td>

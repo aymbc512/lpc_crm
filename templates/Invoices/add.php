@@ -58,7 +58,7 @@
                         </tr>
                         <tr>
                             <th><?= $this->Form->label('advisor_contract_id', __('顧問契約')) ?></th>
-                            <td><?= $this->Form->control('advisor_contract_id', ['options' => $advisorContracts, 'empty' => true, 'default' => $invoice->advisor_contract_id, 'label' => false]) ?></td>
+                            <td><?= $this->Form->control('advisor_contract_id', ['options' => $advisorContracts, 'empty' => true, 'default' => $invoice->advisor_contracts_id, 'label' => false]) ?></td>
                         </tr>
                     </table>
                 </fieldset>

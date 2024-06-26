@@ -32,6 +32,7 @@ class CaseAssignee extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'caseAssignee' => true,
         'lawyer_id' => true,
         'case_role_kbn' => true,
         'case_id' => true,

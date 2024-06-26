@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <th><?= __('相談種別区分') ?></th>
-                        <td><?= h($consultation->consultation_kbn) ?></td>
+                        <td><?= h($consultation_kbn_Name) ?></td>
                     </tr>
                     </div>
                     </div>
